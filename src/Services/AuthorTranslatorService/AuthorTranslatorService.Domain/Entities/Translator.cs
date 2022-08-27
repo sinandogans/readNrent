@@ -1,0 +1,12 @@
+﻿using AuthorTranslatorService.Domain.Abstraction.Entity;
+
+namespace AuthorTranslatorService.Domain.Entities
+{
+    public class Translator : IEntity
+    {
+        public Guid Id { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public ICollection<TranslatorReview> Reviews { get; set; }
+    }
+}
