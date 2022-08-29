@@ -43,13 +43,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Infrastructure"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Api", "src\Services\UserService\UserService.Api\UserService.Api.csproj", "{437AA279-3818-4510-88A6-721A94F3467B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{1D4A16A0-E025-45F9-BF77-B17D89DC29F5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ports", "Ports", "{5FBB8C81-5A3E-40F0-B87E-DBB419D67F6F}"
-	ProjectSection(SolutionItems) = preProject
-		ServicePorts.txt = ServicePorts.txt
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthorTranslatorService", "AuthorTranslatorService", "{D4BB56B3-160B-4B21-B88A-E1456E1C25C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorTranslatorService.Api", "src\Services\AuthorTranslatorService\AuthorTranslatorService.Api\AuthorTranslatorService.Api.csproj", "{46DA1474-621F-474C-B6DB-4BAEFFD483CF}"
@@ -61,6 +54,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorTranslatorService.Persistence", "src\Services\AuthorTranslatorService\AuthorTranslatorService.Persistence\AuthorTranslatorService.Persistence.csproj", "{E12FCBFA-F035-4059-9586-92DE5BCAC22F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorTranslatorService.Infrastructure", "src\Services\AuthorTranslatorService\AuthorTranslatorService.Infrastructure\AuthorTranslatorService.Infrastructure.csproj", "{8D5A0ECB-C62F-403B-987F-185E56051556}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{062A13FA-513A-419A-A09A-5E05F025C9F3}"
+	ProjectSection(SolutionItems) = preProject
+		ServicePorts.txt = ServicePorts.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -152,7 +150,6 @@ Global
 		{6EC8A25F-888C-4ECA-9068-B9E006548A80} = {7DE2567C-BAC4-47CF-A927-EB91BB7A93F2}
 		{C7290E51-C5D2-48EF-B0E6-5435FDB6631E} = {7DE2567C-BAC4-47CF-A927-EB91BB7A93F2}
 		{437AA279-3818-4510-88A6-721A94F3467B} = {7DE2567C-BAC4-47CF-A927-EB91BB7A93F2}
-		{5FBB8C81-5A3E-40F0-B87E-DBB419D67F6F} = {1D4A16A0-E025-45F9-BF77-B17D89DC29F5}
 		{D4BB56B3-160B-4B21-B88A-E1456E1C25C8} = {CEFDF73F-C778-484B-B840-DC080D1799FC}
 		{46DA1474-621F-474C-B6DB-4BAEFFD483CF} = {D4BB56B3-160B-4B21-B88A-E1456E1C25C8}
 		{57F97741-C380-4BEA-B336-8ACE4506679F} = {D4BB56B3-160B-4B21-B88A-E1456E1C25C8}
