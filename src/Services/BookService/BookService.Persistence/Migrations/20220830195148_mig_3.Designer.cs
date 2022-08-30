@@ -4,6 +4,7 @@ using BookService.Persistence.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookService.Persistence.Migrations
 {
     [DbContext(typeof(BookServiceContext))]
-    partial class BookServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20220830195148_mig_3")]
+    partial class mig_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,9 +62,6 @@ namespace BookService.Persistence.Migrations
 
                     b.Property<int>("Pages")
                         .HasColumnType("int");
-
-                    b.Property<Guid>("PublishId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -155,10 +154,6 @@ namespace BookService.Persistence.Migrations
             modelBuilder.Entity("BookService.Domain.Entities.Publish", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("PublishDate")
@@ -168,9 +163,6 @@ namespace BookService.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookId")
-                        .IsUnique();
 
                     b.HasIndex("PublisherId");
 
@@ -253,7 +245,7 @@ namespace BookService.Persistence.Migrations
                 {
                     b.HasOne("BookService.Domain.Entities.Book", "Book")
                         .WithOne("Publish")
-                        .HasForeignKey("BookService.Domain.Entities.Publish", "BookId")
+                        .HasForeignKey("BookService.Domain.Entities.Publish", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

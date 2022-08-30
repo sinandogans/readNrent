@@ -1,8 +1,14 @@
+using BookService.Application.Extensions.IoC;
+using BookService.Persistence.Extensions.IoC;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddApplicationRegistration();
+builder.Services.AddPersistenceRegistration();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -16,6 +16,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBus", "EventBus", "{6F634CA2-08CD-4A07-893B-D16FE30694E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BookService", "BookService", "{C366CA96-3231-43D3-BCD7-8FD9CE0AB3CD}"
+	ProjectSection(SolutionItems) = preProject
+		BookServiceNotes.txt = BookServiceNotes.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{C9E33D56-8040-4733-90D1-93C35F4979A9}"
 EndProject

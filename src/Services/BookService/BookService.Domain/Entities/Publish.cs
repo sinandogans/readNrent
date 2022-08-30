@@ -7,6 +7,7 @@ namespace BookService.Domain.Entities
         public Guid Id { get; set; }
         public DateTime PublishDate { get; set; }
         public Guid PublisherId { get; set; }
+        public Guid BookId { get; set; }
         public Publisher Publisher { get; set; }
         public Book Book { get; set; }
     }

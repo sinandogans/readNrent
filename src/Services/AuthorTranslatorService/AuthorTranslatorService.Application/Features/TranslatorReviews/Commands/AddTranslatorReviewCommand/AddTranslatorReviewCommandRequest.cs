@@ -1,8 +1,4 @@
-﻿using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.AuthorRepository;
-using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.AuthorReviewRepository;
-using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.Base;
-using AuthorTranslatorService.Application.Features.AuthorReviews.Commands.AddAuthorReviewCommand;
-using MediatR;
+﻿using MediatR;
 
 namespace AuthorTranslatorService.Application.Features.TranslatorReviews.Commands.AddTranslatorReviewCommand
 {

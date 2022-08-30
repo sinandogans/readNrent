@@ -4,7 +4,7 @@ namespace AuthorTranslatorService.Domain.Entities
 {
     public class Translator : IEntity
     {
-        public Author()
+        public Translator()
         {
             Reviews = new HashSet<TranslatorReview>();
             Books = new HashSet<BookModel>();
