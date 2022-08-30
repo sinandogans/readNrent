@@ -10,5 +10,6 @@ namespace AuthorTranslatorService.Domain.Entities
         public double? Rating { get; set; }
         public int ReviewCount { get; set; }
         public ICollection<AuthorReview> Reviews { get; set; }
+        public ICollection<BookModel> Books { get; set; }
     }
 }

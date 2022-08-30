@@ -1,4 +1,4 @@
-﻿using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand;
+﻿using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorCommand;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +16,7 @@ namespace AuthorTranslatorService.Api.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Add(AddAuthorCommandRequest request)
+        public async Task<IActionResult> Add(AddTranslatorCommandRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);

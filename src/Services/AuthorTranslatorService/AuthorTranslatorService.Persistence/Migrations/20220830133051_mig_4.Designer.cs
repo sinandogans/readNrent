@@ -4,6 +4,7 @@ using AuthorTranslatorService.Persistence.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuthorTranslatorService.Persistence.Migrations
 {
     [DbContext(typeof(AuthorTranslatorServiceContext))]
-    partial class AuthorTranslatorServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20220830133051_mig_4")]
+    partial class mig_4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,12 +29,12 @@ namespace AuthorTranslatorService.Persistence.Migrations
                     b.Property<Guid>("AuthorsId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("BooksBookId")
+                    b.Property<Guid>("BooksId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("AuthorsId", "BooksBookId");
+                    b.HasKey("AuthorsId", "BooksId");
 
-                    b.HasIndex("BooksBookId");
+                    b.HasIndex("BooksId");
 
                     b.ToTable("AuthorBookModel");
                 });
@@ -93,8 +95,11 @@ namespace AuthorTranslatorService.Persistence.Migrations
 
             modelBuilder.Entity("AuthorTranslatorService.Domain.Entities.BookModel", b =>
                 {
-                    b.Property<Guid>("BookId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ImagePath")
@@ -108,7 +113,7 @@ namespace AuthorTranslatorService.Persistence.Migrations
                     b.Property<double>("Rating")
                         .HasColumnType("float");
 
-                    b.HasKey("BookId");
+                    b.HasKey("Id");
 
                     b.ToTable("BookModels");
                 });
@@ -169,13 +174,13 @@ namespace AuthorTranslatorService.Persistence.Migrations
 
             modelBuilder.Entity("BookModelTranslator", b =>
                 {
-                    b.Property<Guid>("BooksBookId")
+                    b.Property<Guid>("BooksId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("TranslatorsId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("BooksBookId", "TranslatorsId");
+                    b.HasKey("BooksId", "TranslatorsId");
 
                     b.HasIndex("TranslatorsId");
 
@@ -192,7 +197,7 @@ namespace AuthorTranslatorService.Persistence.Migrations
 
                     b.HasOne("AuthorTranslatorService.Domain.Entities.BookModel", null)
                         .WithMany()
-                        .HasForeignKey("BooksBookId")
+                        .HasForeignKey("BooksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -223,7 +228,7 @@ namespace AuthorTranslatorService.Persistence.Migrations
                 {
                     b.HasOne("AuthorTranslatorService.Domain.Entities.BookModel", null)
                         .WithMany()
-                        .HasForeignKey("BooksBookId")
+                        .HasForeignKey("BooksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

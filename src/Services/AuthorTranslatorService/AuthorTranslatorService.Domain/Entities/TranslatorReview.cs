@@ -9,6 +9,7 @@ namespace AuthorTranslatorService.Domain.Entities
         public double Rating { get; set; }
         public Guid TranslatorId { get; set; }
         public Guid UserId { get; set; }
+        public string? Username { get; set; }
         public Translator Translator { get; set; }
     }
 }
