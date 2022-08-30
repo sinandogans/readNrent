@@ -20,7 +20,9 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.AddAutho
         {
             var authorToAdd = _mapper.Map<Author>(request);
             authorToAdd.Id = Guid.NewGuid();
-            authorToAdd.Reviews = new List<AuthorReview>();
+            authorToAdd.Rating = 0;
+            authorToAdd.ReviewCount = 0;
+            //authorToAdd.Reviews = new List<AuthorReview>();
 
             await _repository.Add(authorToAdd);
 

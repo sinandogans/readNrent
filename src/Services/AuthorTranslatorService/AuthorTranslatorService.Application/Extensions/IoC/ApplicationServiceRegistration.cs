@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace AuthorTranslatorService.Application.Extensions
+namespace AuthorTranslatorService.Application.Extensions.IoC
 {
     public static class ApplicationServiceRegistration
     {

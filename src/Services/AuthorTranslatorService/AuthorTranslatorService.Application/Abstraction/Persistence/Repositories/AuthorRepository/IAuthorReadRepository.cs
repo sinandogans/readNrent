@@ -5,5 +5,6 @@ namespace AuthorTranslatorService.Application.Abstraction.Persistence.Repositori
 {
     public interface IAuthorReadRepository : IReadRepository<Author>
     {
+        Task<List<AuthorReview>> GetAuthorReviews(Guid id);
     }
 }

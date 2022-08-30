@@ -44,6 +44,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService.Api", "src\Services\UserService\UserService.Api\UserService.Api.csproj", "{437AA279-3818-4510-88A6-721A94F3467B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthorTranslatorService", "AuthorTranslatorService", "{D4BB56B3-160B-4B21-B88A-E1456E1C25C8}"
+	ProjectSection(SolutionItems) = preProject
+		AuthorTranslatorServiceNotes.txt = AuthorTranslatorServiceNotes.txt
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorTranslatorService.Api", "src\Services\AuthorTranslatorService\AuthorTranslatorService.Api\AuthorTranslatorService.Api.csproj", "{46DA1474-621F-474C-B6DB-4BAEFFD483CF}"
 EndProject

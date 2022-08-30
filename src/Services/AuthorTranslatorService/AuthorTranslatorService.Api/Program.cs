@@ -1,4 +1,4 @@
-using AuthorTranslatorService.Application.Extensions;
+using AuthorTranslatorService.Application.Extensions.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 

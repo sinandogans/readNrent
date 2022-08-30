@@ -13,7 +13,7 @@ namespace AuthorTranslatorService.Persistence.EntityFramework.Repositories.Base
         {
             using (TContext context = new TContext())
             {
-                return await context.Set<TEntity>().Where(filter).SingleOrDefaultAsync();
+                return await context.Set<TEntity>().Where(filter).FirstOrDefaultAsync();
             }
         }
 
