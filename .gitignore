@@ -8,6 +8,7 @@ appsettings.json
 appsettings.Development.json
 launchsettings.json
 *Context.cs
+*.txt
 
 # User-specific files
 *.rsuser
