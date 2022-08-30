@@ -1,6 +1,4 @@
-﻿using AuthorTranslatorService.Domain.Entities;
-
-namespace AuthorTranslatorService.Application.Features.Authors.Queries.GetAuthorByIdQuery
+﻿namespace AuthorTranslatorService.Application.Features.Authors.Queries.GetAuthorByIdQuery
 {
     public class GetAuthorByIdQueryResponse
     {

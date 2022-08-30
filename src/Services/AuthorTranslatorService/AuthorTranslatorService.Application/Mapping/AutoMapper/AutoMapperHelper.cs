@@ -1,4 +1,5 @@
-﻿using AuthorTranslatorService.Application.Features.AuthorReviews.Queries.GetAuthorReviewsByAuthorIdQuery;
+﻿using AuthorTranslatorService.Application.Features.AuthorReviews.Commands.AddAuthorReviewCommand;
+using AuthorTranslatorService.Application.Features.AuthorReviews.Queries.GetAuthorReviewsByAuthorIdQuery;
 using AuthorTranslatorService.Application.Features.AuthorReviews.Queries.GetAuthorReviewsByUserIdQuery;
 using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery;
@@ -19,8 +20,8 @@ namespace AuthorTranslatorService.Application.Mapping.AutoMapper
 
             CreateMap<Author, GetAllAuthorsQueryResponse>().ReverseMap();
 
-            CreateMap<AuthorReview, AddAuthorCommandRequest>().ReverseMap();
-            CreateMap<AuthorReview, AddAuthorCommandResponse>().ReverseMap();
+            CreateMap<AuthorReview, AddAuthorReviewCommandRequest>().ReverseMap();
+            CreateMap<AuthorReview, AddAuthorReviewCommandResponse>().ReverseMap();
 
             CreateMap<AuthorReview, GetAuthorReviewsByAuthorIdQueryResponse>().ReverseMap();
 

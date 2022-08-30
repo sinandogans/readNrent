@@ -1,5 +1,4 @@
-﻿using AuthorTranslatorService.Domain.Entities;
-using MediatR;
+﻿using MediatR;
 
 namespace AuthorTranslatorService.Application.Features.AuthorReviews.Queries.GetAuthorReviewsByAuthorIdQuery
 {

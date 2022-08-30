@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AuthorTranslatorService.Application\AuthorTranslatorService.Application.csproj" />
+    <ProjectReference Include="..\AuthorTranslatorService.Persistence\AuthorTranslatorService.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
