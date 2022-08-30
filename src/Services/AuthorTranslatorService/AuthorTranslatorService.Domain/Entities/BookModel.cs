@@ -4,6 +4,11 @@ namespace AuthorTranslatorService.Domain.Entities
 {
     public class BookModel : IEntity
     {
+        public BookModel()
+        {
+            Authors = new HashSet<Author>();
+            Translators = new HashSet<Translator>();
+        }
         public Guid BookId { get; set; }
         public double Rating { get; set; }
         public string Name { get; set; }
