@@ -1,7 +1,7 @@
-﻿using UserService.Domain.Abstraction;
-using UserService.Domain.Enums;
+﻿using IdentityService.Domain.Abstraction;
+using IdentityService.Domain.Enums;
 
-namespace UserService.Domain.Entities
+namespace IdentityService.Domain.Entities
 {
     public class UserBook : IEntity
     {

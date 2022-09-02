@@ -1,4 +1,4 @@
-﻿namespace UserService.Domain.Enums
+﻿namespace IdentityService.Domain.Enums
 {
     public enum Status
     {

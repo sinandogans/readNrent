@@ -1,6 +1,6 @@
-﻿using UserService.Domain.Abstraction;
+﻿using IdentityService.Domain.Abstraction;
 
-namespace UserService.Domain.Entities
+namespace IdentityService.Domain.Entities
 {
     public class User : IEntity
     {
