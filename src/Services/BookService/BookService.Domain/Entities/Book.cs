@@ -11,8 +11,8 @@ namespace BookService.Domain.Entities
             Genres = new HashSet<Genre>();
         }
         public Guid Id { get; set; }
-        public Guid LanguageId { get; set; }
-        public Guid PublishId { get; set; }
+        public Guid? LanguageId { get; set; }
+        public Guid? PublishId { get; set; }
         public string ISBN { get; set; }
         public string Name { get; set; }
         public int Pages { get; set; }

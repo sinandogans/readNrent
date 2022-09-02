@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace BookService.Persistence.EntityFramework.Repositories.BaseRepository
 {
-    public class EfReadRepository<TEntity, TContext> : IReadRepository<TEntity>
+    public class EfBaseReadRepository<TEntity, TContext> : IBaseReadRepository<TEntity>
         where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {

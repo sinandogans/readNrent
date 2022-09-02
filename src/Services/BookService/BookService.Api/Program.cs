@@ -1,4 +1,5 @@
 using BookService.Application.Extensions.IoC;
+using BookService.Infrastructure.Extensions.IoC;
 using BookService.Persistence.Extensions.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddApplicationRegistration();
 builder.Services.AddPersistenceRegistration();
+builder.Services.AddInfrastructureRegistration();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

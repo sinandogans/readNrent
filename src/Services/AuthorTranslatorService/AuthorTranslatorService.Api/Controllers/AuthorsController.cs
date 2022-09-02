@@ -1,4 +1,5 @@
-﻿using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorCommand;
+﻿using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand;
+using AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,14 @@ namespace AuthorTranslatorService.Api.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> Add(AddTranslatorCommandRequest request)
+        public async Task<IActionResult> Add([FromBody] AddAuthorCommandRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("getall")]
+        public async Task<IActionResult> GetAll(GetAllAuthorsQueryRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);

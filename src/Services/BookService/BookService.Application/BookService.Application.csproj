@@ -13,6 +13,7 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.0" />
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,11 @@
 
   <ItemGroup>
     <Folder Include="Features\Books\Queries\" />
+    <Folder Include="Features\Genres\DTOs\" />
+    <Folder Include="Features\Genres\Queries\" />
+    <Folder Include="Features\Publishers\DTOs\" />
+    <Folder Include="Features\Publishers\Queries\" />
+    <Folder Include="ServiceImages\" />
   </ItemGroup>
 
 </Project>

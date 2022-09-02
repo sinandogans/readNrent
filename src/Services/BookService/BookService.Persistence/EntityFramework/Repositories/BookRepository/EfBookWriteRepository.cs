@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookService.Persistence.EntityFramework.Repositories.BookRepository
 {
-    public class BookWriteRepository : EfWriteRepository<Book, BookServiceContext>, IBookWriteRepository
+    public class EfBookWriteRepository : EfBaseWriteRepository<Book, BookServiceContext>, IBookWriteRepository
     {
         public async Task AddBookLanguage(Guid bookId, Guid languageId)
         {
@@ -36,6 +36,27 @@ namespace BookService.Persistence.EntityFramework.Repositories.BookRepository
                 await context.Set<BookReview>().AddAsync(bookReview);
                 var book = await context.Set<Book>().SingleOrDefaultAsync(b => b.Id == bookReview.BookId);
                 book.Reviews.Add(bookReview);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddBookGenre(Guid bookId, Genre genre)
+        {
+            using (var context = new BookServiceContext())
+            {
+                var book = await context.Set<Book>().SingleOrDefaultAsync(b => b.Id == bookId);
+                book.Genres.Add(genre);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddBookImage(Guid bookId, BookImage bookImage)
+        {
+            using (var context = new BookServiceContext())
+            {
+                await context.AddAsync(bookImage);
+                var book = await context.Set<Book>().SingleOrDefaultAsync(b => b.Id == bookId);
+                book.BookImages.Add(bookImage);
                 await context.SaveChangesAsync();
             }
         }

@@ -1,6 +1,6 @@
-﻿namespace AuthorTranslatorService.Application.Features.Authors.Queries.GetAuthorByIdQuery
+﻿namespace AuthorTranslatorService.Application.Features.Authors.DTOs
 {
-    public class GetAuthorByIdQueryResponse
+    public class GetAllAuthorsDTO
     {
         public Guid Id { get; set; }
         public string Firstname { get; set; }

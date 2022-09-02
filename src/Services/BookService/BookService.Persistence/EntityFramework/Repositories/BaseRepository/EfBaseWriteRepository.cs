@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AuthorTranslatorService.Persistence.EntityFramework.Repositories.Base
 {
-    public class EfWriteRepository<TEntity, TContext> : IWriteRepository<TEntity>
+    public class EfBaseWriteRepository<TEntity, TContext> : IBaseWriteRepository<TEntity>
         where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {

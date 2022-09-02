@@ -5,7 +5,7 @@ using BookService.Persistence.EntityFramework.Repositories.BaseRepository;
 
 namespace BookService.Persistence.EntityFramework.Repositories.BookRepository
 {
-    public class BookReadRepository : EfReadRepository<Book, BookServiceContext>, IBookReadRepository
+    public class EfBookReadRepository : EfBaseReadRepository<Book, BookServiceContext>, IBookReadRepository
     {
 
     }

@@ -2,6 +2,7 @@
 using AuthorTranslatorService.Application.Features.AuthorReviews.Queries.GetAuthorReviewsByAuthorIdQuery;
 using AuthorTranslatorService.Application.Features.AuthorReviews.Queries.GetAuthorReviewsByUserIdQuery;
 using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand;
+using AuthorTranslatorService.Application.Features.Authors.DTOs;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAuthorByIdQuery;
 using AuthorTranslatorService.Application.Features.TranslatorReviews.Commands.AddTranslatorReviewCommand;
@@ -22,7 +23,9 @@ namespace AuthorTranslatorService.Application.Mapping.AutoMapper
             CreateMap<Author, AddAuthorCommandRequest>().ReverseMap();
             CreateMap<Author, AddAuthorCommandResponse>().ReverseMap();
             CreateMap<Author, GetAuthorByIdQueryResponse>().ReverseMap();
-            CreateMap<Author, GetAllAuthorsQueryResponse>().ReverseMap();
+            CreateMap<GetAllAuthorRequestDTO, GetAllAuthorsQueryResponse>().ReverseMap();
+            CreateMap<Author, GetAllAuthorsDTO>().ReverseMap();
+
             CreateMap<AuthorReview, AddAuthorReviewCommandRequest>().ReverseMap();
             CreateMap<AuthorReview, AddAuthorReviewCommandResponse>().ReverseMap();
             CreateMap<AuthorReview, GetAuthorReviewsByAuthorIdQueryResponse>().ReverseMap();
@@ -32,6 +35,7 @@ namespace AuthorTranslatorService.Application.Mapping.AutoMapper
             CreateMap<Translator, AddTranslatorCommandResponse>().ReverseMap();
             CreateMap<Translator, GetTranslatorByIdQueryResponse>().ReverseMap();
             CreateMap<Translator, GetAllTranslatorsQueryResponse>().ReverseMap();
+
             CreateMap<TranslatorReview, AddTranslatorReviewCommandRequest>().ReverseMap();
             CreateMap<TranslatorReview, AddTranslatorReviewCommandResponse>().ReverseMap();
             CreateMap<TranslatorReview, GetTranslatorReviewsByTranslatorIdQueryResponse>().ReverseMap();
