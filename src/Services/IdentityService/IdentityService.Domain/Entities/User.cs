@@ -10,6 +10,6 @@ namespace IdentityService.Domain.Entities
         public string Email { get; set; }
         public byte[]? PasswordSalt { get; set; }
         public byte[]? PasswordHash { get; set; }
-        public ICollection<UserBook> Books { get; set; }
+        public ICollection<RoleClaim> RoleClaims { get; set; }
     }
 }

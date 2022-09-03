@@ -1,6 +1,5 @@
 ﻿using BookService.Application.Features.Genres.Commands.AddGenreCommand;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookService.Api.Controllers

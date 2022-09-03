@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BookService.Application.Abstraction.Infrastructure.FileOperations;
+﻿using BookService.Application.Abstraction.Infrastructure.FileOperations;
 using BookService.Application.Abstraction.Persistence.BookRepository;
 using BookService.Domain.Entities;
 using MediatR;
