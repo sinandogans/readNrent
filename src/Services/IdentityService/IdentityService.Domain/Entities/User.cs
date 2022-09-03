@@ -4,6 +4,10 @@ namespace IdentityService.Domain.Entities
 {
     public class User : IEntity
     {
+        public User()
+        {
+            RoleClaims = new HashSet<RoleClaim>();
+        }
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
