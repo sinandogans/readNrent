@@ -2,11 +2,6 @@
 using IdentityService.Domain.Entities;
 using IdentityService.Persistence.EntityFramework.Contexts;
 using IdentityService.Persistence.EntityFramework.Repositories.BaseRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityService.Persistence.EntityFramework.Repositories.RoleClaimRepository
 {

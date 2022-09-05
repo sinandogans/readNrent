@@ -1,7 +1,6 @@
 ﻿using IdentityService.Application.Features.Users.Commands.UserRegisterCommand;
 using IdentityService.Application.Features.Users.Queries.UserLoginQuery;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityService.Api.Controllers
