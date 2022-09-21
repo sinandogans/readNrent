@@ -22,18 +22,56 @@ namespace LibraryService.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("LibraryService.Domain.Entities.Book", b =>
+            modelBuilder.Entity("AuthorModelBook", b =>
+                {
+                    b.Property<Guid>("AuthorsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BooksId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AuthorsId", "BooksId");
+
+                    b.HasIndex("BooksId");
+
+                    b.ToTable("AuthorModelBook");
+                });
+
+            modelBuilder.Entity("BookTranslatorModel", b =>
+                {
+                    b.Property<Guid>("BooksId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TranslatorsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BooksId", "TranslatorsId");
+
+                    b.HasIndex("TranslatorsId");
+
+                    b.ToTable("BookTranslatorModel");
+                });
+
+            modelBuilder.Entity("LibraryService.Domain.Entities.AuthorModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AuthorName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuthorModel");
+                });
+
+            modelBuilder.Entity("LibraryService.Domain.Entities.Book", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
@@ -45,12 +83,6 @@ namespace LibraryService.Persistence.Migrations
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
-
-                    b.Property<Guid?>("TranslatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("TranslatorName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -90,6 +122,21 @@ namespace LibraryService.Persistence.Migrations
                     b.ToTable("LibraryBooks");
                 });
 
+            modelBuilder.Entity("LibraryService.Domain.Entities.TranslatorModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TranslatorModel");
+                });
+
             modelBuilder.Entity("LibraryService.Domain.Entities.UserLibrary", b =>
                 {
                     b.Property<Guid>("Id")
@@ -102,6 +149,36 @@ namespace LibraryService.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserLibraries");
+                });
+
+            modelBuilder.Entity("AuthorModelBook", b =>
+                {
+                    b.HasOne("LibraryService.Domain.Entities.AuthorModel", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LibraryService.Domain.Entities.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BookTranslatorModel", b =>
+                {
+                    b.HasOne("LibraryService.Domain.Entities.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LibraryService.Domain.Entities.TranslatorModel", null)
+                        .WithMany()
+                        .HasForeignKey("TranslatorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LibraryService.Domain.Entities.LibraryBook", b =>

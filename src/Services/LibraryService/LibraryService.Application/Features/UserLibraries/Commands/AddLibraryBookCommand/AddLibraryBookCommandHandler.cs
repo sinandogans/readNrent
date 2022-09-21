@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using LibraryService.Application.Abstraction.Persistence.BookRepository;
 using LibraryService.Application.Abstraction.Persistence.UserBookRepository;
 using LibraryService.Domain.Entities;
 using MediatR;

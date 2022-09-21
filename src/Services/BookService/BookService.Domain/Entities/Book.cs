@@ -6,12 +6,14 @@ namespace BookService.Domain.Entities
     {
         public Book()
         {
-            BookImages = new HashSet<BookImage>();
+            Images = new HashSet<BookImage>();
             Reviews = new HashSet<BookReview>();
             Genres = new HashSet<Genre>();
+            Authors = new HashSet<AuthorModel>();
+            Translators = new HashSet<TranslatorModel>();
         }
         public Guid Id { get; set; }
-        public Guid? LanguageId { get; set; }
+        public Guid LanguageId { get; set; }
         public Guid? PublishId { get; set; }
         public string ISBN { get; set; }
         public string Name { get; set; }
@@ -20,7 +22,9 @@ namespace BookService.Domain.Entities
         public Language Language { get; set; }
         public Publish Publish { get; set; }
         public ICollection<Genre> Genres { get; set; }
-        public ICollection<BookImage> BookImages { get; set; }
+        public ICollection<BookImage> Images { get; set; }
         public ICollection<BookReview> Reviews { get; set; }
+        public ICollection<AuthorModel> Authors { get; set; }
+        public ICollection<TranslatorModel> Translators { get; set; }
     }
 }

@@ -7,19 +7,20 @@ namespace BookService.Application.Features.Publishers.Commands.AddPublisherComma
 {
     public class AddPublisherCommandHandler : IRequestHandler<AddPublisherCommandRequest, AddPublisherCommandResponse>
     {
-        private readonly IPublisherWriteRepository _publisherWriteRepository;
+        private readonly IPublisherRepository _publisherRepository;
         private readonly IMapper _mapper;
 
-        public AddPublisherCommandHandler(IPublisherWriteRepository publisherWriteRepository, IMapper mapper)
+        public AddPublisherCommandHandler(IPublisherRepository publisherRepository, IMapper mapper)
         {
-            _publisherWriteRepository = publisherWriteRepository;
+            _publisherRepository = publisherRepository;
             _mapper = mapper;
         }
 
         public async Task<AddPublisherCommandResponse> Handle(AddPublisherCommandRequest request, CancellationToken cancellationToken)
         {
             var publisherToAdd = _mapper.Map<Publisher>(request);
-            var addedPublisher = await _publisherWriteRepository.Add(publisherToAdd);
+            publisherToAdd.Id = Guid.NewGuid();
+            var addedPublisher = await _publisherRepository.Add(publisherToAdd);
             return _mapper.Map<AddPublisherCommandResponse>(addedPublisher);
         }
     }

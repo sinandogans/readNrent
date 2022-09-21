@@ -7,12 +7,12 @@ namespace BookService.Application.Features.Genres.Commands.AddGenreCommand
 {
     public class AddGenreCommandHandler : IRequestHandler<AddGenreCommandRequest, AddGenreCommandResponse>
     {
-        private readonly IGenreWriteRepository _genreWriteRepository;
+        private readonly IGenreRepository _genreRepository;
         private readonly IMapper _mapper;
 
-        public AddGenreCommandHandler(IGenreWriteRepository genreWriteRepository, IMapper mapper)
+        public AddGenreCommandHandler(IGenreRepository genreRepository, IMapper mapper)
         {
-            _genreWriteRepository = genreWriteRepository;
+            _genreRepository = genreRepository;
             _mapper = mapper;
         }
 
@@ -20,7 +20,7 @@ namespace BookService.Application.Features.Genres.Commands.AddGenreCommand
         {
             var genreToAdd = _mapper.Map<Genre>(request);
             genreToAdd.Id = Guid.NewGuid();
-            var addedGenre = await _genreWriteRepository.Add(genreToAdd);
+            var addedGenre = await _genreRepository.Add(genreToAdd);
 
             return _mapper.Map<AddGenreCommandResponse>(addedGenre);
         }

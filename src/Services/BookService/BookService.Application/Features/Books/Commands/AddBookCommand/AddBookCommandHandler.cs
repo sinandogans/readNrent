@@ -7,12 +7,12 @@ namespace BookService.Application.Features.Books.Commands.AddBookCommand
 {
     public class AddBookCommandHandler : IRequestHandler<AddBookCommandRequest, AddBookCommandResponse>
     {
-        private readonly IBookWriteRepository _bookWriteRepository;
+        private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
 
-        public AddBookCommandHandler(IBookWriteRepository bookWriteRepository, IMapper mapper)
+        public AddBookCommandHandler(IBookRepository bookRepository, IMapper mapper)
         {
-            _bookWriteRepository = bookWriteRepository;
+            _bookRepository = bookRepository;
             _mapper = mapper;
         }
 
@@ -21,7 +21,7 @@ namespace BookService.Application.Features.Books.Commands.AddBookCommand
             var bookToAdd = _mapper.Map<Book>(request);
             bookToAdd.Id = Guid.NewGuid();
 
-            await _bookWriteRepository.Add(bookToAdd);
+            await _bookRepository.Add(bookToAdd);
             return _mapper.Map<AddBookCommandResponse>(bookToAdd);
         }
     }

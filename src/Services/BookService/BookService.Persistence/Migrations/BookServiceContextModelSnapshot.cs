@@ -22,6 +22,21 @@ namespace BookService.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("AuthorModelBook", b =>
+                {
+                    b.Property<Guid>("AuthorsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BooksId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AuthorsId", "BooksId");
+
+                    b.HasIndex("BooksId");
+
+                    b.ToTable("AuthorModelBook");
+                });
+
             modelBuilder.Entity("BookGenre", b =>
                 {
                     b.Property<Guid>("BooksId")
@@ -35,6 +50,21 @@ namespace BookService.Persistence.Migrations
                     b.HasIndex("GenresId");
 
                     b.ToTable("BookGenre");
+                });
+
+            modelBuilder.Entity("BookService.Domain.Entities.AuthorModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuthorModel");
                 });
 
             modelBuilder.Entity("BookService.Domain.Entities.Book", b =>
@@ -192,6 +222,51 @@ namespace BookService.Persistence.Migrations
                     b.ToTable("Publishers");
                 });
 
+            modelBuilder.Entity("BookService.Domain.Entities.TranslatorModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TranslatorModel");
+                });
+
+            modelBuilder.Entity("BookTranslatorModel", b =>
+                {
+                    b.Property<Guid>("BooksId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TranslatorsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BooksId", "TranslatorsId");
+
+                    b.HasIndex("TranslatorsId");
+
+                    b.ToTable("BookTranslatorModel");
+                });
+
+            modelBuilder.Entity("AuthorModelBook", b =>
+                {
+                    b.HasOne("BookService.Domain.Entities.AuthorModel", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookService.Domain.Entities.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("BookGenre", b =>
                 {
                     b.HasOne("BookService.Domain.Entities.Book", null)
@@ -264,6 +339,21 @@ namespace BookService.Persistence.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Publisher");
+                });
+
+            modelBuilder.Entity("BookTranslatorModel", b =>
+                {
+                    b.HasOne("BookService.Domain.Entities.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookService.Domain.Entities.TranslatorModel", null)
+                        .WithMany()
+                        .HasForeignKey("TranslatorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookService.Domain.Entities.Book", b =>
