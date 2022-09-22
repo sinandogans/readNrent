@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookService.Persistence.EntityFramework.Repositories.BookRepository
 {
-    public class EfBookRepository : EfBaseRepository<Book, BookServiceContext>, IBookRepository
+    public class EFBookRepository : EFBaseRepository<Book, BookServiceContext>, IBookRepository
     {
 
         public async Task AddPublish(Publish publish)

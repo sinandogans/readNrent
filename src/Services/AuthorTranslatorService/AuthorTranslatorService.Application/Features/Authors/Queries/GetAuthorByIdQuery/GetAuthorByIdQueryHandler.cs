@@ -6,18 +6,18 @@ namespace AuthorTranslatorService.Application.Features.Authors.Queries.GetAuthor
 {
     public class GetAuthorByIdQueryHandler : IRequestHandler<GetAuthorByIdQueryRequest, GetAuthorByIdQueryResponse>
     {
-        private readonly IAuthorReadRepository _repository;
+        private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
 
-        public GetAuthorByIdQueryHandler(IAuthorReadRepository repository, IMapper mapper)
+        public GetAuthorByIdQueryHandler(IAuthorRepository authorRepository, IMapper mapper)
         {
-            _repository = repository;
+            _authorRepository = authorRepository;
             _mapper = mapper;
         }
 
         public async Task<GetAuthorByIdQueryResponse> Handle(GetAuthorByIdQueryRequest request, CancellationToken cancellationToken)
         {
-            var author = await _repository.Get(a => a.Id == request.Id);
+            var author = await _authorRepository.Get(a => a.Id == request.Id);
             var response = _mapper.Map<GetAuthorByIdQueryResponse>(author);
 
             return response;

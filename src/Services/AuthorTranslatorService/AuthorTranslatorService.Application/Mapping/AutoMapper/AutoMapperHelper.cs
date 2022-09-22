@@ -1,14 +1,10 @@
-﻿using AuthorTranslatorService.Application.Features.AuthorReviews.Commands.AddAuthorReviewCommand;
-using AuthorTranslatorService.Application.Features.AuthorReviews.Queries.GetAuthorReviewsByAuthorIdQuery;
-using AuthorTranslatorService.Application.Features.AuthorReviews.Queries.GetAuthorReviewsByUserIdQuery;
-using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand;
+﻿using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand;
+using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorReviewCommand;
 using AuthorTranslatorService.Application.Features.Authors.DTOs;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAuthorByIdQuery;
-using AuthorTranslatorService.Application.Features.TranslatorReviews.Commands.AddTranslatorReviewCommand;
-using AuthorTranslatorService.Application.Features.TranslatorReviews.Queries.GetTranslatorReviewsByTranslatorIdQuery;
-using AuthorTranslatorService.Application.Features.TranslatorReviews.Queries.GetTranslatorReviewsByUserIdQuery;
 using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorCommand;
+using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorReviewCommand;
 using AuthorTranslatorService.Application.Features.Translators.Queries.GetAllTranslatorsQuery;
 using AuthorTranslatorService.Application.Features.Translators.Queries.GetTranslatorByIdQuery;
 using AuthorTranslatorService.Domain.Entities;
@@ -20,29 +16,32 @@ namespace AuthorTranslatorService.Application.Mapping.AutoMapper
     {
         public AutoMapperHelper()
         {
-            CreateMap<Author, AddAuthorCommandRequest>().ReverseMap();
-            CreateMap<Author, AddAuthorCommandResponse>().ReverseMap();
             CreateMap<Author, GetAuthorByIdQueryResponse>().ReverseMap();
             CreateMap<GetAllAuthorRequestDTO, GetAllAuthorsQueryResponse>().ReverseMap();
             CreateMap<Author, GetAllAuthorsDTO>().ReverseMap();
 
-            CreateMap<AuthorReview, AddAuthorReviewCommandRequest>().ReverseMap();
-            CreateMap<AuthorReview, AddAuthorReviewCommandResponse>().ReverseMap();
-            CreateMap<AuthorReview, GetAuthorReviewsByAuthorIdQueryResponse>().ReverseMap();
-            CreateMap<AuthorReview, GetAuthorReviewsByUserIdQueryResponse>().ReverseMap();
-
-            CreateMap<Translator, AddTranslatorCommandRequest>().ReverseMap();
-            CreateMap<Translator, AddTranslatorCommandResponse>().ReverseMap();
             CreateMap<Translator, GetTranslatorByIdQueryResponse>().ReverseMap();
             CreateMap<Translator, GetAllTranslatorsQueryResponse>().ReverseMap();
 
+            //AUTHOR BEGİN
+            CreateMap<Author, AddAuthorCommandRequest>().ReverseMap();
+            CreateMap<Author, AddAuthorCommandResponse>().ReverseMap();
+            //AUTHOR END
+
+            //AUTHOR REVİEW BEGİN
+            CreateMap<AuthorReview, AddAuthorReviewCommandRequest>().ReverseMap();
+            CreateMap<AuthorReview, AddAuthorReviewCommandResponse>().ReverseMap();
+            //AUTHOR REVİEW END
+
+            //TRANSLATOR BEGİN
+            CreateMap<Translator, AddTranslatorCommandRequest>().ReverseMap();
+            CreateMap<Translator, AddTranslatorCommandResponse>().ReverseMap();
+            //TRANSLATOR END
+
+            //TRANSLATOR REVİEW BEGİN
             CreateMap<TranslatorReview, AddTranslatorReviewCommandRequest>().ReverseMap();
             CreateMap<TranslatorReview, AddTranslatorReviewCommandResponse>().ReverseMap();
-            CreateMap<TranslatorReview, GetTranslatorReviewsByTranslatorIdQueryResponse>().ReverseMap();
-            CreateMap<TranslatorReview, GetTranslatorReviewsByUserIdQueryResponse>().ReverseMap();
-
-
-
+            //TRANSLATOR REVİEW END
         }
     }
 }

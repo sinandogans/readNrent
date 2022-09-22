@@ -1,16 +1,13 @@
-﻿using AuthorTranslatorService.Domain.Abstraction.Entity;
-
-namespace AuthorTranslatorService.Domain.Entities
+﻿namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorReviewCommand
 {
-    public class AuthorReview : IEntity
+    public class AddTranslatorReviewCommandResponse
     {
         public Guid Id { get; set; }
         public string Comment { get; set; }
         public double Rating { get; set; }
         public DateTime ReviewDate { get; set; }
-        public Guid AuthorId { get; set; }
+        public Guid TranslatorId { get; set; }
         public Guid UserId { get; set; }
         public string? Username { get; set; }
-        public Author Author { get; set; }
     }
 }

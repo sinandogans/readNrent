@@ -6,5 +6,6 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.AddAutho
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }
+
     }
 }

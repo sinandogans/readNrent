@@ -7,12 +7,12 @@ namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddT
 {
     public class AddTranslatorCommandHandler : IRequestHandler<AddTranslatorCommandRequest, AddTranslatorCommandResponse>
     {
-        private readonly ITranslatorWriteRepository _repository;
+        private readonly ITranslatorRepository _translatorRepository;
         private readonly IMapper _mapper;
 
-        public AddTranslatorCommandHandler(ITranslatorWriteRepository repository, IMapper mapper)
+        public AddTranslatorCommandHandler(ITranslatorRepository translatorRepository, IMapper mapper)
         {
-            _repository = repository;
+            _translatorRepository = translatorRepository;
             _mapper = mapper;
         }
 
@@ -20,12 +20,10 @@ namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddT
         {
             var translatorToAdd = _mapper.Map<Translator>(request);
             translatorToAdd.Id = Guid.NewGuid();
-            translatorToAdd.Rating = 0;
-            translatorToAdd.ReviewCount = 0;
 
-            await _repository.Add(translatorToAdd);
+            var addedTranslator = await _translatorRepository.Add(translatorToAdd);
 
-            var response = _mapper.Map<AddTranslatorCommandResponse>(translatorToAdd);
+            var response = _mapper.Map<AddTranslatorCommandResponse>(addedTranslator);
             return response;
         }
     }

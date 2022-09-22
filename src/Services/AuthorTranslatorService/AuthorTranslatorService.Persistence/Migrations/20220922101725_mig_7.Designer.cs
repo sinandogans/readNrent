@@ -4,6 +4,7 @@ using AuthorTranslatorService.Persistence.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuthorTranslatorService.Persistence.Migrations
 {
     [DbContext(typeof(AuthorTranslatorServiceContext))]
-    partial class AuthorTranslatorServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20220922101725_mig_7")]
+    partial class mig_7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,10 +53,10 @@ namespace AuthorTranslatorService.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Rating")
+                    b.Property<double?>("Rating")
                         .HasColumnType("float");
 
-                    b.Property<int>("ReviewCount")
+                    b.Property<int?>("ReviewCount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -130,10 +132,10 @@ namespace AuthorTranslatorService.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Rating")
+                    b.Property<double?>("Rating")
                         .HasColumnType("float");
 
-                    b.Property<int>("ReviewCount")
+                    b.Property<int?>("ReviewCount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -153,9 +155,6 @@ namespace AuthorTranslatorService.Persistence.Migrations
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
-
-                    b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("TranslatorId")
                         .HasColumnType("uniqueidentifier");

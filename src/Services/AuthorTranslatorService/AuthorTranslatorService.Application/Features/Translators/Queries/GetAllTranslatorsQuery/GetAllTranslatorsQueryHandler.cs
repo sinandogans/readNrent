@@ -6,18 +6,18 @@ namespace AuthorTranslatorService.Application.Features.Translators.Queries.GetAl
 {
     public class GetAllTranslatorsQueryHandler : IRequestHandler<GetAllTranslatorsQueryRequest, List<GetAllTranslatorsQueryResponse>>
     {
-        private readonly ITranslatorReadRepository _repository;
+        private readonly ITranslatorRepository _translatorRepository;
         private readonly IMapper _mapper;
 
-        public GetAllTranslatorsQueryHandler(ITranslatorReadRepository repository, IMapper mapper)
+        public GetAllTranslatorsQueryHandler(ITranslatorRepository translatorRepository, IMapper mapper)
         {
-            _repository = repository;
+            _translatorRepository = translatorRepository;
             _mapper = mapper;
         }
 
         public async Task<List<GetAllTranslatorsQueryResponse>> Handle(GetAllTranslatorsQueryRequest request, CancellationToken cancellationToken)
         {
-            var translators = await _repository.GetList();
+            var translators = await _translatorRepository.GetList();
             List<GetAllTranslatorsQueryResponse> response = new();
             foreach (var translator in translators)
             {

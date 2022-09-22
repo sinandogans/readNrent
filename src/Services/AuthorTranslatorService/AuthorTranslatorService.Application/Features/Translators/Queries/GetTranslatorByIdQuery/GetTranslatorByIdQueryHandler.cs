@@ -6,18 +6,18 @@ namespace AuthorTranslatorService.Application.Features.Translators.Queries.GetTr
 {
     public class GetTranslatorByIdQueryHandler : IRequestHandler<GetTranslatorByIdQueryRequest, GetTranslatorByIdQueryResponse>
     {
-        private readonly ITranslatorReadRepository _repository;
+        private readonly ITranslatorRepository _translatorRepository;
         private readonly IMapper _mapper;
 
-        public GetTranslatorByIdQueryHandler(ITranslatorReadRepository repository, IMapper mapper)
+        public GetTranslatorByIdQueryHandler(ITranslatorRepository translatorRepository, IMapper mapper)
         {
-            _repository = repository;
+            _translatorRepository = translatorRepository;
             _mapper = mapper;
         }
 
         public async Task<GetTranslatorByIdQueryResponse> Handle(GetTranslatorByIdQueryRequest request, CancellationToken cancellationToken)
         {
-            var translator = await _repository.Get(t => t.Id == request.id);
+            var translator = await _translatorRepository.Get(t => t.Id == request.id);
             var response = _mapper.Map<GetTranslatorByIdQueryResponse>(translator);
             return response;
         }

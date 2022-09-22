@@ -14,11 +14,11 @@ namespace BookService.Persistence.Extensions.IoC
     {
         public static void AddPersistenceRegistration(this IServiceCollection services)
         {
-            services.AddSingleton<IBookRepository, EfBookRepository>();
+            services.AddSingleton<IBookRepository, EFBookRepository>();
 
-            services.AddSingleton<IGenreRepository, EfGenreRepository>();
+            services.AddSingleton<IGenreRepository, EFGenreRepository>();
 
-            services.AddSingleton<IPublisherRepository, EfPublisherRepository>();
+            services.AddSingleton<IPublisherRepository, EFPublisherRepository>();
             services.AddSingleton<ILanguageRepository, EFLanguageRepository>();
         }
     }

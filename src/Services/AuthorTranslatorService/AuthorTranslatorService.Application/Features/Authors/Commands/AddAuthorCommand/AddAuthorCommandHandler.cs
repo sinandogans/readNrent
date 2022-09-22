@@ -7,12 +7,12 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.AddAutho
 {
     public class AddAuthorCommandHandler : IRequestHandler<AddAuthorCommandRequest, AddAuthorCommandResponse>
     {
-        private readonly IAuthorWriteRepository _repository;
+        private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
 
-        public AddAuthorCommandHandler(IAuthorWriteRepository repository, IMapper mapper)
+        public AddAuthorCommandHandler(IAuthorRepository authorRepository, IMapper mapper)
         {
-            _repository = repository;
+            _authorRepository = authorRepository;
             _mapper = mapper;
         }
 
@@ -20,12 +20,9 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.AddAutho
         {
             var authorToAdd = _mapper.Map<Author>(request);
             authorToAdd.Id = Guid.NewGuid();
-            authorToAdd.Rating = 0;
-            authorToAdd.ReviewCount = 0;
+            var addedAuthor = await _authorRepository.Add(authorToAdd);
 
-            await _repository.Add(authorToAdd);
-
-            var response = _mapper.Map<AddAuthorCommandResponse>(authorToAdd);
+            var response = _mapper.Map<AddAuthorCommandResponse>(addedAuthor);
             return response;
         }
     }

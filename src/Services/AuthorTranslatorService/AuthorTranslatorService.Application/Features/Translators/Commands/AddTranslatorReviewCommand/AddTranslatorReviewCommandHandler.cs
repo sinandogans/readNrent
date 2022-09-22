@@ -1,0 +1,31 @@
+﻿using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.TranslatorRepository;
+using AuthorTranslatorService.Domain.Entities;
+using AutoMapper;
+using MediatR;
+
+namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorReviewCommand
+{
+    public class AddTranslatorReviewCommandHandler : IRequestHandler<AddTranslatorReviewCommandRequest, AddTranslatorReviewCommandResponse>
+    {
+        private readonly ITranslatorRepository _translatorRepository;
+        private readonly IMapper _mapper;
+
+        public AddTranslatorReviewCommandHandler(ITranslatorRepository translatorRepository, IMapper mapper)
+        {
+            _translatorRepository = translatorRepository;
+            _mapper = mapper;
+        }
+
+        public async Task<AddTranslatorReviewCommandResponse> Handle(AddTranslatorReviewCommandRequest request, CancellationToken cancellationToken)
+        {
+            var reviewToAdd = _mapper.Map<TranslatorReview>(request);
+            reviewToAdd.Id = Guid.NewGuid();
+            reviewToAdd.ReviewDate = DateTime.Now;
+
+            await _translatorRepository.AddReview(reviewToAdd);
+
+            var response = _mapper.Map<AddTranslatorReviewCommandResponse>(reviewToAdd);
+            return response;
+        }
+    }
+}

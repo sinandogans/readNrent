@@ -5,7 +5,7 @@ using BookService.Persistence.EntityFramework.Repositories.BaseRepository;
 
 namespace BookService.Persistence.EntityFramework.Repositories.LanguageRepository
 {
-    public class EFLanguageRepository : EfBaseRepository<Language, BookServiceContext>, ILanguageRepository
+    public class EFLanguageRepository : EFBaseRepository<Language, BookServiceContext>, ILanguageRepository
     {
     }
 }

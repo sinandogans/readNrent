@@ -5,7 +5,7 @@ using BookService.Persistence.EntityFramework.Repositories.BaseRepository;
 
 namespace BookService.Persistence.EntityFramework.Repositories.PublisherRepository
 {
-    public class EfPublisherRepository : EfBaseRepository<Publisher, BookServiceContext>, IPublisherRepository
+    public class EFPublisherRepository : EFBaseRepository<Publisher, BookServiceContext>, IPublisherRepository
     {
     }
 }

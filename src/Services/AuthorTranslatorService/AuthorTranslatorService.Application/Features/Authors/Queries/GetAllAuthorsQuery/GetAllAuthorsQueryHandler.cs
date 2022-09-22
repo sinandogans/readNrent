@@ -7,18 +7,18 @@ namespace AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAut
 {
     public class GetAllAuthorsQueryHandler : IRequestHandler<GetAllAuthorsQueryRequest, GetAllAuthorsQueryResponse>
     {
-        private readonly IAuthorReadRepository _repository;
+        private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
 
-        public GetAllAuthorsQueryHandler(IAuthorReadRepository repository, IMapper mapper)
+        public GetAllAuthorsQueryHandler(IAuthorRepository authorRepository, IMapper mapper)
         {
-            _repository = repository;
+            _authorRepository = authorRepository;
             _mapper = mapper;
         }
 
         async Task<GetAllAuthorsQueryResponse> IRequestHandler<GetAllAuthorsQueryRequest, GetAllAuthorsQueryResponse>.Handle(GetAllAuthorsQueryRequest request, CancellationToken cancellationToken)
         {
-            var authors = await _repository.GetList();
+            var authors = await _authorRepository.GetList();
             GetAllAuthorRequestDTO authorsModel = new();
             authorsModel.Authors = authors;
             var response = _mapper.Map<GetAllAuthorsQueryResponse>(authorsModel);

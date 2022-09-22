@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookService.Persistence.EntityFramework.Repositories.GenreRepository
 {
-    public class EfGenreRepository : EfBaseRepository<Genre, BookServiceContext>, IGenreRepository
+    public class EFGenreRepository : EFBaseRepository<Genre, BookServiceContext>, IGenreRepository
     {
         public async Task<List<Genre>> GetParentGenres(Guid genreId)
         {
