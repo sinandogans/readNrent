@@ -1,12 +1,12 @@
-﻿using LibraryService.Application.Abstraction.Persistence.UserBookRepository;
+﻿using LibraryService.Application.Abstraction.Persistence.UserLibraryRepository;
 using LibraryService.Domain.Entities;
 using LibraryService.Persistence.EntityFramework.Contexts;
 using LibraryService.Persistence.EntityFramework.Repositories.BaseRepository;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryService.Persistence.EntityFramework.Repositories.UserBookRepository
+namespace LibraryService.Persistence.EntityFramework.Repositories.UserLibraryRepository
 {
-    public class EfUserLibraryWriteRepository : EfBaseWriteRepository<UserLibrary, LibraryServiceContext>, IUserLibraryWriteRepository
+    public class EFUserLibraryRepository : EFBaseRepository<UserLibrary, LibraryServiceContext>, IUserLibraryRepository
     {
         public async Task AddLibraryBook(Guid userId, LibraryBook libraryBook)
         {

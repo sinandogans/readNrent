@@ -3,7 +3,8 @@ using LibraryService.Domain.Entities;
 
 namespace LibraryService.Application.Abstraction.Persistence.BookRepository
 {
-    public interface IBookWriteRepository : IBaseWriteRepository<Book>
+    public interface IBookRepository : IBaseRepository<Book>
     {
+        public Task<Book> GetById(Guid id);
     }
 }

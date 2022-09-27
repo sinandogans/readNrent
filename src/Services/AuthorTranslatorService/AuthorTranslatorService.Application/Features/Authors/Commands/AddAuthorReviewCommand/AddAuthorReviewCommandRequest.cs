@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System.Security.Principal;
 
 namespace AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorReviewCommand
 {

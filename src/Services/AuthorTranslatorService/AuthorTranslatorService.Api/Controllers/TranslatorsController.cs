@@ -1,9 +1,6 @@
-﻿using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand;
-using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorReviewCommand;
-using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorCommand;
+﻿using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorCommand;
 using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorReviewCommand;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthorTranslatorService.Api.Controllers

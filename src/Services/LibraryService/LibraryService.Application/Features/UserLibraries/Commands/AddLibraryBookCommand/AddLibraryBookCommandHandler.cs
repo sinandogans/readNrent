@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LibraryService.Application.Abstraction.Persistence.UserBookRepository;
+using LibraryService.Application.Abstraction.Persistence.UserLibraryRepository;
 using LibraryService.Domain.Entities;
 using MediatR;
 
@@ -7,12 +7,12 @@ namespace LibraryService.Application.Features.UserBooks.Commands.AddUserBookComm
 {
     public class AddLibraryBookCommandHandler : IRequestHandler<AddLibraryBookCommandRequest, AddLibraryBookCommandResponse>
     {
-        private readonly IUserLibraryWriteRepository _userLibraryWriteRepository;
+        private readonly IUserLibraryRepository _userLibraryRepository;
         private readonly IMapper _mapper;
 
-        public AddLibraryBookCommandHandler(IUserLibraryWriteRepository userBookWriteRepository, IMapper mapper)
+        public AddLibraryBookCommandHandler(IUserLibraryRepository userLibraryRepository, IMapper mapper)
         {
-            _userLibraryWriteRepository = userBookWriteRepository;
+            _userLibraryRepository = userLibraryRepository;
             _mapper = mapper;
         }
 
@@ -20,7 +20,7 @@ namespace LibraryService.Application.Features.UserBooks.Commands.AddUserBookComm
         {
             var libraryBook = _mapper.Map<LibraryBook>(request);
             libraryBook.Id = Guid.NewGuid();
-            await _userLibraryWriteRepository.AddLibraryBook(request.UserId, libraryBook);
+            await _userLibraryRepository.AddLibraryBook(request.UserId, libraryBook);
             return _mapper.Map<AddLibraryBookCommandResponse>(libraryBook);
         }
     }
