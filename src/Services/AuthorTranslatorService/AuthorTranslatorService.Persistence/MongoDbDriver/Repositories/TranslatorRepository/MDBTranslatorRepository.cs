@@ -34,5 +34,16 @@ namespace AuthorTranslatorService.Persistence.MongoDbDriver.Repositories.Transla
 
             await this.Update(translator);
         }
+        public async Task<Translator> GetById(Guid id)
+        {
+            var translator = await _collection.Find(a => a.Id == id).SingleOrDefaultAsync();
+            return translator;
+        }
+        public async Task<List<TranslatorReview>> GetReviews(Guid id)
+        {
+            var reviewCollection = _database.GetCollection<TranslatorReview>(_dbOptions.Value.TranslatorReviewCollectionName);
+            var reviews = await reviewCollection.Find(r => r.TranslatorId == id).ToListAsync();
+            return reviews;
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand;
 using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorReviewCommand;
+using AuthorTranslatorService.Application.Features.Authors.Commands.DeleteAuthorCommand;
+using AuthorTranslatorService.Application.Features.Authors.Commands.UpdateAuthorCommand;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAuthorByIdQuery;
 using MediatR;
@@ -41,6 +43,20 @@ namespace AuthorTranslatorService.Api.Controllers
 
         [HttpGet("getbyid")]
         public async Task<IActionResult> GetById(GetAuthorByIdQueryRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("delete")]
+        public async Task<IActionResult> Delete(DeleteAuthorCommandRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update(UpdateAuthorCommandRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);

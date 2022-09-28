@@ -1,6 +1,7 @@
-﻿using AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery;
+﻿using AuthorTranslatorService.Application.Features.Authors.Commands.UpdateAuthorCommand;
 using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorCommand;
 using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorReviewCommand;
+using AuthorTranslatorService.Application.Features.Translators.Commands.DeleteTranslatorCommand;
 using AuthorTranslatorService.Application.Features.Translators.Queries.GetAllTranslatorsQuery;
 using AuthorTranslatorService.Application.Features.Translators.Queries.GetTranslatorByIdQuery;
 using MediatR;
@@ -42,6 +43,20 @@ namespace AuthorTranslatorService.Api.Controllers
 
         [HttpGet("getall")]
         public async Task<IActionResult> GetAll(GetAllTranslatorsQueryRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("delete")]
+        public async Task<IActionResult> Delete(DeleteTranslatorCommandRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update(UpdateTranslatorCommandRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
