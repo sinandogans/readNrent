@@ -1,6 +1,7 @@
 ﻿using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand;
 using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorReviewCommand;
 using AuthorTranslatorService.Application.Features.Authors.Commands.DeleteAuthorCommand;
+using AuthorTranslatorService.Application.Features.Authors.Commands.DeleteAuthorReviewCommand;
 using AuthorTranslatorService.Application.Features.Authors.Commands.UpdateAuthorCommand;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAuthorByIdQuery;
@@ -50,6 +51,13 @@ namespace AuthorTranslatorService.Api.Controllers
 
         [HttpPost("delete")]
         public async Task<IActionResult> Delete(DeleteAuthorCommandRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("deletereview")]
+        public async Task<IActionResult> DeleteReview(DeleteAuthorReviewCommandRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);

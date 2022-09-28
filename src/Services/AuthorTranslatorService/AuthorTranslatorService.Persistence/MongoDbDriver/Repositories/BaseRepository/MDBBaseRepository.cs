@@ -1,7 +1,5 @@
 ﻿using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.BaseRepository;
 using AuthorTranslatorService.Domain.Abstraction.Entity;
-using AuthorTranslatorService.Persistence.MongoDbDriver.Contexts;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System.Linq.Expressions;
 
@@ -12,11 +10,9 @@ namespace AuthorTranslatorService.Persistence.MongoDbDriver.Repositories.BaseRep
     {
         private readonly IMongoCollection<TEntity> _collection;
 
-        protected MDBBaseRepository(IOptions<MongoDbOptions> dbOptions, string collectionName)
+        protected MDBBaseRepository(IMongoCollection<TEntity> collection)
         {
-            MongoClient client = new MongoClient(dbOptions.Value.ConnectionString);
-            IMongoDatabase database = client.GetDatabase(dbOptions.Value.DbName);
-            _collection = database.GetCollection<TEntity>(collectionName);
+            _collection = collection;
         }
 
         public async Task Add(TEntity entity)

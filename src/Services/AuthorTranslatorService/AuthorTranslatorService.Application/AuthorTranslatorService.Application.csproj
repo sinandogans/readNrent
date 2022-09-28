@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Abstraction\Persistence\Repositories\AuthorReviewRepository\**" />
+    <Compile Remove="Abstraction\Persistence\Repositories\TranslatorReviewRepository\**" />
+    <EmbeddedResource Remove="Abstraction\Persistence\Repositories\AuthorReviewRepository\**" />
+    <EmbeddedResource Remove="Abstraction\Persistence\Repositories\TranslatorReviewRepository\**" />
+    <None Remove="Abstraction\Persistence\Repositories\AuthorReviewRepository\**" />
+    <None Remove="Abstraction\Persistence\Repositories\TranslatorReviewRepository\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AuthorTranslatorService.Domain\AuthorTranslatorService.Domain.csproj" />
   </ItemGroup>
 

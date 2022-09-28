@@ -7,6 +7,7 @@ namespace AuthorTranslatorService.Application.Abstraction.Persistence.Repositori
     {
         Task<List<AuthorReview>> GetReviews(Guid id);
         Task AddReview(AuthorReview review);
+        Task DeleteReview(Guid reviewId);
         Task<Author> GetById(Guid id);
     }
 }
