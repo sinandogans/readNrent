@@ -7,5 +7,7 @@
         public string Lastname { get; set; }
         public double? Rating { get; set; }
         public int ReviewCount { get; set; }
+        public List<Guid> ReviewIds { get; set; }
+        public List<Guid> BookIds { get; set; }
     }
 }

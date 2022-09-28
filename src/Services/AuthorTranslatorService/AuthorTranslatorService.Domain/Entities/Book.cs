@@ -4,36 +4,33 @@ using MongoDB.Bson;
 
 namespace AuthorTranslatorService.Domain.Entities
 {
-    public class Translator : IEntity
+    public class Book : IEntity
     {
-        public Translator()
+        public Book()
         {
-            ReviewIds = new List<Guid>();
-            BookIds = new List<Guid>();
+            AuthorIds = new List<Guid>();
+            TranslatorIds = new List<Guid>();
 
         }
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
         [BsonRepresentation(BsonType.Double)]
 
         public double Rating { get; set; }
-        [BsonRepresentation(BsonType.Int32)]
-
-        public int ReviewCount { get; set; }
+        public string Name { get; set; }
+        public string ImagePath { get; set; }
         [BsonRepresentation(BsonType.String)]
 
-        public List<Guid> ReviewIds { get; set; }
+        public List<Guid> AuthorIds { get; set; }
         [BsonRepresentation(BsonType.String)]
 
-        public List<Guid> BookIds { get; set; }
+        public List<Guid> TranslatorIds { get; set; }
         [BsonIgnore]
 
-        public List<TranslatorReview> Reviews { get; set; }
+        public List<Author> Authors { get; set; }
         [BsonIgnore]
 
-        public List<Book> Books { get; set; }
+        public List<Translator> Translators { get; set; }
     }
 }

@@ -11,10 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{CE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApiGateway", "WebApiGateway", "{9AE7A0D3-12CD-42DE-84A8-77970BAF35B8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{11708FDC-694A-4D4F-8D26-2506E95F5427}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBus", "EventBus", "{6F634CA2-08CD-4A07-893B-D16FE30694E0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BookService", "BookService", "{C366CA96-3231-43D3-BCD7-8FD9CE0AB3CD}"
 	ProjectSection(SolutionItems) = preProject
 		BookServiceNotes.txt = BookServiceNotes.txt
@@ -76,15 +72,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Infrastruct
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Api", "src\Services\IdentityService\IdentityService.Api\IdentityService.Api.csproj", "{567107B2-4A53-4FC5-8306-2286C354E2AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryService.Domain", "src\Services\LibraryService\LibraryService.Domain\LibraryService.Domain.csproj", "{852B148C-E143-455E-89DC-01CE92A699A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryService.Domain", "src\Services\LibraryService\LibraryService.Domain\LibraryService.Domain.csproj", "{852B148C-E143-455E-89DC-01CE92A699A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryService.Application", "src\Services\LibraryService\LibraryService.Application\LibraryService.Application.csproj", "{4FE0EAD3-C74A-4B22-9DFA-6A1AFA9E3942}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryService.Application", "src\Services\LibraryService\LibraryService.Application\LibraryService.Application.csproj", "{4FE0EAD3-C74A-4B22-9DFA-6A1AFA9E3942}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryService.Persistence", "src\Services\LibraryService\LibraryService.Persistence\LibraryService.Persistence.csproj", "{99285A8A-B497-4543-AAAD-1C2C70D189C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryService.Persistence", "src\Services\LibraryService\LibraryService.Persistence\LibraryService.Persistence.csproj", "{99285A8A-B497-4543-AAAD-1C2C70D189C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryService.Infrastructure", "src\Services\LibraryService\LibraryService.Infrastructure\LibraryService.Infrastructure.csproj", "{AFB206A8-3C55-4FA5-BC09-B95E6B1C2DFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryService.Infrastructure", "src\Services\LibraryService\LibraryService.Infrastructure\LibraryService.Infrastructure.csproj", "{AFB206A8-3C55-4FA5-BC09-B95E6B1C2DFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryService.Api", "src\Services\LibraryService\LibraryService.Api\LibraryService.Api.csproj", "{FB798D01-6D02-4B65-B6B9-5E923FAF330E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryService.Api", "src\Services\LibraryService\LibraryService.Api\LibraryService.Api.csproj", "{FB798D01-6D02-4B65-B6B9-5E923FAF330E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -180,8 +176,6 @@ Global
 		{37153E14-C786-40D8-877B-8EBB5A6333A3} = {25FC63E6-A658-431D-83D4-441461583841}
 		{CEFDF73F-C778-484B-B840-DC080D1799FC} = {25FC63E6-A658-431D-83D4-441461583841}
 		{9AE7A0D3-12CD-42DE-84A8-77970BAF35B8} = {37153E14-C786-40D8-877B-8EBB5A6333A3}
-		{11708FDC-694A-4D4F-8D26-2506E95F5427} = {25FC63E6-A658-431D-83D4-441461583841}
-		{6F634CA2-08CD-4A07-893B-D16FE30694E0} = {11708FDC-694A-4D4F-8D26-2506E95F5427}
 		{C366CA96-3231-43D3-BCD7-8FD9CE0AB3CD} = {CEFDF73F-C778-484B-B840-DC080D1799FC}
 		{C9E33D56-8040-4733-90D1-93C35F4979A9} = {CEFDF73F-C778-484B-B840-DC080D1799FC}
 		{4FC0E990-7A7C-4068-A458-42F98BF0071A} = {CEFDF73F-C778-484B-B840-DC080D1799FC}

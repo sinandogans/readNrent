@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AuthorTranslatorService.Persistence.EntityFramework.Repositories.AuthorRepository
 {
-    public class EFAuthorRepository : EFBaseRepository<Author, AuthorTranslatorServiceContext>, IAuthorRepository
+    public class EFAuthorRepository : EFBaseRepository<Author, MSSQLDbContext>, IAuthorRepository
     {
         public async Task AddReview(AuthorReview review)
         {
-            using (DbContext context = new AuthorTranslatorServiceContext())
+            using (DbContext context = new MSSQLDbContext())
             {
                 await context.Set<AuthorReview>().AddAsync(review);
 
@@ -23,7 +23,7 @@ namespace AuthorTranslatorService.Persistence.EntityFramework.Repositories.Autho
 
         public async Task<List<AuthorReview>> GetAuthorReviews(Guid id)
         {
-            using (DbContext context = new AuthorTranslatorServiceContext())
+            using (DbContext context = new MSSQLDbContext())
             {
                 var author = await context.Set<Author>().Where(a => a.Id == id).Include(a => a.Reviews).SingleOrDefaultAsync();
                 return author.Reviews.ToList();

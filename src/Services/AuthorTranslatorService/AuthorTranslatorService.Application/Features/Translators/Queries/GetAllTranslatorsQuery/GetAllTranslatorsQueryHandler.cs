@@ -18,11 +18,7 @@ namespace AuthorTranslatorService.Application.Features.Translators.Queries.GetAl
         public async Task<List<GetAllTranslatorsQueryResponse>> Handle(GetAllTranslatorsQueryRequest request, CancellationToken cancellationToken)
         {
             var translators = await _translatorRepository.GetList();
-            List<GetAllTranslatorsQueryResponse> response = new();
-            foreach (var translator in translators)
-            {
-                response.Add(_mapper.Map<GetAllTranslatorsQueryResponse>(translator));
-            }
+            var response = _mapper.Map<List<GetAllTranslatorsQueryResponse>>(translators);
             return response;
         }
     }

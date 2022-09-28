@@ -7,8 +7,8 @@ namespace AuthorTranslatorService.Application.Abstraction.Persistence.Repositori
     {
         Task<TEntity> Get(Expression<Func<TEntity, bool>> filter);
         Task<List<TEntity>> GetList(Expression<Func<TEntity, bool>> filter = null!);
-        public Task<TEntity> Add(TEntity entity);
-        public Task<TEntity> Update(TEntity entity);
-        public Task<TEntity> Delete(TEntity entity);
+        public Task Add(TEntity entity);
+        public Task Update(TEntity entity);
+        public Task Delete(Guid id);
     }
 }

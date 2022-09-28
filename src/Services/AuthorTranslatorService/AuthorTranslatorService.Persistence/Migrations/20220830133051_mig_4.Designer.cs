@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AuthorTranslatorService.Persistence.Migrations
 {
-    [DbContext(typeof(AuthorTranslatorServiceContext))]
+    [DbContext(typeof(MSSQLDbContext))]
     [Migration("20220830133051_mig_4")]
     partial class mig_4
     {

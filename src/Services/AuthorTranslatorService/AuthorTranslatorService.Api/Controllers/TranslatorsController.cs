@@ -1,5 +1,8 @@
-﻿using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorCommand;
+﻿using AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery;
+using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorCommand;
 using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorReviewCommand;
+using AuthorTranslatorService.Application.Features.Translators.Queries.GetAllTranslatorsQuery;
+using AuthorTranslatorService.Application.Features.Translators.Queries.GetTranslatorByIdQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +28,20 @@ namespace AuthorTranslatorService.Api.Controllers
 
         [HttpPost("addreview")]
         public async Task<IActionResult> AddReview([FromBody] AddTranslatorReviewCommandRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("getbyid")]
+        public async Task<IActionResult> GetById(GetTranslatorByIdQueryRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("getall")]
+        public async Task<IActionResult> GetAll(GetAllTranslatorsQueryRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);

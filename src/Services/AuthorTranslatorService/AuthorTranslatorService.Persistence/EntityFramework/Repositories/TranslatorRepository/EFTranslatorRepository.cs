@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AuthorTranslatorService.Persistence.EntityFramework.Repositories.TranslatorRepository
 {
-    public class EFTranslatorRepository : EFBaseRepository<Translator, AuthorTranslatorServiceContext>, ITranslatorRepository
+    public class EFTranslatorRepository : EFBaseRepository<Translator, MSSQLDbContext>, ITranslatorRepository
     {
         public async Task AddReview(TranslatorReview review)
         {
-            using (DbContext context = new AuthorTranslatorServiceContext())
+            using (DbContext context = new MSSQLDbContext())
             {
                 await context.Set<TranslatorReview>().AddAsync(review);
 

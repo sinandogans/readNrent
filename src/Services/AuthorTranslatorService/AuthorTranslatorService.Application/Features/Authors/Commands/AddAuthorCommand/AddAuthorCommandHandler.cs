@@ -20,9 +20,10 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.AddAutho
         {
             var authorToAdd = _mapper.Map<Author>(request);
             authorToAdd.Id = Guid.NewGuid();
-            var addedAuthor = await _authorRepository.Add(authorToAdd);
 
-            var response = _mapper.Map<AddAuthorCommandResponse>(addedAuthor);
+            await _authorRepository.Add(authorToAdd);
+
+            var response = _mapper.Map<AddAuthorCommandResponse>(authorToAdd);
             return response;
         }
     }

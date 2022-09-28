@@ -1,6 +1,7 @@
 ﻿using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand;
 using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorReviewCommand;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery;
+using AuthorTranslatorService.Application.Features.Authors.Queries.GetAuthorByIdQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,13 @@ namespace AuthorTranslatorService.Api.Controllers
 
         [HttpGet("getall")]
         public async Task<IActionResult> GetAll(GetAllAuthorsQueryRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpGet("getbyid")]
+        public async Task<IActionResult> GetById(GetAuthorByIdQueryRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);

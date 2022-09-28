@@ -20,7 +20,7 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.AddAutho
         {
             var reviewToAdd = _mapper.Map<AuthorReview>(request);
             reviewToAdd.Id = Guid.NewGuid();
-            reviewToAdd.ReviewDate = DateTime.Now;
+            reviewToAdd.Date = DateTime.Now;
 
             await _authorRepository.AddReview(reviewToAdd);
 

@@ -1,9 +1,11 @@
 using AuthorTranslatorService.Application.Extensions.IoC;
 using AuthorTranslatorService.Persistence.Extensions.IoC;
+using AuthorTranslatorService.Persistence.MongoDbDriver.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<MongoDbOptions>(builder.Configuration.GetSection("MongoDB"));
 
 builder.Services.AddControllers();
 builder.Services.AddApplicationRegistration();

@@ -21,9 +21,9 @@ namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddT
             var translatorToAdd = _mapper.Map<Translator>(request);
             translatorToAdd.Id = Guid.NewGuid();
 
-            var addedTranslator = await _translatorRepository.Add(translatorToAdd);
+            await _translatorRepository.Add(translatorToAdd);
 
-            var response = _mapper.Map<AddTranslatorCommandResponse>(addedTranslator);
+            var response = _mapper.Map<AddTranslatorCommandResponse>(translatorToAdd);
             return response;
         }
     }

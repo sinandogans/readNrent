@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace AuthorTranslatorService.Persistence.EntityFramework.Repositories.BaseRepository
 {
-    public class EFBaseRepository<TEntity, TContext> : IBaseRepository<TEntity>
+    public abstract class EFBaseRepository<TEntity, TContext> : IBaseRepository<TEntity>
         where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {
@@ -27,33 +27,31 @@ namespace AuthorTranslatorService.Persistence.EntityFramework.Repositories.BaseR
             }
         }
 
-        public async Task<TEntity> Add(TEntity entity)
+        public async Task Add(TEntity entity)
         {
             using (TContext context = new TContext())
             {
                 await context.Set<TEntity>().AddAsync(entity);
                 await context.SaveChangesAsync();
-                return entity;
             }
         }
 
-        public async Task<TEntity> Delete(TEntity entity)
+        public async Task Delete(Guid id)
         {
             using (TContext context = new TContext())
             {
+                var entity = await context.Set<TEntity>().FindAsync(id);
                 context.Set<TEntity>().Remove(entity);
                 await context.SaveChangesAsync();
-                return entity;
             }
         }
 
-        public async Task<TEntity> Update(TEntity entity)
+        public async Task Update(TEntity entity)
         {
             using (TContext context = new TContext())
             {
                 context.Set<TEntity>().Update(entity);
                 await context.SaveChangesAsync();
-                return entity;
             }
         }
     }

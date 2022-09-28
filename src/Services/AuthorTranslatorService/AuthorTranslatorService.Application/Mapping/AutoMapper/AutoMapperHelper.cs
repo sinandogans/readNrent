@@ -1,6 +1,5 @@
 ﻿using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand;
 using AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorReviewCommand;
-using AuthorTranslatorService.Application.Features.Authors.DTOs;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery;
 using AuthorTranslatorService.Application.Features.Authors.Queries.GetAuthorByIdQuery;
 using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorCommand;
@@ -16,16 +15,19 @@ namespace AuthorTranslatorService.Application.Mapping.AutoMapper
     {
         public AutoMapperHelper()
         {
-            CreateMap<Author, GetAuthorByIdQueryResponse>().ReverseMap();
-            CreateMap<GetAllAuthorRequestDTO, GetAllAuthorsQueryResponse>().ReverseMap();
-            CreateMap<Author, GetAllAuthorsDTO>().ReverseMap();
-
             CreateMap<Translator, GetTranslatorByIdQueryResponse>().ReverseMap();
             CreateMap<Translator, GetAllTranslatorsQueryResponse>().ReverseMap();
 
             //AUTHOR BEGİN
             CreateMap<Author, AddAuthorCommandRequest>().ReverseMap();
             CreateMap<Author, AddAuthorCommandResponse>().ReverseMap();
+
+            CreateMap<Author, GetAuthorByIdQueryResponse>().ReverseMap();
+            CreateMap<Author, GetAuthorByIdQueryRequest>().ReverseMap();
+
+            CreateMap<Author, GetAllAuthorsQueryResponse>().ReverseMap();
+            CreateMap<Author, GetAllAuthorsQueryRequest>().ReverseMap();
+
             //AUTHOR END
 
             //AUTHOR REVİEW BEGİN
