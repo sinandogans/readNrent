@@ -17,7 +17,15 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.DeleteAu
 
         public async Task<DeleteAuthorReviewCommandResponse> Handle(DeleteAuthorReviewCommandRequest request, CancellationToken cancellationToken)
         {
+            var review = await _authorRepository.GetReviewById(request.Id);
             await _authorRepository.DeleteReview(request.Id);
+
+            var author = await _authorRepository.GetByReviewId(request.Id);
+            author.Rating = ((author.Rating * author.ReviewCount) - review.Rating) / (author.ReviewCount - 1);
+            author.ReviewCount--;
+            author.ReviewIds.Remove(review.Id);
+            await _authorRepository.Update(author);
+
             return new DeleteAuthorReviewCommandResponse();
         }
     }

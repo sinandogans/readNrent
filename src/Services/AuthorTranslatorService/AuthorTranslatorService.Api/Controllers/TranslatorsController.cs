@@ -1,5 +1,4 @@
-﻿using AuthorTranslatorService.Application.Features.Authors.Commands.DeleteAuthorReviewCommand;
-using AuthorTranslatorService.Application.Features.Authors.Commands.UpdateAuthorCommand;
+﻿using AuthorTranslatorService.Application.Features.Authors.Commands.UpdateAuthorCommand;
 using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorCommand;
 using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorReviewCommand;
 using AuthorTranslatorService.Application.Features.Translators.Commands.DeleteTranslatorCommand;
@@ -37,35 +36,42 @@ namespace AuthorTranslatorService.Api.Controllers
         }
 
         [HttpGet("getbyid")]
-        public async Task<IActionResult> GetById(GetTranslatorByIdQueryRequest request)
+        public async Task<IActionResult> GetById([FromRoute] GetTranslatorByIdQueryRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpGet("getall")]
-        public async Task<IActionResult> GetAll(GetAllTranslatorsQueryRequest request)
+        public async Task<IActionResult> GetAll([FromRoute] GetAllTranslatorsQueryRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete(DeleteTranslatorCommandRequest request)
+        public async Task<IActionResult> Delete([FromRoute] DeleteTranslatorCommandRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPost("deletereview")]
-        public async Task<IActionResult> DeleteReview(DeleteTranslatorReviewCommandRequest request)
+        public async Task<IActionResult> DeleteReview([FromRoute] DeleteTranslatorReviewCommandRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> Update(UpdateTranslatorCommandRequest request)
+        public async Task<IActionResult> Update([FromBody] UpdateTranslatorCommandRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("updatereview")]
+        public async Task<IActionResult> UpdateReview([FromBody] UpdateTranslatorCommandRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);

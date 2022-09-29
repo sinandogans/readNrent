@@ -14,6 +14,9 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.DeleteAu
 
         public async Task<DeleteAuthorCommandResponse> Handle(DeleteAuthorCommandRequest request, CancellationToken cancellationToken)
         {
+            var author = await _authorRepository.GetById(request.Id);
+            await _authorRepository.DeleteReviews(author.ReviewIds);
+
             await _authorRepository.Delete(request.Id);
             return new DeleteAuthorCommandResponse();
         }

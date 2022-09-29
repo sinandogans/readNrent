@@ -21,8 +21,13 @@ namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddT
             var reviewToAdd = _mapper.Map<TranslatorReview>(request);
             reviewToAdd.Id = Guid.NewGuid();
             reviewToAdd.Date = DateTime.Now;
-
             await _translatorRepository.AddReview(reviewToAdd);
+
+            var translator = await _translatorRepository.GetById(reviewToAdd.TranslatorId);
+            translator.ReviewIds.Add(reviewToAdd.Id);
+            translator.Rating = ((translator.Rating * translator.ReviewCount) + reviewToAdd.Rating) / (translator.ReviewCount + 1);
+            translator.ReviewCount++;
+            await _translatorRepository.Update(translator);
 
             var response = _mapper.Map<AddTranslatorReviewCommandResponse>(reviewToAdd);
             return response;

@@ -14,7 +14,11 @@ namespace AuthorTranslatorService.Application.Features.Translators.Commands.Dele
 
         public async Task<DeleteTranslatorCommandResponse> Handle(DeleteTranslatorCommandRequest request, CancellationToken cancellationToken)
         {
+            var translator = await _translatorRepository.GetById(request.Id);
+            await _translatorRepository.DeleteReviews(translator.ReviewIds);
+
             await _translatorRepository.Delete(request.Id);
+
             return new DeleteTranslatorCommandResponse();
         }
     }
