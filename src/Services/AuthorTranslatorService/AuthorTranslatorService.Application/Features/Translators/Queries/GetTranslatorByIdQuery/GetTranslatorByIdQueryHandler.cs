@@ -1,4 +1,5 @@
 ﻿using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.TranslatorRepository;
+using AuthorTranslatorService.Application.Features.Translators.DTOs;
 using AutoMapper;
 using MediatR;
 
@@ -17,9 +18,14 @@ namespace AuthorTranslatorService.Application.Features.Translators.Queries.GetTr
 
         public async Task<GetTranslatorByIdQueryResponse> Handle(GetTranslatorByIdQueryRequest request, CancellationToken cancellationToken)
         {
-            var translator = await _translatorRepository.Get(t => t.Id == request.id);
-            var response = _mapper.Map<GetTranslatorByIdQueryResponse>(translator);
-            return response;
+            var translator = await _translatorRepository.Get(t => t.Id == request.Id);
+            var response = _mapper.Map<GetTranslatorDTO>(translator);
+            return new GetTranslatorByIdQueryResponse()
+            {
+                Message = "",
+                Success = true,
+                Data = response
+            };
         }
     }
 }

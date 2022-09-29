@@ -1,4 +1,5 @@
 ﻿using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.AuthorRepository;
+using AuthorTranslatorService.Application.Features.ResponseModel;
 using AuthorTranslatorService.Domain.Entities;
 using AutoMapper;
 using MediatR;
@@ -23,8 +24,11 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.AddAutho
 
             await _authorRepository.Add(authorToAdd);
 
-            var response = _mapper.Map<AddAuthorCommandResponse>(authorToAdd);
-            return response;
+            return new AddAuthorCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
         }
     }
 }

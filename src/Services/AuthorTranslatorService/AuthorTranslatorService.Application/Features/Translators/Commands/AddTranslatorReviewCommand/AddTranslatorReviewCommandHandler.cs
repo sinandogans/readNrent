@@ -29,8 +29,11 @@ namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddT
             translator.ReviewCount++;
             await _translatorRepository.Update(translator);
 
-            var response = _mapper.Map<AddTranslatorReviewCommandResponse>(reviewToAdd);
-            return response;
+            return new AddTranslatorReviewCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
         }
     }
 }

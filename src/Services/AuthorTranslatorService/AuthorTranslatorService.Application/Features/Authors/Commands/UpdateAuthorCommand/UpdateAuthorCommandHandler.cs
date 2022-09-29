@@ -24,7 +24,11 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.UpdateAu
                 authorToUpdate.Lastname = request.Lastname;
 
             await _authorRepository.Update(authorToUpdate);
-            return _mapper.Map<UpdateAuthorCommandResponse>(authorToUpdate);
+            return new UpdateAuthorCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
         }
     }
 }

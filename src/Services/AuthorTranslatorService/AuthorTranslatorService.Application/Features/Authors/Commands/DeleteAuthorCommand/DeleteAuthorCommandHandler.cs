@@ -18,7 +18,11 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.DeleteAu
             await _authorRepository.DeleteReviews(author.ReviewIds);
 
             await _authorRepository.Delete(request.Id);
-            return new DeleteAuthorCommandResponse();
+            return new DeleteAuthorCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
         }
     }
 }

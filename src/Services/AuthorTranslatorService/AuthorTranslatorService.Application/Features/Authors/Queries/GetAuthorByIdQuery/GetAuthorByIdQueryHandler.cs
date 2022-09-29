@@ -1,4 +1,5 @@
 ﻿using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.AuthorRepository;
+using AuthorTranslatorService.Application.Features.Authors.DTOs;
 using AutoMapper;
 using MediatR;
 
@@ -18,9 +19,14 @@ namespace AuthorTranslatorService.Application.Features.Authors.Queries.GetAuthor
         public async Task<GetAuthorByIdQueryResponse> Handle(GetAuthorByIdQueryRequest request, CancellationToken cancellationToken)
         {
             var author = await _authorRepository.Get(a => a.Id == request.Id);
-            var response = _mapper.Map<GetAuthorByIdQueryResponse>(author);
+            var response = _mapper.Map<GetAuthorDTO>(author);
 
-            return response;
+            return new GetAuthorByIdQueryResponse()
+            {
+                Message = "",
+                Success = true,
+                Data = response
+            };
         }
     }
 }

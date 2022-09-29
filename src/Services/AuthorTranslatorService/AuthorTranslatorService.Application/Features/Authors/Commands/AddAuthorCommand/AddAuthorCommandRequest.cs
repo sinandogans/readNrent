@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AuthorTranslatorService.Application.Features.ResponseModel;
+using MediatR;
 
 namespace AuthorTranslatorService.Application.Features.Authors.Commands.AddAuthorCommand
 {

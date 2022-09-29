@@ -23,8 +23,11 @@ namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddT
 
             await _translatorRepository.Add(translatorToAdd);
 
-            var response = _mapper.Map<AddTranslatorCommandResponse>(translatorToAdd);
-            return response;
+            return new AddTranslatorCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
         }
     }
 }

@@ -19,7 +19,11 @@ namespace AuthorTranslatorService.Application.Features.Translators.Commands.Dele
 
             await _translatorRepository.Delete(request.Id);
 
-            return new DeleteTranslatorCommandResponse();
+            return new DeleteTranslatorCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
         }
     }
 }

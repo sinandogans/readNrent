@@ -1,13 +1,8 @@
-﻿namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorReviewCommand
+﻿using AuthorTranslatorService.Application.Features.ResponseModel;
+
+namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorReviewCommand
 {
-    public class AddTranslatorReviewCommandResponse
+    public class AddTranslatorReviewCommandResponse : Response
     {
-        public Guid Id { get; set; }
-        public string Comment { get; set; }
-        public double Rating { get; set; }
-        public DateTime ReviewDate { get; set; }
-        public Guid TranslatorId { get; set; }
-        public Guid UserId { get; set; }
-        public string? Username { get; set; }
     }
 }

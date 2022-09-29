@@ -26,7 +26,11 @@ namespace AuthorTranslatorService.Application.Features.Translators.Commands.Dele
             translator.ReviewIds.Remove(review.Id);
             await _translatorRepository.Update(translator);
 
-            return new DeleteTranslatorReviewCommandResponse();
+            return new DeleteTranslatorReviewCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
         }
     }
 }

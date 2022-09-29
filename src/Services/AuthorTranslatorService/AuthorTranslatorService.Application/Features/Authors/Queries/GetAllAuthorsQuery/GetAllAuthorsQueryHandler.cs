@@ -1,10 +1,11 @@
 ﻿using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.AuthorRepository;
+using AuthorTranslatorService.Application.Features.Authors.DTOs;
 using AutoMapper;
 using MediatR;
 
 namespace AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery
 {
-    public class GetAllAuthorsQueryHandler : IRequestHandler<GetAllAuthorsQueryRequest, List<GetAllAuthorsQueryResponse>>
+    public class GetAllAuthorsQueryHandler : IRequestHandler<GetAllAuthorsQueryRequest, GetAllAuthorsQueryResponse>
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
@@ -15,11 +16,17 @@ namespace AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAut
             _mapper = mapper;
         }
 
-        async Task<List<GetAllAuthorsQueryResponse>> IRequestHandler<GetAllAuthorsQueryRequest, List<GetAllAuthorsQueryResponse>>.Handle(GetAllAuthorsQueryRequest request, CancellationToken cancellationToken)
+        async Task<GetAllAuthorsQueryResponse> IRequestHandler<GetAllAuthorsQueryRequest, GetAllAuthorsQueryResponse>.Handle(GetAllAuthorsQueryRequest request, CancellationToken cancellationToken)
         {
             var authors = await _authorRepository.GetList();
-            var response = _mapper.Map<List<GetAllAuthorsQueryResponse>>(authors);
-            return response;
+            var response = _mapper.Map<List<GetAuthorDTO>>(authors);
+
+            return new GetAllAuthorsQueryResponse()
+            {
+                Message = "",
+                Success = true,
+                Data = response
+            };
         }
     }
 }

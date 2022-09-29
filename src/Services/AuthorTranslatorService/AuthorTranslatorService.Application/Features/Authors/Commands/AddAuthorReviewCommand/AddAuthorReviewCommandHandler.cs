@@ -29,8 +29,11 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.AddAutho
             author.ReviewCount++;
             await _authorRepository.Update(author);
 
-            var response = _mapper.Map<AddAuthorReviewCommandResponse>(reviewToAdd);
-            return response;
+            return new AddAuthorReviewCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
         }
     }
 }

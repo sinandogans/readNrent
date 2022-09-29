@@ -1,13 +1,10 @@
-﻿namespace AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery
+﻿using AuthorTranslatorService.Application.Features.Authors.DTOs;
+using AuthorTranslatorService.Application.Features.ResponseModel;
+
+namespace AuthorTranslatorService.Application.Features.Authors.Queries.GetAllAuthorsQuery
 {
-    public class GetAllAuthorsQueryResponse
+    public class GetAllAuthorsQueryResponse : DataResponse<List<GetAuthorDTO>>
     {
-        public Guid Id { get; set; }
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
-        public double? Rating { get; set; }
-        public int ReviewCount { get; set; }
-        public List<Guid> ReviewIds { get; set; }
-        public List<Guid> BookIds { get; set; }
+
     }
 }

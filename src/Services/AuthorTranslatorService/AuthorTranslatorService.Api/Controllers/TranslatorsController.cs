@@ -35,7 +35,7 @@ namespace AuthorTranslatorService.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("getbyid")]
+        [HttpGet("getbyid/{Id}")]
         public async Task<IActionResult> GetById([FromRoute] GetTranslatorByIdQueryRequest request)
         {
             var response = await _mediator.Send(request);
@@ -49,14 +49,14 @@ namespace AuthorTranslatorService.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPost("delete")]
+        [HttpPost("delete/{Id}")]
         public async Task<IActionResult> Delete([FromRoute] DeleteTranslatorCommandRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);
         }
 
-        [HttpPost("deletereview")]
+        [HttpPost("deletereview/{Id}")]
         public async Task<IActionResult> DeleteReview([FromRoute] DeleteTranslatorReviewCommandRequest request)
         {
             var response = await _mediator.Send(request);

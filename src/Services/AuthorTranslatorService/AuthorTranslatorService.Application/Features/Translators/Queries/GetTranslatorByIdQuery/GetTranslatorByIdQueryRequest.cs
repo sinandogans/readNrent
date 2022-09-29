@@ -4,6 +4,6 @@ namespace AuthorTranslatorService.Application.Features.Translators.Queries.GetTr
 {
     public class GetTranslatorByIdQueryRequest : IRequest<GetTranslatorByIdQueryResponse>
     {
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
     }
 }

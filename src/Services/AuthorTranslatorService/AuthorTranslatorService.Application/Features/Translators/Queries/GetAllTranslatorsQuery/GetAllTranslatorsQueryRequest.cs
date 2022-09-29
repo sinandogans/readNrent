@@ -2,7 +2,7 @@
 
 namespace AuthorTranslatorService.Application.Features.Translators.Queries.GetAllTranslatorsQuery
 {
-    public class GetAllTranslatorsQueryRequest : IRequest<List<GetAllTranslatorsQueryResponse>>
+    public class GetAllTranslatorsQueryRequest : IRequest<GetAllTranslatorsQueryResponse>
     {
     }
 }
