@@ -29,12 +29,12 @@ namespace AuthorTranslatorService.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPost("addreview")]
-        public async Task<IActionResult> AddReview([FromBody] AddAuthorReviewCommandRequest request)
-        {
-            var response = await _mediator.Send(request);
-            return Ok(response);
-        }
+        //[HttpPost("addreview")]
+        //public async Task<IActionResult> AddReview([FromBody] AddAuthorReviewCommandRequest request)
+        //{
+        //    var response = await _mediator.Send(request);
+        //    return Ok(response);
+        //}
 
         [HttpGet("getall")]
         public async Task<IActionResult> GetAll([FromRoute] GetAllAuthorsQueryRequest request)
@@ -57,12 +57,12 @@ namespace AuthorTranslatorService.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPost("deletereview/{Id}")]
-        public async Task<IActionResult> DeleteReview([FromRoute] DeleteAuthorReviewCommandRequest request)
-        {
-            var response = await _mediator.Send(request);
-            return Ok(response);
-        }
+        //[HttpPost("deletereview/{Id}")]
+        //public async Task<IActionResult> DeleteReview([FromRoute] DeleteAuthorReviewCommandRequest request)
+        //{
+        //    var response = await _mediator.Send(request);
+        //    return Ok(response);
+        //}
 
         [HttpPost("update")]
         public async Task<IActionResult> Update([FromBody] UpdateAuthorCommandRequest request)
@@ -71,11 +71,11 @@ namespace AuthorTranslatorService.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPost("updatereview")]
-        public async Task<IActionResult> UpdateReview([FromBody] UpdateAuthorReviewCommandRequest request)
-        {
-            var response = await _mediator.Send(request);
-            return Ok(response);
-        }
+        //[HttpPost("updatereview")]
+        //public async Task<IActionResult> UpdateReview([FromBody] UpdateAuthorReviewCommandRequest request)
+        //{
+        //    var response = await _mediator.Send(request);
+        //    return Ok(response);
+        //}
     }
 }

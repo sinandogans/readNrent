@@ -1,4 +1,5 @@
 ﻿using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.AuthorRepository;
+using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.AuthorReviewRepository;
 using AutoMapper;
 using MediatR;
 
@@ -7,18 +8,20 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.DeleteAu
     public class DeleteAuthorReviewCommandHandler : IRequestHandler<DeleteAuthorReviewCommandRequest, DeleteAuthorReviewCommandResponse>
     {
         private readonly IAuthorRepository _authorRepository;
+        private readonly IAuthorReviewRepository _authorReviewRepository;
         private readonly IMapper _mapper;
 
-        public DeleteAuthorReviewCommandHandler(IAuthorRepository authorRepository, IMapper mapper)
+        public DeleteAuthorReviewCommandHandler(IAuthorRepository authorRepository, IMapper mapper, IAuthorReviewRepository authorReviewRepository)
         {
             _authorRepository = authorRepository;
             _mapper = mapper;
+            _authorReviewRepository = authorReviewRepository;
         }
 
         public async Task<DeleteAuthorReviewCommandResponse> Handle(DeleteAuthorReviewCommandRequest request, CancellationToken cancellationToken)
         {
-            var review = await _authorRepository.GetReviewById(request.Id);
-            await _authorRepository.DeleteReview(request.Id);
+            var review = await _authorReviewRepository.GetById(request.Id);
+            await _authorReviewRepository.Delete(request.Id);
 
             var author = await _authorRepository.GetByReviewId(request.Id);
             author.Rating = ((author.Rating * author.ReviewCount) - review.Rating) / (author.ReviewCount - 1);

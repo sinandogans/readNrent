@@ -1,4 +1,5 @@
 ﻿using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.TranslatorRepository;
+using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.TranslatorReviewRepository;
 using AuthorTranslatorService.Domain.Entities;
 using AutoMapper;
 using MediatR;
@@ -8,12 +9,14 @@ namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddT
     public class AddTranslatorReviewCommandHandler : IRequestHandler<AddTranslatorReviewCommandRequest, AddTranslatorReviewCommandResponse>
     {
         private readonly ITranslatorRepository _translatorRepository;
+        private readonly ITranslatorReviewRepository _translatorReviewRepository;
         private readonly IMapper _mapper;
 
-        public AddTranslatorReviewCommandHandler(ITranslatorRepository translatorRepository, IMapper mapper)
+        public AddTranslatorReviewCommandHandler(ITranslatorRepository translatorRepository, IMapper mapper, ITranslatorReviewRepository translatorReviewRepository)
         {
             _translatorRepository = translatorRepository;
             _mapper = mapper;
+            _translatorReviewRepository = translatorReviewRepository;
         }
 
         public async Task<AddTranslatorReviewCommandResponse> Handle(AddTranslatorReviewCommandRequest request, CancellationToken cancellationToken)
@@ -21,7 +24,7 @@ namespace AuthorTranslatorService.Application.Features.Translators.Commands.AddT
             var reviewToAdd = _mapper.Map<TranslatorReview>(request);
             reviewToAdd.Id = Guid.NewGuid();
             reviewToAdd.Date = DateTime.Now;
-            await _translatorRepository.AddReview(reviewToAdd);
+            await _translatorReviewRepository.Add(reviewToAdd);
 
             var translator = await _translatorRepository.GetById(reviewToAdd.TranslatorId);
             translator.ReviewIds.Add(reviewToAdd.Id);

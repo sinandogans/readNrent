@@ -17,8 +17,7 @@ namespace AuthorTranslatorService.Application.Mapping.AutoMapper
 
             //
 
-            CreateMap<TranslatorReview, AddTranslatorReviewCommandRequest>().ReverseMap();
-            CreateMap<TranslatorReview, AddTranslatorReviewCommandResponse>().ReverseMap();
+
         }
     }
 }

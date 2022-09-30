@@ -1,4 +1,5 @@
 ﻿using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.TranslatorRepository;
+using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.TranslatorReviewRepository;
 using MediatR;
 
 namespace AuthorTranslatorService.Application.Features.Authors.Commands.UpdateAuthorReviewCommand
@@ -6,15 +7,17 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.UpdateAu
     public class UpdateTranslatorReviewCommandHandler : IRequestHandler<UpdateTranslatorReviewCommandRequest, UpdateTranslatorReviewCommandResponse>
     {
         private readonly ITranslatorRepository _translatorRepository;
+        private readonly ITranslatorReviewRepository _translatorReviewRepository;
 
-        public UpdateTranslatorReviewCommandHandler(ITranslatorRepository translatorRepository)
+        public UpdateTranslatorReviewCommandHandler(ITranslatorRepository translatorRepository, ITranslatorReviewRepository translatorReviewRepository)
         {
             _translatorRepository = translatorRepository;
+            _translatorReviewRepository = translatorReviewRepository;
         }
 
         public async Task<UpdateTranslatorReviewCommandResponse> Handle(UpdateTranslatorReviewCommandRequest request, CancellationToken cancellationToken)
         {
-            var reviewToUpdate = await _translatorRepository.GetReviewById(request.Id);
+            var reviewToUpdate = await _translatorReviewRepository.GetById(request.Id);
             if (request.Comment != null && request.Comment != reviewToUpdate.Comment)
             {
                 reviewToUpdate.Comment = request.Comment;
@@ -27,7 +30,7 @@ namespace AuthorTranslatorService.Application.Features.Authors.Commands.UpdateAu
                 reviewToUpdate.Rating = (double)request.Rating;
             }
 
-            await _translatorRepository.UpdateReview(reviewToUpdate);
+            await _translatorReviewRepository.Update(reviewToUpdate);
 
             return new UpdateTranslatorReviewCommandResponse()
             {

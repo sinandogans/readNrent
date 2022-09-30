@@ -7,12 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Abstraction\Persistence\Repositories\AuthorReviewRepository\**" />
     <Compile Remove="Abstraction\Persistence\Repositories\TranslatorReviewRepository\**" />
-    <EmbeddedResource Remove="Abstraction\Persistence\Repositories\AuthorReviewRepository\**" />
     <EmbeddedResource Remove="Abstraction\Persistence\Repositories\TranslatorReviewRepository\**" />
-    <None Remove="Abstraction\Persistence\Repositories\AuthorReviewRepository\**" />
     <None Remove="Abstraction\Persistence\Repositories\TranslatorReviewRepository\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Abstraction\Persistence\Repositories\TranslatorReviewRepository\ITranslatorReviewRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,13 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.2" />
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\AuthorReviews\DTOs\" />
+    <Folder Include="Features\AuthorReviews\Queries\" />
+    <Folder Include="Features\TranslatorReviews\DTOs\" />
+    <Folder Include="Features\TranslatorReviews\Queries\" />
   </ItemGroup>
 
 </Project>

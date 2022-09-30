@@ -9,16 +9,10 @@
   <ItemGroup>
     <Compile Remove="EntityFramework\**" />
     <Compile Remove="Migrations\**" />
-    <Compile Remove="MongoDbDriver\Repositories\AuthorReviewRepository\**" />
-    <Compile Remove="MongoDbDriver\Repositories\TranslatorReviewRepository\**" />
     <EmbeddedResource Remove="EntityFramework\**" />
     <EmbeddedResource Remove="Migrations\**" />
-    <EmbeddedResource Remove="MongoDbDriver\Repositories\AuthorReviewRepository\**" />
-    <EmbeddedResource Remove="MongoDbDriver\Repositories\TranslatorReviewRepository\**" />
     <None Remove="EntityFramework\**" />
     <None Remove="Migrations\**" />
-    <None Remove="MongoDbDriver\Repositories\AuthorReviewRepository\**" />
-    <None Remove="MongoDbDriver\Repositories\TranslatorReviewRepository\**" />
   </ItemGroup>
 
   <ItemGroup>

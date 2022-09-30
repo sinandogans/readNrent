@@ -1,5 +1,4 @@
 ﻿using AuthorTranslatorService.Application.Abstraction.Persistence.Repositories.AuthorRepository;
-using AuthorTranslatorService.Application.Features.ResponseModel;
 using AuthorTranslatorService.Domain.Entities;
 using AutoMapper;
 using MediatR;

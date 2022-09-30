@@ -14,49 +14,49 @@ namespace AuthorTranslatorService.Persistence.MongoDbDriver.Repositories.AuthorR
         {
             _context = context;
         }
-        public async Task AddReview(AuthorReview review)
-        {
-            await _context.AuthorReviewsCollection.InsertOneAsync(review);
-        }
+        //public async Task AddReview(AuthorReview review)
+        //{
+        //    await _context.AuthorReviewsCollection.InsertOneAsync(review);
+        //}
 
-        public async Task DeleteReview(Guid reviewId)
-        {
-            await _context.AuthorReviewsCollection.DeleteOneAsync(r => r.Id == reviewId);
-        }
+        //public async Task DeleteReview(Guid reviewId)
+        //{
+        //    await _context.AuthorReviewsCollection.DeleteOneAsync(r => r.Id == reviewId);
+        //}
 
-        public async Task DeleteReviews(List<Guid> reviewIds)
-        {
-            foreach (var reviewId in reviewIds)
-                await this.DeleteReview(reviewId);
-        }
+        //public async Task DeleteReviews(List<Guid> reviewIds)
+        //{
+        //    foreach (var reviewId in reviewIds)
+        //        await this.DeleteReview(reviewId);
+        //}
 
         public async Task<Author> GetById(Guid id)
         {
-            var author = await _context.AuthorsCollection.Find(a => a.Id == id).SingleOrDefaultAsync();
+            var author = await this.Get(a => a.Id == id);
             return author;
         }
 
         public async Task<Author> GetByReviewId(Guid reviewId)
         {
-            var author = await _context.AuthorsCollection.Find(a => a.ReviewIds.Contains(reviewId)).SingleOrDefaultAsync();
+            var author = await this.Get(a => a.ReviewIds.Contains(reviewId));
             return author;
         }
 
-        public async Task<AuthorReview> GetReviewById(Guid id)
-        {
-            var review = await _context.AuthorReviewsCollection.Find(r => r.Id == id).SingleOrDefaultAsync();
-            return review;
-        }
+        //public async Task<AuthorReview> GetReviewById(Guid id)
+        //{
+        //    var review = await _context.AuthorReviewsCollection.Find(r => r.Id == id).SingleOrDefaultAsync();
+        //    return review;
+        //}
 
-        public async Task<List<AuthorReview>> GetReviews(Guid id)
-        {
-            var reviews = await _context.AuthorReviewsCollection.Find(r => r.AuthorId == id).ToListAsync();
-            return reviews;
-        }
+        //public async Task<List<AuthorReview>> GetReviews(Guid id)
+        //{
+        //    var reviews = await _context.AuthorReviewsCollection.Find(r => r.AuthorId == id).ToListAsync();
+        //    return reviews;
+        //}
 
-        public async Task UpdateReview(AuthorReview review)
-        {
-            await _context.AuthorReviewsCollection.ReplaceOneAsync(r => r.Id == review.Id, review);
-        }
+        //public async Task UpdateReview(AuthorReview review)
+        //{
+        //    await _context.AuthorReviewsCollection.ReplaceOneAsync(r => r.Id == review.Id, review);
+        //}
     }
 }
