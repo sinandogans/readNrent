@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LibraryService.Application.Features.UserBooks.Commands.AddUserBookCommand;
+using LibraryService.Application.Features.UserLibraries.Commands.AddLibraryBookCommand;
 using LibraryService.Domain.Entities;
 
 namespace LibraryService.Application.Mapping.AutoMapper

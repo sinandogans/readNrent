@@ -1,6 +1,6 @@
 ﻿using BookService.Domain.Entities;
 
-namespace BookService.Application.Features.Books.Commands.AddBookGenreCommand
+namespace BookService.Application.Features.Books.Commands.AddGenreToBookCommand
 {
     public class AddGenreToBookCommandResponse
     {

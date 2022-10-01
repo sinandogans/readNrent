@@ -3,7 +3,7 @@ using LibraryService.Application.Abstraction.Persistence.UserLibraryRepository;
 using LibraryService.Domain.Entities;
 using MediatR;
 
-namespace LibraryService.Application.Features.UserBooks.Commands.AddUserBookCommand
+namespace LibraryService.Application.Features.UserLibraries.Commands.AddLibraryBookCommand
 {
     public class AddLibraryBookCommandHandler : IRequestHandler<AddLibraryBookCommandRequest, AddLibraryBookCommandResponse>
     {

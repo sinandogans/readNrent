@@ -3,7 +3,7 @@ using BookService.Application.Abstraction.Persistence.BookRepository;
 using BookService.Domain.Entities;
 using MediatR;
 
-namespace BookService.Application.Features.Books.Commands.AddBookPublishCommand
+namespace BookService.Application.Features.Books.Commands.AddPublishCommand
 {
     public class AddPublishCommandHandler : IRequestHandler<AddPublishCommandRequest, AddPublishCommandResponse>
     {

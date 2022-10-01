@@ -1,4 +1,4 @@
-﻿namespace LibraryService.Application.Features.UserBooks.Commands.AddUserBookCommand
+﻿namespace LibraryService.Application.Features.UserLibraries.Commands.AddLibraryBookCommand
 {
     public class AddLibraryBookCommandResponse
     {

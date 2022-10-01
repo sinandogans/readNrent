@@ -1,9 +1,9 @@
 ﻿using BookService.Application.Features.Books.Commands.AddAuthorToBookCommand;
 using BookService.Application.Features.Books.Commands.AddBookCommand;
-using BookService.Application.Features.Books.Commands.AddBookGenreCommand;
 using BookService.Application.Features.Books.Commands.AddBookImageCommand;
-using BookService.Application.Features.Books.Commands.AddBookPublishCommand;
 using BookService.Application.Features.Books.Commands.AddBookReviewCommand;
+using BookService.Application.Features.Books.Commands.AddGenreToBookCommand;
+using BookService.Application.Features.Books.Commands.AddPublishCommand;
 using BookService.Application.Features.Books.Commands.AddTranslatorToBookCommand;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

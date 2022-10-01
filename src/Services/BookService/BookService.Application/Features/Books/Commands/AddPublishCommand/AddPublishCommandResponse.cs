@@ -1,4 +1,4 @@
-﻿namespace BookService.Application.Features.Books.Commands.AddBookPublishCommand
+﻿namespace BookService.Application.Features.Books.Commands.AddPublishCommand
 {
     public class AddPublishCommandResponse
     {

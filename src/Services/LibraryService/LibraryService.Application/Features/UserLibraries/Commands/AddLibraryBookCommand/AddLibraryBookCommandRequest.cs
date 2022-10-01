@@ -1,7 +1,7 @@
 ﻿using LibraryService.Domain.Enums;
 using MediatR;
 
-namespace LibraryService.Application.Features.UserBooks.Commands.AddUserBookCommand
+namespace LibraryService.Application.Features.UserLibraries.Commands.AddLibraryBookCommand
 {
     public class AddLibraryBookCommandRequest : IRequest<AddLibraryBookCommandResponse>
     {

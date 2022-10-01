@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace BookService.Application.Features.Books.Commands.AddBookGenreCommand
+namespace BookService.Application.Features.Books.Commands.AddGenreToBookCommand
 {
     public class AddGenreToBookCommandRequest : IRequest<AddGenreToBookCommandResponse>
     {

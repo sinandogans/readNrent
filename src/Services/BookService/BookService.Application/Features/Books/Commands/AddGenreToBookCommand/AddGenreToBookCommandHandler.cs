@@ -3,7 +3,7 @@ using BookService.Application.Abstraction.Persistence.BookRepository;
 using BookService.Application.Abstraction.Persistence.GenreRepository;
 using MediatR;
 
-namespace BookService.Application.Features.Books.Commands.AddBookGenreCommand
+namespace BookService.Application.Features.Books.Commands.AddGenreToBookCommand
 {
     public class AddGenreToBookCommandHandler : IRequestHandler<AddGenreToBookCommandRequest, AddGenreToBookCommandResponse>
     {
