@@ -1,6 +1,4 @@
-﻿using BookService.Domain.Entities;
-
-namespace BookService.Application.Features.Books.Commands.AddAuthorToBookCommand
+﻿namespace BookService.Application.Features.Books.Commands.AddAuthorToBookCommand
 {
     public class AddAuthorToBookCommandResponse
     {

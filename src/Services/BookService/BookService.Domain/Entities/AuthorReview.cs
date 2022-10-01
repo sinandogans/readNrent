@@ -1,14 +1,15 @@
 ﻿using BookService.Domain.Abstraction;
-using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace BookService.Domain.Entities
 {
-    public class BookReview : IEntity
+    public class AuthorReview : IEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
+
         public string Comment { get; set; }
 
         [BsonRepresentation(BsonType.Double)]
@@ -18,10 +19,15 @@ namespace BookService.Domain.Entities
         public DateTime Date { get; set; }
 
         [BsonRepresentation(BsonType.String)]
-        public Guid BookId { get; set; }
+        public Guid AuthorId { get; set; }
 
         [BsonRepresentation(BsonType.String)]
         public Guid UserId { get; set; }
-        //public Book Book { get; set; }
+
+        //[BsonIgnore]
+        //public User User { get; set; }
+
+        //[BsonIgnore]
+        //public Author Author { get; set; }
     }
 }

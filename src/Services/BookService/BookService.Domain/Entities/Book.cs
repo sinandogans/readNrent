@@ -1,4 +1,6 @@
 ﻿using BookService.Domain.Abstraction;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace BookService.Domain.Entities
 {
@@ -6,25 +8,43 @@ namespace BookService.Domain.Entities
     {
         public Book()
         {
-            Images = new HashSet<BookImage>();
-            Reviews = new HashSet<BookReview>();
-            Genres = new HashSet<Genre>();
-            Authors = new HashSet<AuthorModel>();
-            Translators = new HashSet<TranslatorModel>();
+            PublishIds = new List<Guid>();
+            GenreIds = new List<Guid>();
+            BookImageIds = new List<Guid>();
+            ReviewIds = new List<Guid>();
+            AuthorIds = new List<Guid>();
+            TranslatorIds = new List<Guid>();
         }
+        [BsonId]
+        [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
-        public Guid LanguageId { get; set; }
-        public Guid? PublishId { get; set; }
         public string ISBN { get; set; }
         public string Name { get; set; }
-        public int Pages { get; set; }
+        public string Pages { get; set; }
         public string Description { get; set; }
-        public Language Language { get; set; }
-        public Publish Publish { get; set; }
-        public ICollection<Genre> Genres { get; set; }
-        public ICollection<BookImage> Images { get; set; }
-        public ICollection<BookReview> Reviews { get; set; }
-        public ICollection<AuthorModel> Authors { get; set; }
-        public ICollection<TranslatorModel> Translators { get; set; }
+
+        [BsonRepresentation(BsonType.Int32)]
+        public int ReviewCount { get; set; }
+
+        [BsonRepresentation(BsonType.String)]
+        public Guid LanguageId { get; set; }
+
+        [BsonRepresentation(BsonType.String)]
+        public ICollection<Guid> PublishIds { get; set; }
+
+        [BsonRepresentation(BsonType.String)]
+        public ICollection<Guid> GenreIds { get; set; }
+
+        [BsonRepresentation(BsonType.String)]
+        public ICollection<Guid> BookImageIds { get; set; }
+
+        [BsonRepresentation(BsonType.String)]
+        public ICollection<Guid> ReviewIds { get; set; }
+
+        [BsonRepresentation(BsonType.String)]
+        public ICollection<Guid> AuthorIds { get; set; }
+
+        [BsonRepresentation(BsonType.String)]
+        public ICollection<Guid> TranslatorIds { get; set; }
     }
 }

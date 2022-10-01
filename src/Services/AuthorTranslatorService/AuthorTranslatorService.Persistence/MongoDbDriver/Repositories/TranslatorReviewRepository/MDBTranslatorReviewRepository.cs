@@ -2,7 +2,6 @@
 using AuthorTranslatorService.Domain.Entities;
 using AuthorTranslatorService.Persistence.MongoDbDriver.Contexts;
 using AuthorTranslatorService.Persistence.MongoDbDriver.Repositories.BaseRepository;
-using MongoDB.Driver;
 
 namespace AuthorTranslatorService.Persistence.MongoDbDriver.Repositories.TranslatorReviewRepository
 {

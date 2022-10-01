@@ -1,4 +1,6 @@
 ﻿using BookService.Domain.Abstraction;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace BookService.Domain.Entities
 {
@@ -6,10 +8,12 @@ namespace BookService.Domain.Entities
     {
         public Publisher()
         {
-            Publishes = new HashSet<Publish>();
+            PublishIds = new List<Guid>();
         }
+        [BsonId]
+        [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Publish> Publishes { get; set; }
+        public ICollection<Guid> PublishIds { get; set; }
     }
 }

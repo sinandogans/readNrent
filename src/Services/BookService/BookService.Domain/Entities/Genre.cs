@@ -1,5 +1,6 @@
 ﻿using BookService.Domain.Abstraction;
-using System.Text.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace BookService.Domain.Entities
 {
@@ -7,17 +8,22 @@ namespace BookService.Domain.Entities
     {
         public Genre()
         {
-            Books = new HashSet<Book>();
-            SubGenres = new HashSet<Genre>();
+            BookIds = new List<Guid>();
+            SubGenreIds = new List<Guid>();
         }
+
+        [BsonId]
+        [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
         public string Name { get; set; }
+
+        [BsonRepresentation(BsonType.String)]
         public Guid? ParentId { get; set; }
-        [JsonIgnore]
-        public Genre Parent { get; set; }
-        [JsonIgnore]
-        public ICollection<Book> Books { get; set; }
-        [JsonIgnore]
-        public ICollection<Genre> SubGenres { get; set; }
+
+        [BsonRepresentation(BsonType.String)]
+        public ICollection<Guid> BookIds { get; set; }
+
+        [BsonRepresentation(BsonType.String)]
+        public ICollection<Guid> SubGenreIds { get; set; }
     }
 }

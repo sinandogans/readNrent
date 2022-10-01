@@ -4,15 +4,11 @@ using MongoDB.Bson;
 
 namespace BookService.Domain.Entities
 {
-    public class BookImage : IEntity
+    public class User : IEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
-        public string Path { get; set; }
-
-        [BsonRepresentation(BsonType.String)]
-        public Guid BookId { get; set; }
-        //public Book Book { get; set; }
+        public string Username { get; set; }
     }
 }

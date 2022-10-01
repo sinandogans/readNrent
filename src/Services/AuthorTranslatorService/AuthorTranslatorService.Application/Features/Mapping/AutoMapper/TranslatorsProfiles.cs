@@ -1,5 +1,4 @@
 ﻿using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorCommand;
-using AuthorTranslatorService.Application.Features.Translators.Commands.AddTranslatorReviewCommand;
 using AuthorTranslatorService.Application.Features.Translators.DTOs;
 using AuthorTranslatorService.Domain.Entities;
 using AutoMapper;
