@@ -18,7 +18,7 @@ namespace BookService.Application.Features.Translators.Commands.DeleteTranslator
         public async Task<DeleteTranslatorCommandResponse> Handle(DeleteTranslatorCommandRequest request, CancellationToken cancellationToken)
         {
             var translator = await _translatorRepository.GetById(request.Id);
-            await _translatorReviewRepository.DeleteList(translator.ReviewIds);
+            await _translatorReviewRepository.DeleteList(translator.ReviewIds.ToList());
 
             await _translatorRepository.Delete(request.Id);
 

@@ -10,6 +10,7 @@ using BookService.Application.Abstraction.Persistence.PublishRepository;
 using BookService.Application.Abstraction.Persistence.TranslatorRepository;
 using BookService.Application.Abstraction.Persistence.TranslatorReviewRepository;
 using BookService.Application.Abstraction.Persistence.UserRepository;
+using BookService.Persistence.MongoDbDriver.Context;
 using BookService.Persistence.MongoDbDriver.Repositories.AuthorRepository;
 using BookService.Persistence.MongoDbDriver.Repositories.AuthorReviewRepository;
 using BookService.Persistence.MongoDbDriver.Repositories.BookImageRepository;
@@ -30,6 +31,8 @@ namespace BookService.Persistence.Extensions.IoC
     {
         public static void AddPersistenceRegistration(this IServiceCollection services)
         {
+            services.AddSingleton<MongoDbContext>();
+
             services.AddSingleton<IBookRepository, MDBBookRepository>();
             services.AddSingleton<IGenreRepository, MDBGenreRepository>();
             services.AddSingleton<IPublisherRepository, MDBPublisherRepository>();

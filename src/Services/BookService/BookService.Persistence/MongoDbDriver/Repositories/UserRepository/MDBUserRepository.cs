@@ -2,11 +2,6 @@
 using BookService.Domain.Entities;
 using BookService.Persistence.MongoDbDriver.Context;
 using BookService.Persistence.MongoDbDriver.Repositories.BaseRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookService.Persistence.MongoDbDriver.Repositories.UserRepository
 {

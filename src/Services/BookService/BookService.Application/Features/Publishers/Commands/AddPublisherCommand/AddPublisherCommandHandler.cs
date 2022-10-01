@@ -20,8 +20,8 @@ namespace BookService.Application.Features.Publishers.Commands.AddPublisherComma
         {
             var publisherToAdd = _mapper.Map<Publisher>(request);
             publisherToAdd.Id = Guid.NewGuid();
-            var addedPublisher = await _publisherRepository.Add(publisherToAdd);
-            return _mapper.Map<AddPublisherCommandResponse>(addedPublisher);
+            await _publisherRepository.Add(publisherToAdd);
+            return _mapper.Map<AddPublisherCommandResponse>(publisherToAdd);
         }
     }
 }

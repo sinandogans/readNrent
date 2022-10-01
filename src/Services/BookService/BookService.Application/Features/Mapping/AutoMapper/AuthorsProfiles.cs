@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using BookService.Application.Features.Authors.Commands.AddAuthorCommand;
+using BookService.Application.Features.Authors.Commands.UpdateAuthorCommand;
+using BookService.Application.Features.Authors.DTOs;
 using BookService.Domain.Entities;
 
 namespace BookService.Application.Features.Mapping.AutoMapper

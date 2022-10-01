@@ -20,8 +20,8 @@ namespace BookService.Application.Features.Languages.Commands.AddLanguageCommand
         {
             var languageToAdd = _mapper.Map<Language>(request);
             languageToAdd.Id = Guid.NewGuid();
-            var addedLanguage = await _languageRepository.Add(languageToAdd);
-            var response = _mapper.Map<AddLanguageCommandResponse>(addedLanguage);
+            await _languageRepository.Add(languageToAdd);
+            var response = _mapper.Map<AddLanguageCommandResponse>(languageToAdd);
             return response;
         }
     }

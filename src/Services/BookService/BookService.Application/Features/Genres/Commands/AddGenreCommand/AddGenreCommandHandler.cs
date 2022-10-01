@@ -20,9 +20,9 @@ namespace BookService.Application.Features.Genres.Commands.AddGenreCommand
         {
             var genreToAdd = _mapper.Map<Genre>(request);
             genreToAdd.Id = Guid.NewGuid();
-            var addedGenre = await _genreRepository.Add(genreToAdd);
+            await _genreRepository.Add(genreToAdd);
 
-            return _mapper.Map<AddGenreCommandResponse>(addedGenre);
+            return _mapper.Map<AddGenreCommandResponse>(genreToAdd);
         }
     }
 }

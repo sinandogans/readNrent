@@ -33,21 +33,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService.Persistence", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookService.Infrastructure", "src\Services\BookService\BookService.Infrastructure\BookService.Infrastructure.csproj", "{D7F3ABF5-B5FA-4A91-A876-4066531A423E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthorTranslatorService", "AuthorTranslatorService", "{D4BB56B3-160B-4B21-B88A-E1456E1C25C8}"
-	ProjectSection(SolutionItems) = preProject
-		AuthorTranslatorServiceNotes.txt = AuthorTranslatorServiceNotes.txt
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorTranslatorService.Api", "src\Services\AuthorTranslatorService\AuthorTranslatorService.Api\AuthorTranslatorService.Api.csproj", "{46DA1474-621F-474C-B6DB-4BAEFFD483CF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorTranslatorService.Domain", "src\Services\AuthorTranslatorService\AuthorTranslatorService.Domain\AuthorTranslatorService.Domain.csproj", "{57F97741-C380-4BEA-B336-8ACE4506679F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorTranslatorService.Application", "src\Services\AuthorTranslatorService\AuthorTranslatorService.Application\AuthorTranslatorService.Application.csproj", "{20EA181D-701B-4CCC-8998-31145F97634E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorTranslatorService.Persistence", "src\Services\AuthorTranslatorService\AuthorTranslatorService.Persistence\AuthorTranslatorService.Persistence.csproj", "{E12FCBFA-F035-4059-9586-92DE5BCAC22F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorTranslatorService.Infrastructure", "src\Services\AuthorTranslatorService\AuthorTranslatorService.Infrastructure\AuthorTranslatorService.Infrastructure.csproj", "{8D5A0ECB-C62F-403B-987F-185E56051556}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{062A13FA-513A-419A-A09A-5E05F025C9F3}"
 	ProjectSection(SolutionItems) = preProject
 		ServicePorts.txt = ServicePorts.txt
@@ -108,26 +93,6 @@ Global
 		{D7F3ABF5-B5FA-4A91-A876-4066531A423E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7F3ABF5-B5FA-4A91-A876-4066531A423E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7F3ABF5-B5FA-4A91-A876-4066531A423E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46DA1474-621F-474C-B6DB-4BAEFFD483CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46DA1474-621F-474C-B6DB-4BAEFFD483CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46DA1474-621F-474C-B6DB-4BAEFFD483CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46DA1474-621F-474C-B6DB-4BAEFFD483CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{57F97741-C380-4BEA-B336-8ACE4506679F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57F97741-C380-4BEA-B336-8ACE4506679F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57F97741-C380-4BEA-B336-8ACE4506679F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57F97741-C380-4BEA-B336-8ACE4506679F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{20EA181D-701B-4CCC-8998-31145F97634E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{20EA181D-701B-4CCC-8998-31145F97634E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{20EA181D-701B-4CCC-8998-31145F97634E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{20EA181D-701B-4CCC-8998-31145F97634E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E12FCBFA-F035-4059-9586-92DE5BCAC22F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E12FCBFA-F035-4059-9586-92DE5BCAC22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E12FCBFA-F035-4059-9586-92DE5BCAC22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E12FCBFA-F035-4059-9586-92DE5BCAC22F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D5A0ECB-C62F-403B-987F-185E56051556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D5A0ECB-C62F-403B-987F-185E56051556}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D5A0ECB-C62F-403B-987F-185E56051556}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D5A0ECB-C62F-403B-987F-185E56051556}.Release|Any CPU.Build.0 = Release|Any CPU
 		{857871CA-0F97-4BB6-8638-CD8B00A98944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{857871CA-0F97-4BB6-8638-CD8B00A98944}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{857871CA-0F97-4BB6-8638-CD8B00A98944}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -184,12 +149,6 @@ Global
 		{689E41C8-7FAD-46D7-8B20-8FC25AAF5E7B} = {C366CA96-3231-43D3-BCD7-8FD9CE0AB3CD}
 		{82478E2F-6FEC-4186-9F7A-A9A211594A64} = {C366CA96-3231-43D3-BCD7-8FD9CE0AB3CD}
 		{D7F3ABF5-B5FA-4A91-A876-4066531A423E} = {C366CA96-3231-43D3-BCD7-8FD9CE0AB3CD}
-		{D4BB56B3-160B-4B21-B88A-E1456E1C25C8} = {CEFDF73F-C778-484B-B840-DC080D1799FC}
-		{46DA1474-621F-474C-B6DB-4BAEFFD483CF} = {D4BB56B3-160B-4B21-B88A-E1456E1C25C8}
-		{57F97741-C380-4BEA-B336-8ACE4506679F} = {D4BB56B3-160B-4B21-B88A-E1456E1C25C8}
-		{20EA181D-701B-4CCC-8998-31145F97634E} = {D4BB56B3-160B-4B21-B88A-E1456E1C25C8}
-		{E12FCBFA-F035-4059-9586-92DE5BCAC22F} = {D4BB56B3-160B-4B21-B88A-E1456E1C25C8}
-		{8D5A0ECB-C62F-403B-987F-185E56051556} = {D4BB56B3-160B-4B21-B88A-E1456E1C25C8}
 		{DD5D0EED-8151-455D-A4EF-D609123DFDD2} = {CEFDF73F-C778-484B-B840-DC080D1799FC}
 		{B53DC240-0533-4D50-9E7A-5637651B60D4} = {CEFDF73F-C778-484B-B840-DC080D1799FC}
 		{C346CDC8-9AE8-4D7C-984C-8ADEBCF6BB9F} = {CEFDF73F-C778-484B-B840-DC080D1799FC}
