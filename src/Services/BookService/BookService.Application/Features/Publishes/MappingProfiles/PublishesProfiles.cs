@@ -1,4 +1,4 @@
-﻿namespace BookService.Application.Features.Mapping.AutoMapper
+﻿namespace BookService.Application.Features.Publishes.MappingProfiles
 {
     public class PublishesProfiles
     {

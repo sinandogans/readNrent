@@ -1,7 +1,8 @@
-﻿namespace BookService.Application.Features.Genres.Commands.AddGenreCommand
+﻿using BookService.Application.Features.ResponseModel;
+
+namespace BookService.Application.Features.Genres.Commands.AddGenreCommand
 {
-    public class AddGenreCommandResponse
+    public class AddGenreCommandResponse : Response
     {
-        public Guid Id { get; set; }
     }
 }

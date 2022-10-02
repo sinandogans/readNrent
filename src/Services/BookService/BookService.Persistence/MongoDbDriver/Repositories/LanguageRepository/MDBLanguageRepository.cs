@@ -12,5 +12,11 @@ namespace BookService.Persistence.MongoDbDriver.Repositories.LanguageRepository
         {
             _context = context;
         }
+
+        public async Task<Language> GetById(Guid id)
+        {
+            var language = await this.Get(a => a.Id == id);
+            return language;
+        }
     }
 }

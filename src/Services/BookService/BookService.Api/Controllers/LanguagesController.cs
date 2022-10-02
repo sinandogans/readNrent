@@ -1,4 +1,6 @@
-﻿using BookService.Application.Features.Languages.Commands.AddLanguageCommand;
+﻿using BookService.Application.Features.Genres.Commands.UpdateGenreCommand;
+using BookService.Application.Features.Languages.Commands.AddLanguageCommand;
+using BookService.Application.Features.Languages.Commands.UpdateLanguageCommand;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +19,13 @@ namespace BookService.Api.Controllers
 
         [HttpPost("add")]
         public async Task<IActionResult> Add(AddLanguageCommandRequest request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update([FromBody] UpdateLanguageCommandRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);

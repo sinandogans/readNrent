@@ -1,8 +1,8 @@
-﻿namespace BookService.Application.Features.Languages.Commands.AddLanguageCommand
+﻿using BookService.Application.Features.ResponseModel;
+
+namespace BookService.Application.Features.Languages.Commands.AddLanguageCommand
 {
-    public class AddLanguageCommandResponse
+    public class AddLanguageCommandResponse : Response
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
     }
 }

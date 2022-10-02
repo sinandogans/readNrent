@@ -12,5 +12,23 @@ namespace BookService.Persistence.MongoDbDriver.Repositories.BookReviewRepositor
         {
             _context = context;
         }
+
+        public async Task DeleteList(List<Guid> ids)
+        {
+            foreach (var id in ids)
+                await this.Delete(id);
+        }
+
+        public async Task<List<BookReview>> GetByBookId(Guid bookId)
+        {
+            var reviews = await this.GetList(r => r.BookId == bookId);
+            return reviews;
+        }
+
+        public async Task<BookReview> GetById(Guid id)
+        {
+            var review = await this.Get(r => r.Id == id);
+            return review;
+        }
     }
 }

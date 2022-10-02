@@ -10,7 +10,7 @@ namespace BookService.Domain.Entities
         {
             PublishIds = new List<Guid>();
             GenreIds = new List<Guid>();
-            BookImageIds = new List<Guid>();
+            ImageIds = new List<Guid>();
             ReviewIds = new List<Guid>();
             AuthorIds = new List<Guid>();
             TranslatorIds = new List<Guid>();
@@ -22,6 +22,9 @@ namespace BookService.Domain.Entities
         public string Name { get; set; }
         public string Pages { get; set; }
         public string Description { get; set; }
+
+        [BsonRepresentation(BsonType.Double)]
+        public double Rating { get; set; }
 
         [BsonRepresentation(BsonType.Int32)]
         public int ReviewCount { get; set; }
@@ -36,7 +39,7 @@ namespace BookService.Domain.Entities
         public ICollection<Guid> GenreIds { get; set; }
 
         [BsonRepresentation(BsonType.String)]
-        public ICollection<Guid> BookImageIds { get; set; }
+        public ICollection<Guid> ImageIds { get; set; }
 
         [BsonRepresentation(BsonType.String)]
         public ICollection<Guid> ReviewIds { get; set; }

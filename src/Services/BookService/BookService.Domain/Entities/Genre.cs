@@ -8,7 +8,7 @@ namespace BookService.Domain.Entities
     {
         public Genre()
         {
-            BookIds = new List<Guid>();
+            //BookIds = new List<Guid>();
             SubGenreIds = new List<Guid>();
         }
 
@@ -18,10 +18,10 @@ namespace BookService.Domain.Entities
         public string Name { get; set; }
 
         [BsonRepresentation(BsonType.String)]
-        public Guid? ParentId { get; set; }
+        public Guid ParentId { get; set; } = default;
 
-        [BsonRepresentation(BsonType.String)]
-        public ICollection<Guid> BookIds { get; set; }
+        //[BsonRepresentation(BsonType.String)]
+        //public ICollection<Guid> BookIds { get; set; }
 
         [BsonRepresentation(BsonType.String)]
         public ICollection<Guid> SubGenreIds { get; set; }

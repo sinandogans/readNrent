@@ -4,7 +4,7 @@ using BookService.Application.Features.Authors.Commands.UpdateAuthorCommand;
 using BookService.Application.Features.Authors.DTOs;
 using BookService.Domain.Entities;
 
-namespace BookService.Application.Features.Mapping.AutoMapper
+namespace BookService.Application.Features.Authors.MappingProfiles
 {
     public class AuthorsProfiles : Profile
     {

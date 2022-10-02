@@ -22,6 +22,5 @@ namespace BookService.Domain.Entities
 
         [BsonRepresentation(BsonType.String)]
         public Guid UserId { get; set; }
-        //public Book Book { get; set; }
     }
 }

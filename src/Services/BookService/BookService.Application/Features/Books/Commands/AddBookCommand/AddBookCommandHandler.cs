@@ -22,7 +22,11 @@ namespace BookService.Application.Features.Books.Commands.AddBookCommand
             bookToAdd.Id = Guid.NewGuid();
 
             await _bookRepository.Add(bookToAdd);
-            return _mapper.Map<AddBookCommandResponse>(bookToAdd);
+            return new AddBookCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
         }
     }
 }

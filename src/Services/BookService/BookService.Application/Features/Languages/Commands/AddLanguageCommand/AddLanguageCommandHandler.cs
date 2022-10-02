@@ -21,8 +21,12 @@ namespace BookService.Application.Features.Languages.Commands.AddLanguageCommand
             var languageToAdd = _mapper.Map<Language>(request);
             languageToAdd.Id = Guid.NewGuid();
             await _languageRepository.Add(languageToAdd);
-            var response = _mapper.Map<AddLanguageCommandResponse>(languageToAdd);
-            return response;
+
+            return new AddLanguageCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
         }
     }
 }

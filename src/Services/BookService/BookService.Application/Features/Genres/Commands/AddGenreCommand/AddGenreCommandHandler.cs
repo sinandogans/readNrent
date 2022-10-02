@@ -22,7 +22,18 @@ namespace BookService.Application.Features.Genres.Commands.AddGenreCommand
             genreToAdd.Id = Guid.NewGuid();
             await _genreRepository.Add(genreToAdd);
 
-            return _mapper.Map<AddGenreCommandResponse>(genreToAdd);
+            if (genreToAdd.ParentId != default)
+            {
+                var parentGenre = await _genreRepository.GetById(genreToAdd.ParentId);
+                parentGenre.SubGenreIds.Add(genreToAdd.Id);
+                await _genreRepository.Update(parentGenre);
+            }
+
+            return new AddGenreCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
         }
     }
 }
