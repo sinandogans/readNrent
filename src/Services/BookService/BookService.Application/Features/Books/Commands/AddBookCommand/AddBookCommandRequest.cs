@@ -8,6 +8,5 @@ namespace BookService.Application.Features.Books.Commands.AddBookCommand
         public string Name { get; set; }
         public int Pages { get; set; }
         public string Description { get; set; }
-        public Guid LanguageId { get; set; }
     }
 }

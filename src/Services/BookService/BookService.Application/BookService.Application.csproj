@@ -34,6 +34,8 @@
     <Folder Include="Features\Languages\Queries\" />
     <Folder Include="Features\Publishers\DTOs\" />
     <Folder Include="Features\Publishers\Queries\" />
+    <Folder Include="Features\Publishes\DTOs\" />
+    <Folder Include="Features\Publishes\Queries\" />
     <Folder Include="Features\TranslatorReviews\DTOs\" />
     <Folder Include="Features\TranslatorReviews\Queries\" />
     <Folder Include="ServiceImages\" />

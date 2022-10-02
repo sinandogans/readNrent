@@ -30,9 +30,6 @@ namespace BookService.Domain.Entities
         public int ReviewCount { get; set; }
 
         [BsonRepresentation(BsonType.String)]
-        public Guid LanguageId { get; set; }
-
-        [BsonRepresentation(BsonType.String)]
         public ICollection<Guid> PublishIds { get; set; }
 
         [BsonRepresentation(BsonType.String)]

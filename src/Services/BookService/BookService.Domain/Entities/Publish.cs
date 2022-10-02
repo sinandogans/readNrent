@@ -18,7 +18,8 @@ namespace BookService.Domain.Entities
 
         [BsonRepresentation(BsonType.String)]
         public Guid BookId { get; set; }
-        //public Publisher Publisher { get; set; }
-        //public Book Book { get; set; }
+
+        [BsonRepresentation(BsonType.String)]
+        public Guid LanguageId { get; set; }
     }
 }

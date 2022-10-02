@@ -5,5 +5,7 @@ namespace BookService.Application.Abstraction.Persistence.PublisherRepository
 {
     public interface IPublisherRepository : IBaseRepository<Publisher>
     {
+        Task<Publisher> GetById(Guid id);
+
     }
 }

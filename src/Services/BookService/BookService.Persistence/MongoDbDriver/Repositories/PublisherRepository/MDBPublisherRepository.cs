@@ -12,5 +12,11 @@ namespace BookService.Persistence.MongoDbDriver.Repositories.PublisherRepository
         {
             _context = context;
         }
+
+        public async Task<Publisher> GetById(Guid id)
+        {
+            var publisher = await this.Get(r => r.Id == id);
+            return publisher;
+        }
     }
 }

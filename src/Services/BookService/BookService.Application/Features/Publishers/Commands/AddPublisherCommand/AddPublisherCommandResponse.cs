@@ -1,8 +1,8 @@
-﻿namespace BookService.Application.Features.Publishers.Commands.AddPublisherCommand
+﻿using BookService.Application.Features.ResponseModel;
+
+namespace BookService.Application.Features.Publishers.Commands.AddPublisherCommand
 {
-    public class AddPublisherCommandResponse
+    public class AddPublisherCommandResponse : Response
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
     }
 }
