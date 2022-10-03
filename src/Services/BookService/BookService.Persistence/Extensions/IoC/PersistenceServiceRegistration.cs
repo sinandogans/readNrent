@@ -1,6 +1,8 @@
 ﻿using BookService.Application.Abstraction.Persistence.AuthorRepository;
+using BookService.Application.Abstraction.Persistence.AuthorReviewRepository;
 using BookService.Application.Abstraction.Persistence.BookImageRepository;
 using BookService.Application.Abstraction.Persistence.BookRepository;
+using BookService.Application.Abstraction.Persistence.BookReviewRepository;
 using BookService.Application.Abstraction.Persistence.GenreRepository;
 using BookService.Application.Abstraction.Persistence.LanguageRepository;
 using BookService.Application.Abstraction.Persistence.PublisherRepository;
@@ -37,10 +39,10 @@ namespace BookService.Persistence.Extensions.IoC
             services.AddSingleton<ILanguageRepository, MDBLanguageRepository>();
             services.AddSingleton<IPublishRepository, MDBPublishRepository>();
             services.AddSingleton<IBookImageRepository, MDBBookImageRepository>();
-            services.AddSingleton<Application.Abstraction.Persistence.BookReviewRepository.IBookReviewRepository, MDBBookReviewRepository>();
+            services.AddSingleton<IBookReviewRepository, MDBBookReviewRepository>();
             services.AddSingleton<IUserRepository, MDBUserRepository>();
             services.AddSingleton<IAuthorRepository, MDBAuthorRepository>();
-            services.AddSingleton<Application.Abstraction.Persistence.AuthorReviewRepository.IAuthorReviewRepository, MDBAuthorReviewRepository>();
+            services.AddSingleton<IAuthorReviewRepository, MDBAuthorReviewRepository>();
             services.AddSingleton<ITranslatorRepository, MDBTranslatorRepository>();
             services.AddSingleton<ITranslatorReviewRepository, MDBTranslatorReviewRepository>();
         }
