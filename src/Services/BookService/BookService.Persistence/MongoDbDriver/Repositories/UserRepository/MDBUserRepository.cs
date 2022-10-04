@@ -13,5 +13,15 @@ namespace BookService.Persistence.MongoDbDriver.Repositories.UserRepository
         {
             _context = context;
         }
+        public async Task<User> GetById(Guid id)
+        {
+            var user = await Get(a => a.Id == id);
+            return user;
+        }
+
+        public async Task AddUserBook(UserBook book)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

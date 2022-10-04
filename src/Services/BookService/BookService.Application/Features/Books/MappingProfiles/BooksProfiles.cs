@@ -8,7 +8,7 @@ namespace BookService.Application.Features.Books.MappingProfiles
     {
         public BooksProfiles()
         {
-            CreateMap<Book, AddBookCommandRequest>().ReverseMap();
+            CreateMap<BookFeature, AddBookCommandRequest>().ReverseMap();
         }
     }
 }

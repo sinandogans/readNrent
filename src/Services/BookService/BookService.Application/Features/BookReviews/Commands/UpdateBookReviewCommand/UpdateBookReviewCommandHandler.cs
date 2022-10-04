@@ -22,13 +22,12 @@ namespace BookService.Application.Features.BookReviews.Commands.UpdateBookReview
             {
                 reviewToUpdate.Comment = request.Comment;
             }
-            if (request.Rating != null && request.Rating != reviewToUpdate.Rating)
-            {
-                var book = await _bookRepository.GetByReviewId(request.Id);
-                book.Rating = (book.Rating * book.ReviewCount - reviewToUpdate.Rating + (double)request.Rating) / book.ReviewCount;
-                await _bookRepository.Update(book);
-                reviewToUpdate.Rating = (double)request.Rating;
-            }
+            //if (request.Rating != null && request.Rating != reviewToUpdate.Rating)
+            //{
+            //    var book = await _bookRepository.GetByReviewId(request.Id);
+            //    //book.Rating = (book.Rating * book.ReviewCount - reviewToUpdate.Rating + (double)request.Rating) / book.ReviewCount;
+            //    await _bookRepository.Update(book);
+            //}
 
             await _bookReviewRepository.Update(reviewToUpdate);
 

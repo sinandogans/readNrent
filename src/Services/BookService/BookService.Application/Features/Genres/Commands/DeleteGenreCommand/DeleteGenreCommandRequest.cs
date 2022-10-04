@@ -1,5 +1,5 @@
 ﻿using BookService.Application.Abstraction.Persistence.GenreRepository;
-using BookService.Application.Features.ResponseModel;
+using BookService.Application.Utilities.ResponseModel;
 using MediatR;
 
 namespace BookService.Application.Features.Genres.Commands.DeleteGenreCommand

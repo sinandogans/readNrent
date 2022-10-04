@@ -2,7 +2,7 @@
 using BookService.Application.Abstraction.Persistence.BookRepository;
 using BookService.Application.Abstraction.Persistence.PublisherRepository;
 using BookService.Application.Abstraction.Persistence.PublishRepository;
-using BookService.Application.Features.ResponseModel;
+using BookService.Application.Utilities.ResponseModel;
 using BookService.Domain.Entities;
 using MediatR;
 

@@ -28,8 +28,8 @@ namespace BookService.Application.Features.TranslatorReviews.Commands.AddTransla
 
             var translator = await _translatorRepository.GetById(reviewToAdd.TranslatorId);
             translator.ReviewIds.Add(reviewToAdd.Id);
-            translator.Rating = (translator.Rating * translator.ReviewCount + reviewToAdd.Rating) / (translator.ReviewCount + 1);
-            translator.ReviewCount++;
+            translator.Feature.Rating = (translator.Feature.Rating * translator.Feature.ReviewCount + reviewToAdd.Rating) / (translator.Feature.ReviewCount + 1);
+            translator.Feature.ReviewCount++;
             await _translatorRepository.Update(translator);
 
             return new AddTranslatorReviewCommandResponse()

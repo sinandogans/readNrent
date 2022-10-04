@@ -25,7 +25,7 @@ namespace BookService.Application.Features.TranslatorReviews.Commands.UpdateTran
             if (request.Rating != null && request.Rating != reviewToUpdate.Rating)
             {
                 var translator = await _translatorRepository.GetByReviewId(request.Id);
-                translator.Rating = (translator.Rating * translator.ReviewCount - reviewToUpdate.Rating + (double)request.Rating) / translator.ReviewCount;
+                translator.Feature.Rating = (translator.Feature.Rating * translator.Feature.ReviewCount - reviewToUpdate.Rating + (double)request.Rating) / translator.Feature.ReviewCount;
                 await _translatorRepository.Update(translator);
                 reviewToUpdate.Rating = (double)request.Rating;
             }

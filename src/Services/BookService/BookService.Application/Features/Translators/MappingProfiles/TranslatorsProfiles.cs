@@ -9,8 +9,7 @@ namespace BookService.Application.Features.Translators.MappingProfiles
     {
         public TranslatorsProfiles()
         {
-            CreateMap<Translator, AddTranslatorCommandRequest>().ReverseMap();
-            CreateMap<Translator, AddTranslatorCommandResponse>().ReverseMap();
+            CreateMap<TranslatorFeature, AddTranslatorCommandRequest>().ReverseMap();
 
             CreateMap<Translator, GetTranslatorDTO>().ReverseMap();
         }

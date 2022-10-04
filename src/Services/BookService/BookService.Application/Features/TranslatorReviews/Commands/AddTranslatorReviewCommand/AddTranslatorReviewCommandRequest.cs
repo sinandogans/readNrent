@@ -8,6 +8,6 @@ namespace BookService.Application.Features.TranslatorReviews.Commands.AddTransla
         public string? Username { get; set; }
         public Guid TranslatorId { get; set; }
         public string Comment { get; set; }
-        public double Rating { get; set; }
+        public int Rating { get; set; }
     }
 }

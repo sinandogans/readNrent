@@ -1,4 +1,4 @@
-﻿using BookService.Application.Features.ResponseModel;
+﻿using BookService.Application.Utilities.ResponseModel;
 
 namespace BookService.Application.Features.AuthorReviews.Commands.AddAuthorReviewCommand
 {

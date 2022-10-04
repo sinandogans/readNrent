@@ -5,9 +5,8 @@ namespace BookService.Application.Features.AuthorReviews.Commands.AddAuthorRevie
     public class AddAuthorReviewCommandRequest : IRequest<AddAuthorReviewCommandResponse>
     {
         public Guid UserId { get; set; }
-        public string? Username { get; set; }
         public Guid AuthorId { get; set; }
         public string Comment { get; set; }
-        public double Rating { get; set; }
+        public int Rating { get; set; }
     }
 }

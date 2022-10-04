@@ -1,6 +1,6 @@
 ﻿using BookService.Application.Abstraction.Persistence.BookImageRepository;
 using BookService.Application.Abstraction.Persistence.BookRepository;
-using BookService.Application.Features.ResponseModel;
+using BookService.Application.Utilities.ResponseModel;
 using MediatR;
 
 namespace BookService.Application.Features.BookImages.Commands.DeleteBookImageCommand

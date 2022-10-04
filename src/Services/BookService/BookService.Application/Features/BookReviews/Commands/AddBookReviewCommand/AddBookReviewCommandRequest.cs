@@ -7,6 +7,5 @@ namespace BookService.Application.Features.BookReviews.Commands.AddBookReviewCom
         public Guid UserId { get; set; }
         public Guid BookId { get; set; }
         public string Comment { get; set; }
-        public double Rating { get; set; }
     }
 }

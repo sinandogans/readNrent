@@ -10,7 +10,7 @@ namespace BookService.Application.Features.Authors.MappingProfiles
     {
         public AuthorsProfiles()
         {
-            CreateMap<Author, AddAuthorCommandRequest>().ReverseMap();
+            CreateMap<AuthorFeature, AddAuthorCommandRequest>().ReverseMap();
             CreateMap<Author, AddAuthorCommandResponse>().ReverseMap();
 
             CreateMap<Author, UpdateAuthorCommandResponse>().ReverseMap();

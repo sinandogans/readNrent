@@ -6,9 +6,14 @@ namespace BookService.Domain.Entities
 {
     public class User : IEntity
     {
+        public User()
+        {
+            UserBooks = new List<UserBook>();
+        }
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
         public string Username { get; set; }
+        public ICollection<UserBook> UserBooks { get; set; }
     }
 }

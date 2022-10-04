@@ -6,6 +6,5 @@ namespace BookService.Application.Features.BookReviews.Commands.UpdateBookReview
     {
         public Guid Id { get; set; }
         public string? Comment { get; set; }
-        public double? Rating { get; set; }
     }
 }

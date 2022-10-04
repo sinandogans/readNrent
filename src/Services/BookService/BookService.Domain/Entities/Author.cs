@@ -10,30 +10,18 @@ namespace BookService.Domain.Entities
         {
             ReviewIds = new List<Guid>();
             BookIds = new List<Guid>();
-
+            Feature = new AuthorFeature();
         }
+
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
-
-        [BsonRepresentation(BsonType.Double)]
-        public double Rating { get; set; }
-
-        [BsonRepresentation(BsonType.Int32)]
-        public int ReviewCount { get; set; }
+        public AuthorFeature Feature { get; set; }
 
         [BsonRepresentation(BsonType.String)]
         public ICollection<Guid> ReviewIds { get; set; }
 
         [BsonRepresentation(BsonType.String)]
         public ICollection<Guid> BookIds { get; set; }
-
-        //[BsonIgnore]
-        //public List<AuthorReview> Reviews { get; set; }
-
-        //[BsonIgnore]
-        //public List<Book> Books { get; set; }
     }
 }

@@ -38,6 +38,8 @@
     <Folder Include="Features\Publishes\Queries\" />
     <Folder Include="Features\TranslatorReviews\DTOs\" />
     <Folder Include="Features\TranslatorReviews\Queries\" />
+    <Folder Include="Features\Users\DTOs\" />
+    <Folder Include="Features\Users\Queries\" />
   </ItemGroup>
 
 </Project>

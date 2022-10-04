@@ -1,5 +1,5 @@
 ﻿using BookService.Application.Abstraction.Persistence.PublisherRepository;
-using BookService.Application.Features.ResponseModel;
+using BookService.Application.Utilities.ResponseModel;
 using MediatR;
 
 namespace BookService.Application.Features.Publishers.Commands.UpdatePublisherCommand

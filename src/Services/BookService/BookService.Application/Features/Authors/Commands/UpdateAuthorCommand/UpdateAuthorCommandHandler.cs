@@ -19,9 +19,9 @@ namespace BookService.Application.Features.Authors.Commands.UpdateAuthorCommand
         {
             var authorToUpdate = await _authorRepository.GetById(request.Id);
             if (request.Firstname != null)
-                authorToUpdate.Firstname = request.Firstname;
+                authorToUpdate.Feature.Firstname = request.Firstname;
             if (request.Lastname != null)
-                authorToUpdate.Lastname = request.Lastname;
+                authorToUpdate.Feature.Lastname = request.Lastname;
 
             await _authorRepository.Update(authorToUpdate);
             return new UpdateAuthorCommandResponse()

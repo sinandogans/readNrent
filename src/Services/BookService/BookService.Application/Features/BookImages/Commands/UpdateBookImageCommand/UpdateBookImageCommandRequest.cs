@@ -1,4 +1,4 @@
-﻿using BookService.Application.Features.ResponseModel;
+﻿using BookService.Application.Utilities.ResponseModel;
 using MediatR;
 
 namespace BookService.Application.Features.BookImages.Commands.UpdateBookImageCommand
