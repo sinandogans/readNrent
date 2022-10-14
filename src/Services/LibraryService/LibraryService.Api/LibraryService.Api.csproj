@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="LibraryService.Application\" />
-    <Folder Include="LibraryService.Persistence\" />
-    <Folder Include="LibraryService.Infrastructure\" />
+    <ProjectReference Include="..\LibraryService.Application\LibraryService.Application.csproj" />
+    <ProjectReference Include="..\LibraryService.Infrastructure\LibraryService.Infrastructure.csproj" />
+    <ProjectReference Include="..\LibraryService.Persistence\LibraryService.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
