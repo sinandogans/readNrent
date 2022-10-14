@@ -9,7 +9,6 @@ namespace ReviewService.Application.Features.AuthorReviews.MappingProfiles
         public AuthorReviewsProfiles()
         {
             CreateMap<AuthorReview, AddAuthorReviewCommandRequest>().ReverseMap();
-            CreateMap<AuthorReview, AddAuthorReviewCommandResponse>().ReverseMap();
         }
     }
 }

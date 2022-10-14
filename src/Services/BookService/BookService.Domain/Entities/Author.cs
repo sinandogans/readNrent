@@ -20,6 +20,8 @@ namespace BookService.Domain.Entities
         [BsonRepresentation(BsonType.Double)]
         public double Rating { get; set; }
         [BsonRepresentation(BsonType.Int32)]
+        public int RatingCount { get; set; }
+        [BsonRepresentation(BsonType.Int32)]
         public int ReadCount { get; set; }
         [BsonRepresentation(BsonType.Int32)]
         public int ReviewCount { get; set; }

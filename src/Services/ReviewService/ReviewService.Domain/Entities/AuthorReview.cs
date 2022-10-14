@@ -9,11 +9,7 @@ namespace ReviewService.Domain.Entities
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
-
         public string Comment { get; set; }
-
-        [BsonRepresentation(BsonType.Double)]
-        public double Rating { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
         public DateTime Date { get; set; }

@@ -1,9 +1,10 @@
-﻿using MediatR;
+﻿using Core.Utilities.Results;
+using MediatR;
 using ReviewService.Application.Abstraction.Persistence.AuthorReviewRepository;
 
 namespace ReviewService.Application.Features.AuthorReviews.Commands.UpdateAuthorReviewCommand
 {
-    public class UpdateBookReviewCommandHandler : IRequestHandler<UpdateAuthorReviewCommandRequest, UpdateAuthorReviewCommandResponse>
+    public class UpdateBookReviewCommandHandler : IRequestHandler<UpdateAuthorReviewCommandRequest, IResponseModel>
     {
         private readonly IAuthorReviewRepository _authorReviewRepository;
 
@@ -12,24 +13,18 @@ namespace ReviewService.Application.Features.AuthorReviews.Commands.UpdateAuthor
             _authorReviewRepository = authorReviewRepository;
         }
 
-        public async Task<UpdateAuthorReviewCommandResponse> Handle(UpdateAuthorReviewCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(UpdateAuthorReviewCommandRequest request, CancellationToken cancellationToken)
         {
             var reviewToUpdate = await _authorReviewRepository.GetById(request.Id);
             if (request.Comment != null && request.Comment != reviewToUpdate.Comment)
             {
                 reviewToUpdate.Comment = request.Comment;
             }
-            if (request.Rating != null && request.Rating != reviewToUpdate.Rating)
-            {
-                reviewToUpdate.Rating = (double)request.Rating;
-            }
-
             await _authorReviewRepository.Update(reviewToUpdate);
 
-            return new UpdateAuthorReviewCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
     }
