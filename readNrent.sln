@@ -12,14 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApiGateway", "WebApiGateway", "{9AE7A0D3-12CD-42DE-84A8-77970BAF35B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BookService", "BookService", "{C366CA96-3231-43D3-BCD7-8FD9CE0AB3CD}"
-	ProjectSection(SolutionItems) = preProject
-		BookServiceNotes.txt = BookServiceNotes.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{C9E33D56-8040-4733-90D1-93C35F4979A9}"
-	ProjectSection(SolutionItems) = preProject
-		IdentityServiceNotes.txt = IdentityServiceNotes.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationService", "NotificationService", "{4FC0E990-7A7C-4068-A458-42F98BF0071A}"
 EndProject
@@ -63,6 +57,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryService.Domain", "src\Services\LibraryService\LibraryService.Domain\LibraryService.Domain.csproj", "{84BA5851-CCF2-48B3-96EC-97663C4DE476}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryService.Infrastructure", "src\Services\LibraryService\LibraryService.Infrastructure\LibraryService.Infrastructure.csproj", "{5C9759C7-EA48-464B-A589-6AFD22C0614D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReviewService", "ReviewService", "{E329929F-D709-4516-848E-57AAA4F9C31B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewService.API", "src\Services\ReviewService\ReviewService.API\ReviewService.API.csproj", "{BDE855DB-5678-4357-A988-FF784F0C923A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewService.Domain", "src\Services\ReviewService\ReviewService.Domain\ReviewService.Domain.csproj", "{A293FA32-2614-4B30-93D0-E37E882D09AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewService.Application", "src\Services\ReviewService\ReviewService.Application\ReviewService.Application.csproj", "{9A0B700C-C518-4BFB-A3F3-A122AC3DD35E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewService.Persistence", "src\Services\ReviewService\ReviewService.Persistence\ReviewService.Persistence.csproj", "{C6B72A12-53C8-4757-A504-204A173D97C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewService.Infrastructure", "src\Services\ReviewService\ReviewService.Infrastructure\ReviewService.Infrastructure.csproj", "{1B8B2D77-89D1-4805-B06E-6E14EE482023}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -130,6 +136,26 @@ Global
 		{5C9759C7-EA48-464B-A589-6AFD22C0614D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C9759C7-EA48-464B-A589-6AFD22C0614D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C9759C7-EA48-464B-A589-6AFD22C0614D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE855DB-5678-4357-A988-FF784F0C923A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE855DB-5678-4357-A988-FF784F0C923A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE855DB-5678-4357-A988-FF784F0C923A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE855DB-5678-4357-A988-FF784F0C923A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A293FA32-2614-4B30-93D0-E37E882D09AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A293FA32-2614-4B30-93D0-E37E882D09AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A293FA32-2614-4B30-93D0-E37E882D09AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A293FA32-2614-4B30-93D0-E37E882D09AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A0B700C-C518-4BFB-A3F3-A122AC3DD35E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A0B700C-C518-4BFB-A3F3-A122AC3DD35E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A0B700C-C518-4BFB-A3F3-A122AC3DD35E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A0B700C-C518-4BFB-A3F3-A122AC3DD35E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6B72A12-53C8-4757-A504-204A173D97C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6B72A12-53C8-4757-A504-204A173D97C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6B72A12-53C8-4757-A504-204A173D97C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6B72A12-53C8-4757-A504-204A173D97C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B8B2D77-89D1-4805-B06E-6E14EE482023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B8B2D77-89D1-4805-B06E-6E14EE482023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B8B2D77-89D1-4805-B06E-6E14EE482023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B8B2D77-89D1-4805-B06E-6E14EE482023}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,6 +185,12 @@ Global
 		{C7E7FF76-FACB-43D4-AE4A-406A077E25A9} = {8678A690-331F-44B8-8F74-88BBC6B3002F}
 		{84BA5851-CCF2-48B3-96EC-97663C4DE476} = {8678A690-331F-44B8-8F74-88BBC6B3002F}
 		{5C9759C7-EA48-464B-A589-6AFD22C0614D} = {8678A690-331F-44B8-8F74-88BBC6B3002F}
+		{E329929F-D709-4516-848E-57AAA4F9C31B} = {CEFDF73F-C778-484B-B840-DC080D1799FC}
+		{BDE855DB-5678-4357-A988-FF784F0C923A} = {E329929F-D709-4516-848E-57AAA4F9C31B}
+		{A293FA32-2614-4B30-93D0-E37E882D09AE} = {E329929F-D709-4516-848E-57AAA4F9C31B}
+		{9A0B700C-C518-4BFB-A3F3-A122AC3DD35E} = {E329929F-D709-4516-848E-57AAA4F9C31B}
+		{C6B72A12-53C8-4757-A504-204A173D97C4} = {E329929F-D709-4516-848E-57AAA4F9C31B}
+		{1B8B2D77-89D1-4805-B06E-6E14EE482023} = {E329929F-D709-4516-848E-57AAA4F9C31B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D1F78C1-3533-46CD-82CE-76054018917C}

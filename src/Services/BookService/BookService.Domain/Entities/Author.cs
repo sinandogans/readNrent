@@ -8,7 +8,6 @@ namespace BookService.Domain.Entities
     {
         public Author()
         {
-            ReviewIds = new List<Guid>();
             BookIds = new List<Guid>();
         }
 
@@ -24,9 +23,6 @@ namespace BookService.Domain.Entities
         public int ReadCount { get; set; }
         [BsonRepresentation(BsonType.Int32)]
         public int ReviewCount { get; set; }
-        [BsonRepresentation(BsonType.String)]
-        public ICollection<Guid> ReviewIds { get; set; }
-
         [BsonRepresentation(BsonType.String)]
         public ICollection<Guid> BookIds { get; set; }
     }

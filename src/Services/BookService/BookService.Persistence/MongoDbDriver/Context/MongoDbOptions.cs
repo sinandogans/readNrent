@@ -6,8 +6,6 @@
         public string DbName { get; set; } = null!;
         public string AuthorsCollectionName { get; set; } = null!;
         public string AuthorReviewsCollectionName { get; set; } = null!;
-        public string TranslatorsCollectionName { get; set; } = null!;
-        public string TranslatorReviewsCollectionName { get; set; } = null!;
         public string BooksCollectionName { get; set; } = null!;
         public string UsersCollectionName { get; set; } = null!;
         public string BookImagesCollectionName { get; set; } = null!;

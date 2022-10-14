@@ -21,12 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\AuthorReviews\DTOs\" />
-    <Folder Include="Features\AuthorReviews\Queries\" />
     <Folder Include="Features\BookImages\DTOs\" />
     <Folder Include="Features\BookImages\Queries\" />
-    <Folder Include="Features\BookReviews\DTOs\" />
-    <Folder Include="Features\BookReviews\Queries\" />
     <Folder Include="Features\Books\DTOs\" />
     <Folder Include="Features\Books\Queries\" />
     <Folder Include="Features\Genres\DTOs\" />
@@ -36,10 +32,6 @@
     <Folder Include="Features\Publishers\Queries\" />
     <Folder Include="Features\Publishes\DTOs\" />
     <Folder Include="Features\Publishes\Queries\" />
-    <Folder Include="Features\TranslatorReviews\DTOs\" />
-    <Folder Include="Features\TranslatorReviews\Queries\" />
-    <Folder Include="Features\Users\DTOs\" />
-    <Folder Include="Features\Users\Queries\" />
   </ItemGroup>
 
 </Project>

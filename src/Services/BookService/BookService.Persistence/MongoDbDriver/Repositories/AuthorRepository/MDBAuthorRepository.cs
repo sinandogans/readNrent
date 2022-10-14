@@ -19,11 +19,5 @@ namespace BookService.Persistence.MongoDbDriver.Repositories.AuthorRepository
             var author = await this.Get(a => a.Id == id);
             return author;
         }
-
-        public async Task<Author> GetByReviewId(Guid reviewId)
-        {
-            var author = await this.Get(a => a.ReviewIds.Contains(reviewId));
-            return author;
-        }
     }
 }

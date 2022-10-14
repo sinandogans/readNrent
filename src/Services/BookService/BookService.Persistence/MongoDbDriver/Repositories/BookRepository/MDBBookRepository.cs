@@ -24,11 +24,5 @@ namespace BookService.Persistence.MongoDbDriver.Repositories.BookRepository
             var book = await this.Get(a => a.ImageIds.Contains(imageId));
             return book;
         }
-
-        public async Task<Book> GetByReviewId(Guid reviewId)
-        {
-            var book = await this.Get(a => a.ReviewIds.Contains(reviewId));
-            return book;
-        }
     }
 }
