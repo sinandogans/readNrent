@@ -14,12 +14,22 @@ namespace BookService.Domain.Entities
             ReviewIds = new List<Guid>();
             AuthorIds = new List<Guid>();
             TranslatorIds = new List<Guid>();
-            Feature = new BookFeature();
         }
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
-        public BookFeature Feature { get; set; }
+        public string ISBN { get; set; }
+        public string Name { get; set; }
+        public string Pages { get; set; }
+        public string Description { get; set; }
+        [BsonRepresentation(BsonType.Double)]
+        public double Rating { get; set; }
+        [BsonRepresentation(BsonType.Int32)]
+        public int ReadCount { get; set; }
+        [BsonRepresentation(BsonType.Int32)]
+        public int RatingCount { get; set; }
+        [BsonRepresentation(BsonType.Int32)]
+        public int ReviewCount { get; set; }
 
         [BsonRepresentation(BsonType.String)]
         public ICollection<Guid> PublishIds { get; set; }

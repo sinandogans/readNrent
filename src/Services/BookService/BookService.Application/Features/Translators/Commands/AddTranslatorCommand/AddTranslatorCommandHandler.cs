@@ -18,10 +18,10 @@ namespace BookService.Application.Features.Translators.Commands.AddTranslatorCom
 
         public async Task<AddTranslatorCommandResponse> Handle(AddTranslatorCommandRequest request, CancellationToken cancellationToken)
         {
-            var feature = _mapper.Map<TranslatorFeature>(request);
+            var feature = _mapper.Map<Translator>(request);
             var translatorToAdd = new Translator();
             translatorToAdd.Id = Guid.NewGuid();
-            translatorToAdd.Feature = feature;
+            translatorToAdd = feature;
 
             await _translatorRepository.Add(translatorToAdd);
 

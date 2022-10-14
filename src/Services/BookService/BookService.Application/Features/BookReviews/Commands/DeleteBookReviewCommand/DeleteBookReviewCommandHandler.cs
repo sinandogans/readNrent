@@ -25,7 +25,7 @@ namespace BookService.Application.Features.BookReviews.Commands.DeleteBookReview
 
             var book = await _bookRepository.GetByReviewId(request.Id);
             //book.Rating = (book.Rating * book.ReviewCount - review.Rating) / (book.ReviewCount - 1);
-            book.Feature.ReviewCount--;
+            book.ReviewCount--;
             book.ReviewIds.Remove(review.Id);
             await _bookRepository.Update(book);
 

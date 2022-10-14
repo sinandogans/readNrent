@@ -14,6 +14,7 @@ namespace BookService.Domain.Entities
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
         public string Username { get; set; }
+        public int BookCount { get; set; }
         public ICollection<UserBook> UserBooks { get; set; }
     }
 }

@@ -28,8 +28,8 @@ namespace BookService.Application.Features.AuthorReviews.Commands.AddAuthorRevie
 
             var author = await _authorRepository.GetById(reviewToAdd.AuthorId);
             author.ReviewIds.Add(reviewToAdd.Id);
-            author.Feature.Rating = (author.Feature.Rating * author.Feature.ReviewCount + reviewToAdd.Rating) / (author.Feature.ReviewCount + 1);
-            author.Feature.ReviewCount++;
+            author.Rating = (author.Rating * author.ReviewCount + reviewToAdd.Rating) / (author.ReviewCount + 1);
+            author.ReviewCount++;
             await _authorRepository.Update(author);
 
             return new AddAuthorReviewCommandResponse()

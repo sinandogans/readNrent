@@ -24,6 +24,7 @@ using BookService.Persistence.MongoDbDriver.Repositories.TranslatorRepository;
 using BookService.Persistence.MongoDbDriver.Repositories.TranslatorReviewRepository;
 using BookService.Persistence.MongoDbDriver.Repositories.UserRepository;
 using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
 
 namespace BookService.Persistence.Extensions.IoC
 {

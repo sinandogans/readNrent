@@ -1,0 +1,43 @@
+﻿using AutoMapper;
+using BookService.Application.Abstraction.Persistence.BookRepository;
+using BookService.Application.Abstraction.Persistence.UserRepository;
+using BookService.Domain.Entities;
+using MediatR;
+
+namespace BookService.Application.Features.Users.Commands.AddUserBookCommand
+{
+    public class AddUserBookCommandHandler : IRequestHandler<AddUserBookCommandRequest, AddUserBookCommandResponse>
+    {
+        private readonly IUserRepository _userRepository;
+        private readonly IBookRepository _bookRepository;
+        private readonly IMapper _mapper;
+
+        public AddUserBookCommandHandler(IUserRepository userRepository, IMapper mapper, IBookRepository bookRepository)
+        {
+            _userRepository = userRepository;
+            _mapper = mapper;
+            _bookRepository = bookRepository;
+        }
+
+        public async Task<AddUserBookCommandResponse> Handle(AddUserBookCommandRequest request, CancellationToken cancellationToken)
+        {
+            var userBookToAdd = _mapper.Map<UserBook>(request);
+            var userToUpdate = await _userRepository.GetById(request.UserId);
+            userToUpdate.UserBooks.Add(userBookToAdd);
+            userToUpdate.BookCount++;
+            await _userRepository.Update(userToUpdate);
+
+            var bookToUpdate = await _bookRepository.GetById(request.BookId);
+            bookToUpdate.Rating = (bookToUpdate.Rating * bookToUpdate.RatingCount + userBookToAdd.Rating) / (bookToUpdate.RatingCount + 1);
+            bookToUpdate.RatingCount++;
+
+            await _bookRepository.Update(bookToUpdate);
+
+            return new AddUserBookCommandResponse()
+            {
+                Message = "",
+                Success = true
+            };
+        }
+    }
+}

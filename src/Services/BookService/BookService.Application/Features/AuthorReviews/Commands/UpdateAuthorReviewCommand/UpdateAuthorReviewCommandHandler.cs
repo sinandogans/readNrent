@@ -25,7 +25,7 @@ namespace BookService.Application.Features.AuthorReviews.Commands.UpdateAuthorRe
             if (request.Rating != null && request.Rating != reviewToUpdate.Rating)
             {
                 var author = await _bookRepository.GetByReviewId(request.Id);
-                author.Feature.Rating = (author.Feature.Rating * author.Feature.ReviewCount - reviewToUpdate.Rating + (double)request.Rating) / author.Feature.ReviewCount;
+                author.Rating = (author.Rating * author.ReviewCount - reviewToUpdate.Rating + (double)request.Rating) / author.ReviewCount;
                 await _bookRepository.Update(author);
                 reviewToUpdate.Rating = (double)request.Rating;
             }

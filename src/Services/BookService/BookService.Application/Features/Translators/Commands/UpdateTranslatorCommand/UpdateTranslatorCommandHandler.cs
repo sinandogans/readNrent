@@ -19,9 +19,9 @@ namespace BookService.Application.Features.Translators.Commands.UpdateTranslator
         {
             var translatorToUpdate = await _translatorRepository.GetById(request.Id);
             if (request.Firstname != null)
-                translatorToUpdate.Feature.Firstname = request.Firstname;
+                translatorToUpdate.Firstname = request.Firstname;
             if (request.Lastname != null)
-                translatorToUpdate.Feature.Lastname = request.Lastname;
+                translatorToUpdate.Lastname = request.Lastname;
 
             await _translatorRepository.Update(translatorToUpdate);
 

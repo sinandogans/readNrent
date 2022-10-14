@@ -24,8 +24,8 @@ namespace BookService.Application.Features.AuthorReviews.Commands.DeleteAuthorRe
             await _authorReviewRepository.Delete(request.Id);
 
             var author = await _authorRepository.GetByReviewId(request.Id);
-            author.Feature.Rating = (author.Feature.Rating * author.Feature.ReviewCount - review.Rating) / (author.Feature.ReviewCount - 1);
-            author.Feature.ReviewCount--;
+            author.Rating = (author.Rating * author.ReviewCount - review.Rating) / (author.ReviewCount - 1);
+            author.ReviewCount--;
             author.ReviewIds.Remove(review.Id);
             await _authorRepository.Update(author);
 

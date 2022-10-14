@@ -24,8 +24,8 @@ namespace BookService.Application.Features.TranslatorReviews.Commands.DeleteTran
             await _translatorReviewRepository.Delete(request.Id);
 
             var translator = await _translatorRepository.GetByReviewId(request.Id);
-            translator.Feature.Rating = (translator.Feature.Rating * translator.Feature.ReviewCount - review.Rating) / (translator.Feature.ReviewCount - 1);
-            translator.Feature.ReviewCount--;
+            translator.Rating = (translator.Rating * translator.ReviewCount - review.Rating) / (translator.ReviewCount - 1);
+            translator.ReviewCount--;
             translator.ReviewIds.Remove(review.Id);
             await _translatorRepository.Update(translator);
 
