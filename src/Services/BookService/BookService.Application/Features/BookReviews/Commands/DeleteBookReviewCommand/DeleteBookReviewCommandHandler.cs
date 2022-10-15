@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using BookService.Application.Abstraction.Persistence.BookRepository;
 using BookService.Application.Abstraction.Persistence.BookReviewRepository;
+using BookService.Application.Utilities.ResponseModel;
 using MediatR;
 
 namespace BookService.Application.Features.BookReviews.Commands.DeleteBookReviewCommand
 {
-    public class DeleteBookReviewCommandHandler : IRequestHandler<DeleteBookReviewCommandRequest, DeleteBookReviewCommandResponse>
+    public class DeleteBookReviewCommandHandler : IRequestHandler<DeleteBookReviewCommandRequest, IResponseModel>
     {
         private readonly IBookRepository _bookRepository;
         private readonly IBookReviewRepository _bookReviewRepository;
@@ -18,7 +19,7 @@ namespace BookService.Application.Features.BookReviews.Commands.DeleteBookReview
             _bookReviewRepository = bookReviewRepository;
         }
 
-        public async Task<DeleteBookReviewCommandResponse> Handle(DeleteBookReviewCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(DeleteBookReviewCommandRequest request, CancellationToken cancellationToken)
         {
             var review = await _bookReviewRepository.GetById(request.Id);
             await _bookReviewRepository.Delete(request.Id);
@@ -29,10 +30,9 @@ namespace BookService.Application.Features.BookReviews.Commands.DeleteBookReview
             book.ReviewIds.Remove(review.Id);
             await _bookRepository.Update(book);
 
-            return new DeleteBookReviewCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
     }

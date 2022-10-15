@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using BookService.Application.Abstraction.Persistence.AuthorRepository;
 using BookService.Application.Abstraction.Persistence.AuthorReviewRepository;
+using BookService.Application.Utilities.ResponseModel;
 using BookService.Domain.Entities;
 using MediatR;
 
 namespace BookService.Application.Features.AuthorReviews.Commands.AddAuthorReviewCommand
 {
-    public class AddAuthorReviewCommandHandler : IRequestHandler<AddAuthorReviewCommandRequest, AddAuthorReviewCommandResponse>
+    public class AddAuthorReviewCommandHandler : IRequestHandler<AddAuthorReviewCommandRequest, IResponseModel>
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly IAuthorReviewRepository _authorReviewRepository;
@@ -19,7 +20,7 @@ namespace BookService.Application.Features.AuthorReviews.Commands.AddAuthorRevie
             _authorReviewRepository = authorReviewRepository;
         }
 
-        public async Task<AddAuthorReviewCommandResponse> Handle(AddAuthorReviewCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(AddAuthorReviewCommandRequest request, CancellationToken cancellationToken)
         {
             var reviewToAdd = _mapper.Map<AuthorReview>(request);
             reviewToAdd.Id = Guid.NewGuid();
@@ -28,14 +29,12 @@ namespace BookService.Application.Features.AuthorReviews.Commands.AddAuthorRevie
 
             var author = await _authorRepository.GetById(reviewToAdd.AuthorId);
             author.ReviewIds.Add(reviewToAdd.Id);
-            author.Rating = (author.Rating * author.ReviewCount + reviewToAdd.Rating) / (author.ReviewCount + 1);
             author.ReviewCount++;
             await _authorRepository.Update(author);
 
-            return new AddAuthorReviewCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
     }

@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using BookService.Application.Utilities.ResponseModel;
+using MediatR;
 
 namespace BookService.Application.Features.Books.Commands.AddBookCommand
 {
-    public class AddBookCommandRequest : IRequest<AddBookCommandResponse>
+    public class AddBookCommandRequest : IRequest<IResponseModel>
     {
         public string ISBN { get; set; }
         public string Name { get; set; }

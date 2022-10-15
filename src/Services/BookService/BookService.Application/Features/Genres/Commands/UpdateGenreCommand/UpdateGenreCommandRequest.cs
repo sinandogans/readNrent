@@ -4,12 +4,12 @@ using MediatR;
 
 namespace BookService.Application.Features.Genres.Commands.UpdateGenreCommand
 {
-    public class UpdateGenreCommandRequest : IRequest<UpdateGenreCommandResponse>
+    public class UpdateGenreCommandRequest : IRequest<IResponseModel>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
     }
-    public class UpdateGenreCommandHandler : IRequestHandler<UpdateGenreCommandRequest, UpdateGenreCommandResponse>
+    public class UpdateGenreCommandHandler : IRequestHandler<UpdateGenreCommandRequest, IResponseModel>
     {
         private readonly IGenreRepository _genreRepository;
 
@@ -18,20 +18,16 @@ namespace BookService.Application.Features.Genres.Commands.UpdateGenreCommand
             _genreRepository = genreRepository;
         }
 
-        public async Task<UpdateGenreCommandResponse> Handle(UpdateGenreCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(UpdateGenreCommandRequest request, CancellationToken cancellationToken)
         {
             var genreToUpdate = await _genreRepository.GetById(request.Id);
             genreToUpdate.Name = request.Name;
             await _genreRepository.Update(genreToUpdate);
 
-            return new UpdateGenreCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
-    }
-    public class UpdateGenreCommandResponse : Response
-    {
     }
 }

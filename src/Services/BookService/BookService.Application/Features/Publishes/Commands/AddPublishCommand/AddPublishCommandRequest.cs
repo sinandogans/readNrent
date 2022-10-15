@@ -8,13 +8,13 @@ using MediatR;
 
 namespace BookService.Application.Features.Publishes.Commands.AddPublishCommand
 {
-    public class AddPublishCommandRequest : IRequest<AddPublishCommandResponse>
+    public class AddPublishCommandRequest : IRequest<IResponseModel>
     {
         public Guid PublisherId { get; set; }
         public Guid BookId { get; set; }
         public Guid LanguageId { get; set; }
     }
-    public class AddPublishCommandHandler : IRequestHandler<AddPublishCommandRequest, AddPublishCommandResponse>
+    public class AddPublishCommandHandler : IRequestHandler<AddPublishCommandRequest, IResponseModel>
     {
         private readonly IPublishRepository _publishRepository;
         private readonly IBookRepository _bookRepository;
@@ -29,7 +29,7 @@ namespace BookService.Application.Features.Publishes.Commands.AddPublishCommand
             _publisherRepository = publisherRepository;
         }
 
-        public async Task<AddPublishCommandResponse> Handle(AddPublishCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(AddPublishCommandRequest request, CancellationToken cancellationToken)
         {
             var publishToAdd = _mapper.Map<Publish>(request);
             publishToAdd.Id = Guid.NewGuid();
@@ -44,14 +44,10 @@ namespace BookService.Application.Features.Publishes.Commands.AddPublishCommand
             publisher.PublishIds.Add(publishToAdd.Id);
             await _publisherRepository.Update(publisher);
 
-            return new AddPublishCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
-    }
-    public class AddPublishCommandResponse : Response
-    {
     }
 }

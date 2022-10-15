@@ -5,11 +5,11 @@ using MediatR;
 
 namespace BookService.Application.Features.BookImages.Commands.DeleteBookImageCommand
 {
-    public class DeleteBookImageCommandRequest : IRequest<DeleteBookImageCommandResponse>
+    public class DeleteBookImageCommandRequest : IRequest<IResponseModel>
     {
         public Guid Id { get; set; }
     }
-    public class DeleteBookImageCommandHandler : IRequestHandler<DeleteBookImageCommandRequest, DeleteBookImageCommandResponse>
+    public class DeleteBookImageCommandHandler : IRequestHandler<DeleteBookImageCommandRequest, IResponseModel>
     {
         private readonly IBookImageRepository _bookImageRepository;
         private readonly IBookRepository _bookRepository;
@@ -20,7 +20,7 @@ namespace BookService.Application.Features.BookImages.Commands.DeleteBookImageCo
             _bookRepository = bookRepository;
         }
 
-        public async Task<DeleteBookImageCommandResponse> Handle(DeleteBookImageCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(DeleteBookImageCommandRequest request, CancellationToken cancellationToken)
         {
             await _bookImageRepository.Delete(request.Id);
 
@@ -28,14 +28,10 @@ namespace BookService.Application.Features.BookImages.Commands.DeleteBookImageCo
             bookToUpdate.ImageIds.Remove(request.Id);
             await _bookRepository.Update(bookToUpdate);
 
-            return new DeleteBookImageCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
-    }
-    public class DeleteBookImageCommandResponse : Response
-    {
     }
 }

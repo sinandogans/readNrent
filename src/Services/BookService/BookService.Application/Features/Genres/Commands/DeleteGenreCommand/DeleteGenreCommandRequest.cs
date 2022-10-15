@@ -4,11 +4,11 @@ using MediatR;
 
 namespace BookService.Application.Features.Genres.Commands.DeleteGenreCommand
 {
-    public class DeleteGenreCommandRequest : IRequest<DeleteGenreCommandResponse>
+    public class DeleteGenreCommandRequest : IRequest<IResponseModel>
     {
         public Guid Id { get; set; }
     }
-    public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommandRequest, DeleteGenreCommandResponse>
+    public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommandRequest, IResponseModel>
     {
         private readonly IGenreRepository _genreRepository;
 
@@ -17,7 +17,7 @@ namespace BookService.Application.Features.Genres.Commands.DeleteGenreCommand
             _genreRepository = genreRepository;
         }
 
-        public async Task<DeleteGenreCommandResponse> Handle(DeleteGenreCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(DeleteGenreCommandRequest request, CancellationToken cancellationToken)
         {
             var parentGenre = await _genreRepository.GetBySubGenreId(request.Id);
             parentGenre.SubGenreIds.Remove(request.Id);
@@ -30,14 +30,10 @@ namespace BookService.Application.Features.Genres.Commands.DeleteGenreCommand
                 await _genreRepository.Delete(subGenre.Id);
             }
 
-            return new DeleteGenreCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
-    }
-    public class DeleteGenreCommandResponse : Response
-    {
     }
 }

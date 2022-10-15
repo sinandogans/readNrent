@@ -4,12 +4,12 @@ using MediatR;
 
 namespace BookService.Application.Features.Publishers.Commands.UpdatePublisherCommand
 {
-    public class UpdatePublisherCommandRequest : IRequest<UpdatePublisherCommandResponse>
+    public class UpdatePublisherCommandRequest : IRequest<IResponseModel>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
     }
-    public class UpdatePublisherCommandHandler : IRequestHandler<UpdatePublisherCommandRequest, UpdatePublisherCommandResponse>
+    public class UpdatePublisherCommandHandler : IRequestHandler<UpdatePublisherCommandRequest, IResponseModel>
     {
         private readonly IPublisherRepository _publisherRepository;
 
@@ -18,20 +18,16 @@ namespace BookService.Application.Features.Publishers.Commands.UpdatePublisherCo
             _publisherRepository = publisherRepository;
         }
 
-        public async Task<UpdatePublisherCommandResponse> Handle(UpdatePublisherCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(UpdatePublisherCommandRequest request, CancellationToken cancellationToken)
         {
             var publisherToUpdate = await _publisherRepository.GetById(request.Id);
             publisherToUpdate.Name = request.Name;
             await _publisherRepository.Update(publisherToUpdate);
 
-            return new UpdatePublisherCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
-    }
-    public class UpdatePublisherCommandResponse : Response
-    {
     }
 }

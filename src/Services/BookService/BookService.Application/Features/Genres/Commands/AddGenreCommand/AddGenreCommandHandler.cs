@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using BookService.Application.Abstraction.Persistence.GenreRepository;
+using BookService.Application.Utilities.ResponseModel;
 using BookService.Domain.Entities;
 using MediatR;
 
 namespace BookService.Application.Features.Genres.Commands.AddGenreCommand
 {
-    public class AddGenreCommandHandler : IRequestHandler<AddGenreCommandRequest, AddGenreCommandResponse>
+    public class AddGenreCommandHandler : IRequestHandler<AddGenreCommandRequest, IResponseModel>
     {
         private readonly IGenreRepository _genreRepository;
         private readonly IMapper _mapper;
@@ -16,7 +17,7 @@ namespace BookService.Application.Features.Genres.Commands.AddGenreCommand
             _mapper = mapper;
         }
 
-        public async Task<AddGenreCommandResponse> Handle(AddGenreCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(AddGenreCommandRequest request, CancellationToken cancellationToken)
         {
             var genreToAdd = _mapper.Map<Genre>(request);
             genreToAdd.Id = Guid.NewGuid();
@@ -29,10 +30,9 @@ namespace BookService.Application.Features.Genres.Commands.AddGenreCommand
                 await _genreRepository.Update(parentGenre);
             }
 
-            return new AddGenreCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
     }

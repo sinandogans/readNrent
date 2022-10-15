@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using BookService.Application.Abstraction.Persistence.PublisherRepository;
+using BookService.Application.Utilities.ResponseModel;
 using BookService.Domain.Entities;
 using MediatR;
 
 namespace BookService.Application.Features.Publishers.Commands.AddPublisherCommand
 {
-    public class AddPublisherCommandHandler : IRequestHandler<AddPublisherCommandRequest, AddPublisherCommandResponse>
+    public class AddPublisherCommandHandler : IRequestHandler<AddPublisherCommandRequest, IResponseModel>
     {
         private readonly IPublisherRepository _publisherRepository;
         private readonly IMapper _mapper;
@@ -16,16 +17,15 @@ namespace BookService.Application.Features.Publishers.Commands.AddPublisherComma
             _mapper = mapper;
         }
 
-        public async Task<AddPublisherCommandResponse> Handle(AddPublisherCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(AddPublisherCommandRequest request, CancellationToken cancellationToken)
         {
             var publisherToAdd = _mapper.Map<Publisher>(request);
             publisherToAdd.Id = Guid.NewGuid();
             await _publisherRepository.Add(publisherToAdd);
 
-            return new AddPublisherCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
     }

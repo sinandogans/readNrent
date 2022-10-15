@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using BookService.Application.Abstraction.Persistence.BookRepository;
 using BookService.Application.Abstraction.Persistence.UserRepository;
+using BookService.Application.Utilities.ResponseModel;
 using BookService.Domain.Entities;
 using MediatR;
 
 namespace BookService.Application.Features.Users.Commands.AddUserBookCommand
 {
-    public class AddUserBookCommandHandler : IRequestHandler<AddUserBookCommandRequest, AddUserBookCommandResponse>
+    public class AddUserBookCommandHandler : IRequestHandler<AddUserBookCommandRequest, IResponseModel>
     {
         private readonly IUserRepository _userRepository;
         private readonly IBookRepository _bookRepository;
@@ -19,7 +20,7 @@ namespace BookService.Application.Features.Users.Commands.AddUserBookCommand
             _bookRepository = bookRepository;
         }
 
-        public async Task<AddUserBookCommandResponse> Handle(AddUserBookCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(AddUserBookCommandRequest request, CancellationToken cancellationToken)
         {
             var userBookToAdd = _mapper.Map<UserBook>(request);
             var userToUpdate = await _userRepository.GetById(request.UserId);
@@ -33,10 +34,9 @@ namespace BookService.Application.Features.Users.Commands.AddUserBookCommand
 
             await _bookRepository.Update(bookToUpdate);
 
-            return new AddUserBookCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
     }

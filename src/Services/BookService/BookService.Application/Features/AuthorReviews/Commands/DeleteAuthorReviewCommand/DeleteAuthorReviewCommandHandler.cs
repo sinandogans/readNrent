@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using BookService.Application.Abstraction.Persistence.AuthorRepository;
 using BookService.Application.Abstraction.Persistence.AuthorReviewRepository;
+using BookService.Application.Utilities.ResponseModel;
 using MediatR;
 
 namespace BookService.Application.Features.AuthorReviews.Commands.DeleteAuthorReviewCommand
 {
-    public class DeleteAuthorReviewCommandHandler : IRequestHandler<DeleteAuthorReviewCommandRequest, DeleteAuthorReviewCommandResponse>
+    public class DeleteAuthorReviewCommandHandler : IRequestHandler<DeleteAuthorReviewCommandRequest, IResponseModel>
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly IAuthorReviewRepository _authorReviewRepository;
@@ -18,21 +19,19 @@ namespace BookService.Application.Features.AuthorReviews.Commands.DeleteAuthorRe
             _authorReviewRepository = authorReviewRepository;
         }
 
-        public async Task<DeleteAuthorReviewCommandResponse> Handle(DeleteAuthorReviewCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(DeleteAuthorReviewCommandRequest request, CancellationToken cancellationToken)
         {
             var review = await _authorReviewRepository.GetById(request.Id);
             await _authorReviewRepository.Delete(request.Id);
 
             var author = await _authorRepository.GetByReviewId(request.Id);
-            author.Rating = (author.Rating * author.ReviewCount - review.Rating) / (author.ReviewCount - 1);
             author.ReviewCount--;
             author.ReviewIds.Remove(review.Id);
             await _authorRepository.Update(author);
 
-            return new DeleteAuthorReviewCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
     }

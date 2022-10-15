@@ -1,10 +1,11 @@
 ﻿using BookService.Application.Abstraction.Persistence.BookRepository;
 using BookService.Application.Abstraction.Persistence.BookReviewRepository;
+using BookService.Application.Utilities.ResponseModel;
 using MediatR;
 
 namespace BookService.Application.Features.BookReviews.Commands.UpdateBookReviewCommand
 {
-    public class UpdateBookReviewCommandHandler : IRequestHandler<UpdateBookReviewCommandRequest, UpdateBookReviewCommandResponse>
+    public class UpdateBookReviewCommandHandler : IRequestHandler<UpdateBookReviewCommandRequest, IResponseModel>
     {
         private readonly IBookRepository _bookRepository;
         private readonly IBookReviewRepository _bookReviewRepository;
@@ -15,7 +16,7 @@ namespace BookService.Application.Features.BookReviews.Commands.UpdateBookReview
             _bookReviewRepository = bookReviewRepository;
         }
 
-        public async Task<UpdateBookReviewCommandResponse> Handle(UpdateBookReviewCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(UpdateBookReviewCommandRequest request, CancellationToken cancellationToken)
         {
             var reviewToUpdate = await _bookReviewRepository.GetById(request.Id);
             if (request.Comment != null && request.Comment != reviewToUpdate.Comment)
@@ -31,10 +32,9 @@ namespace BookService.Application.Features.BookReviews.Commands.UpdateBookReview
 
             await _bookReviewRepository.Update(reviewToUpdate);
 
-            return new UpdateBookReviewCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
     }

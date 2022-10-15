@@ -4,12 +4,12 @@ using MediatR;
 
 namespace BookService.Application.Features.Languages.Commands.UpdateLanguageCommand
 {
-    public class UpdateLanguageCommandRequest : IRequest<UpdateLanguageCommandResponse>
+    public class UpdateLanguageCommandRequest : IRequest<IResponseModel>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
     }
-    public class UpdateLanguageCommandHandler : IRequestHandler<UpdateLanguageCommandRequest, UpdateLanguageCommandResponse>
+    public class UpdateLanguageCommandHandler : IRequestHandler<UpdateLanguageCommandRequest, IResponseModel>
     {
         private readonly ILanguageRepository _languageRepository;
 
@@ -18,20 +18,16 @@ namespace BookService.Application.Features.Languages.Commands.UpdateLanguageComm
             _languageRepository = languageRepository;
         }
 
-        public async Task<UpdateLanguageCommandResponse> Handle(UpdateLanguageCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(UpdateLanguageCommandRequest request, CancellationToken cancellationToken)
         {
             var languageToUpdate = await _languageRepository.GetById(request.Id);
             languageToUpdate.Name = request.Name;
             await _languageRepository.Update(languageToUpdate);
 
-            return new UpdateLanguageCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
-    }
-    public class UpdateLanguageCommandResponse : Response
-    {
     }
 }

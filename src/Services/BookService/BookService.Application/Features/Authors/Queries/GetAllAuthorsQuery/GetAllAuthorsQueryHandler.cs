@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using BookService.Application.Abstraction.Persistence.AuthorRepository;
 using BookService.Application.Features.Authors.DTOs;
+using BookService.Application.Utilities.ResponseModel;
 using MediatR;
 
 namespace BookService.Application.Features.Authors.Queries.GetAllAuthorsQuery
 {
-    public class GetAllAuthorsQueryHandler : IRequestHandler<GetAllAuthorsQueryRequest, GetAllAuthorsQueryResponse>
+    public class GetAllAuthorsQueryHandler : IRequestHandler<GetAllAuthorsQueryRequest, IDataResponseModel<List<GetAuthorDTO>>>
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
@@ -16,17 +17,12 @@ namespace BookService.Application.Features.Authors.Queries.GetAllAuthorsQuery
             _mapper = mapper;
         }
 
-        async Task<GetAllAuthorsQueryResponse> IRequestHandler<GetAllAuthorsQueryRequest, GetAllAuthorsQueryResponse>.Handle(GetAllAuthorsQueryRequest request, CancellationToken cancellationToken)
+        public async Task<IDataResponseModel<List<GetAuthorDTO>>> Handle(GetAllAuthorsQueryRequest request, CancellationToken cancellationToken)
         {
             var authors = await _authorRepository.GetList();
             var response = _mapper.Map<List<GetAuthorDTO>>(authors);
 
-            return new GetAllAuthorsQueryResponse()
-            {
-                Message = "",
-                Success = true,
-                Data = response
-            };
+            return new SuccessDataResponseModel<List<GetAuthorDTO>>() { Message = "", Data = response };
         }
     }
 }

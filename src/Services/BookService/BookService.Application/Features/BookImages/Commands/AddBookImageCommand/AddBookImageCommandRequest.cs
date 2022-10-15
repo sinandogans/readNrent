@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Http;
 
 namespace BookService.Application.Features.BookImages.Commands.AddBookImageCommand
 {
-    public class AddBookImageCommandRequest : IRequest<AddBookImageCommandResponse>
+    public class AddBookImageCommandRequest : IRequest<IResponseModel>
     {
         public IFormFile Image { get; set; }
         public Guid BookId { get; set; }
     }
-    public class AddBookImageCommandHandler : IRequestHandler<AddBookImageCommandRequest, AddBookImageCommandResponse>
+    public class AddBookImageCommandHandler : IRequestHandler<AddBookImageCommandRequest, IResponseModel>
     {
         private readonly IBookImageRepository _bookImageRepository;
         private readonly IBookRepository _bookRepository;
@@ -29,7 +29,7 @@ namespace BookService.Application.Features.BookImages.Commands.AddBookImageComma
             _mapper = mapper;
         }
 
-        public async Task<AddBookImageCommandResponse> Handle(AddBookImageCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(AddBookImageCommandRequest request, CancellationToken cancellationToken)
         {
             var imagePath = _fileHelper.AddImageToProject(request.Image);
             var imageToAdd = _mapper.Map<BookImage>(request);
@@ -41,14 +41,10 @@ namespace BookService.Application.Features.BookImages.Commands.AddBookImageComma
             bookToUpdate.ImageIds.Add(imageToAdd.Id);
             await _bookRepository.Update(bookToUpdate);
 
-            return new AddBookImageCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
-    }
-    public class AddBookImageCommandResponse : Response
-    {
     }
 }

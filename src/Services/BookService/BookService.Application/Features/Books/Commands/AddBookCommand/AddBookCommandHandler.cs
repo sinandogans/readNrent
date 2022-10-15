@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using BookService.Application.Abstraction.Persistence.BookRepository;
+using BookService.Application.Utilities.ResponseModel;
 using BookService.Domain.Entities;
 using MediatR;
 
 namespace BookService.Application.Features.Books.Commands.AddBookCommand
 {
-    public class AddBookCommandHandler : IRequestHandler<AddBookCommandRequest, AddBookCommandResponse>
+    public class AddBookCommandHandler : IRequestHandler<AddBookCommandRequest, IResponseModel>
     {
         private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
@@ -16,17 +17,16 @@ namespace BookService.Application.Features.Books.Commands.AddBookCommand
             _mapper = mapper;
         }
 
-        public async Task<AddBookCommandResponse> Handle(AddBookCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(AddBookCommandRequest request, CancellationToken cancellationToken)
         {
             var book = _mapper.Map<Book>(request);
             var bookToAdd = new Book();
             bookToAdd.Id = Guid.NewGuid();
 
             await _bookRepository.Add(bookToAdd);
-            return new AddBookCommandResponse()
+            return new SuccessResponseModel()
             {
-                Message = "",
-                Success = true
+                Message = ""
             };
         }
     }

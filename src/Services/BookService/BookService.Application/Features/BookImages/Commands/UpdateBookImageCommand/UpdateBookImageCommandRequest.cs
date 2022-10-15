@@ -3,17 +3,14 @@ using MediatR;
 
 namespace BookService.Application.Features.BookImages.Commands.UpdateBookImageCommand
 {
-    public class UpdateBookImageCommandRequest : IRequest<UpdateBookImageCommandResponse>
+    public class UpdateBookImageCommandRequest : IRequest<IResponseModel>
     {
     }
-    public class UpdateBookImageCommandHandler : IRequestHandler<UpdateBookImageCommandRequest, UpdateBookImageCommandResponse>
+    public class UpdateBookImageCommandHandler : IRequestHandler<UpdateBookImageCommandRequest, IResponseModel>
     {
-        public Task<UpdateBookImageCommandResponse> Handle(UpdateBookImageCommandRequest request, CancellationToken cancellationToken)
+        public Task<IResponseModel> Handle(UpdateBookImageCommandRequest request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
-    }
-    public class UpdateBookImageCommandResponse : Response
-    {
     }
 }
