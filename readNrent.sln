@@ -12,14 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApiGateway", "WebApiGateway", "{9AE7A0D3-12CD-42DE-84A8-77970BAF35B8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BookService", "BookService", "{C366CA96-3231-43D3-BCD7-8FD9CE0AB3CD}"
-	ProjectSection(SolutionItems) = preProject
-		BookServiceNotes.txt = BookServiceNotes.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{C9E33D56-8040-4733-90D1-93C35F4979A9}"
-	ProjectSection(SolutionItems) = preProject
-		IdentityServiceNotes.txt = IdentityServiceNotes.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationService", "NotificationService", "{4FC0E990-7A7C-4068-A458-42F98BF0071A}"
 EndProject
