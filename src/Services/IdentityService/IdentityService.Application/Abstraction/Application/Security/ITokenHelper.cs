@@ -1,4 +1,4 @@
-﻿using IdentityService.Application.Security.JWT;
+﻿using IdentityService.Application.Utilities.Security.JWT;
 using IdentityService.Domain.Entities;
 
 namespace IdentityService.Application.Abstraction.Application.Security

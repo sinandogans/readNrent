@@ -10,10 +10,9 @@ namespace IdentityService.Persistence.Extensions.IoC
     {
         public static void AddPersistenceRegistration(this IServiceCollection services)
         {
-            services.AddSingleton<IUserReadRepository, EfUserReadRepository>();
-            services.AddSingleton<IUserWriteRepository, EfUserWriteRepository>();
+            services.AddSingleton<IUserRepository, EFUserRepository>();
 
-            services.AddSingleton<IRoleClaimReadRepository, EfRoleClaimReadRepository>();
+            services.AddSingleton<IRoleClaimRepository, EFRoleClaimRepository>();
         }
     }
 }

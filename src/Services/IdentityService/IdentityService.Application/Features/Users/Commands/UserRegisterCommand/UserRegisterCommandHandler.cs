@@ -1,39 +1,46 @@
 ﻿using AutoMapper;
-using IdentityService.Application.Abstraction.Application.Security;
+using IdentityService.Application.Abstraction.Infrastructure.EventBus;
 using IdentityService.Application.Abstraction.Persistence.UserRepository;
-using IdentityService.Application.Security.Hashing;
+using IdentityService.Application.IntegrationEvents.Users;
+using IdentityService.Application.Utilities.ResponseModel;
+using IdentityService.Application.Utilities.Security.Hashing;
 using IdentityService.Domain.Entities;
 using MediatR;
 
 namespace IdentityService.Application.Features.Users.Commands.UserRegisterCommand
 {
-    public class UserRegisterCommandHandler : IRequestHandler<UserRegisterCommandRequest, UserRegisterCommandResponse>
+    public class UserRegisterCommandHandler : IRequestHandler<UserRegisterCommandRequest, IResponseModel>
     {
-        private readonly IUserWriteRepository _userWriteRepository;
-        private readonly ITokenHelper _tokenHelper;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public UserRegisterCommandHandler(IUserWriteRepository userWriteRepository, ITokenHelper tokenHelper, IMapper mapper)
+        private readonly IEventBus _eventBus;
+        public UserRegisterCommandHandler(IUserRepository userRepository, IMapper mapper, IEventBus eventBus)
         {
-            _userWriteRepository = userWriteRepository;
-            _tokenHelper = tokenHelper;
+            _userRepository = userRepository;
             _mapper = mapper;
+            _eventBus = eventBus;
         }
 
-        public async Task<UserRegisterCommandResponse> Handle(UserRegisterCommandRequest request, CancellationToken cancellationToken)
+        public async Task<IResponseModel> Handle(UserRegisterCommandRequest request, CancellationToken cancellationToken)
         {
+
+            //_eventBus.Subscribe<UserRegisteredIntegrationEvent, UserRegisteredIntegrationEventHandler>();
+
+
             HashingHelper.CreatePasswordHash(request.Password, out var passwordHash, out var passwordSalt);
-            var user = new User
+            var userToAdd = _mapper.Map<User>(request);
+            userToAdd.Id = Guid.NewGuid();
+            userToAdd.PasswordSalt = passwordSalt;
+            userToAdd.PasswordHash = passwordHash;
+
+            await _userRepository.Add(userToAdd);
+            var userRegisteredEvent = _mapper.Map<UserRegisteredIntegrationEvent>(userToAdd);
+            _eventBus.Publish<UserRegisteredIntegrationEvent>(userRegisteredEvent);
+
+            return new SuccessResponseModel()
             {
-                Id = Guid.NewGuid(),
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Email = request.Email,
-                PasswordSalt = passwordSalt,
-                PasswordHash = passwordHash
+                Message = ""
             };
-            await _userWriteRepository.Add(user);
-            var response = _mapper.Map<UserRegisterCommandResponse>(user);
-            return response;
         }
     }
 }

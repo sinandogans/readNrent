@@ -1,6 +1,4 @@
-﻿using BookService.Domain.Enums;
-
-namespace BookService.Application.Features.Authors.DTOs
+﻿namespace BookService.Application.Features.Authors.DTOs
 {
     public class GetAuthorDTO
     {

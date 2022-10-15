@@ -1,5 +1,5 @@
-﻿using IdentityService.Application.Features.Users.Commands.UserRegisterCommand;
-using IdentityService.Application.Features.Users.Queries.UserLoginQuery;
+﻿using IdentityService.Application.Features.Users.Commands.UserLoginCommand;
+using IdentityService.Application.Features.Users.Commands.UserRegisterCommand;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,8 +23,8 @@ namespace IdentityService.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginQueryRequest request)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginCommandRequest request)
         {
             var response = await _mediator.Send(request);
             return Ok(response);

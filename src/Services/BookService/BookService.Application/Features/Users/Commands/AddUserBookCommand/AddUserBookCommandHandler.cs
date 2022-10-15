@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using BookService.Application.Abstraction.Persistence.BookRepository;
 using BookService.Application.Abstraction.Persistence.UserRepository;
 using BookService.Application.Utilities.ResponseModel;
 using BookService.Domain.Entities;

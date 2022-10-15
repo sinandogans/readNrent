@@ -1,5 +1,5 @@
 ﻿using IdentityService.Application.Abstraction.Application.Security;
-using IdentityService.Application.Security.JWT;
+using IdentityService.Application.Utilities.Security.JWT;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
