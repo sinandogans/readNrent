@@ -1,8 +1,4 @@
-﻿using BookService.Domain.Entities;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-
-namespace BookService.Application.Features.Authors.DTOs
+﻿namespace BookService.Application.Features.Authors.DTOs
 {
     public class GetAuthorDTO
     {

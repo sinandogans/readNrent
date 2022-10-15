@@ -2,10 +2,8 @@
 {
     public enum Status
     {
-        Default,
-        WillRead,
-        Reading,
+        WantToRead,
         Read,
-        Stopped
+        CurrentlyReading
     }
 }
