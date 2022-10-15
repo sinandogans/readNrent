@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ReviewService.Application\ReviewService.Application.csproj" />
     <ProjectReference Include="..\ReviewService.Infrastructure\ReviewService.Infrastructure.csproj" />
     <ProjectReference Include="..\ReviewService.Persistence\ReviewService.Persistence.csproj" />
