@@ -1,4 +1,5 @@
 ﻿using BookService.Application.Utilities.ResponseModel;
+using BookService.Domain.Enums;
 using MediatR;
 
 namespace BookService.Application.Features.Authors.Commands.AddAuthorCommand
@@ -7,6 +8,6 @@ namespace BookService.Application.Features.Authors.Commands.AddAuthorCommand
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-
+        public AuthorType Type { get; set; }
     }
 }

@@ -1,8 +1,11 @@
-﻿namespace BookService.Application.Features.Authors.DTOs
+﻿using BookService.Domain.Enums;
+
+namespace BookService.Application.Features.Authors.DTOs
 {
     public class GetAuthorDTO
     {
         public Guid Id { get; set; }
+        public string Type { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public double Rating { get; set; }

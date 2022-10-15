@@ -10,14 +10,12 @@ namespace BookService.Application.Features.Users.Commands.AddUserBookCommand
     public class AddUserBookCommandHandler : IRequestHandler<AddUserBookCommandRequest, IResponseModel>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
 
-        public AddUserBookCommandHandler(IUserRepository userRepository, IMapper mapper, IBookRepository bookRepository)
+        public AddUserBookCommandHandler(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
-            _bookRepository = bookRepository;
         }
 
         public async Task<IResponseModel> Handle(AddUserBookCommandRequest request, CancellationToken cancellationToken)
@@ -28,11 +26,11 @@ namespace BookService.Application.Features.Users.Commands.AddUserBookCommand
             userToUpdate.BookCount++;
             await _userRepository.Update(userToUpdate);
 
-            var bookToUpdate = await _bookRepository.GetById(request.BookId);
-            bookToUpdate.Rating = (bookToUpdate.Rating * bookToUpdate.RatingCount + userBookToAdd.Rating) / (bookToUpdate.RatingCount + 1);
-            bookToUpdate.RatingCount++;
+            //var bookToUpdate = await _bookRepository.GetById(request.BookId);
+            //bookToUpdate.Rating = (bookToUpdate.Rating * bookToUpdate.RatingCount + userBookToAdd.Rating) / (bookToUpdate.RatingCount + 1);
+            //bookToUpdate.RatingCount++;
 
-            await _bookRepository.Update(bookToUpdate);
+            //await _bookRepository.Update(bookToUpdate);
 
             return new SuccessResponseModel()
             {

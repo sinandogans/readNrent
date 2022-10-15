@@ -15,6 +15,5 @@ namespace BookService.Domain.Entities
         [BsonRepresentation(BsonType.DateTime)]
         public DateTime EndDate { get; set; }
         public Status Status { get; set; }
-        public int Rating { get; set; }
     }
 }

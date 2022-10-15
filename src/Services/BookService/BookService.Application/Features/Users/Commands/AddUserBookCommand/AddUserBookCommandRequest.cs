@@ -8,9 +8,8 @@ namespace BookService.Application.Features.Users.Commands.AddUserBookCommand
     {
         public Guid UserId { get; set; }
         public Guid BookId { get; set; }
-        public DateTime BeginDate { get; set; } = default;
-        public DateTime EndDate { get; set; } = default;
-        public Status Status { get; set; } = 0;
-        public int Rating { get; set; }
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public Status Status { get; set; }
     }
 }

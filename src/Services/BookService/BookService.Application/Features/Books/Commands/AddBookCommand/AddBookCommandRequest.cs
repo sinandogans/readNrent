@@ -9,5 +9,7 @@ namespace BookService.Application.Features.Books.Commands.AddBookCommand
         public string Name { get; set; }
         public int Pages { get; set; }
         public string Description { get; set; }
+        public List<Guid> AuthorIds { get; set; }
+        public List<Guid> GenreIds { get; set; }
     }
 }

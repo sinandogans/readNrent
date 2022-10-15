@@ -19,10 +19,8 @@ namespace BookService.Application.Features.Authors.Commands.AddAuthorCommand
 
         public async Task<IResponseModel> Handle(AddAuthorCommandRequest request, CancellationToken cancellationToken)
         {
-            var feature = _mapper.Map<Author>(request);
-            var authorToAdd = new Author();
+            var authorToAdd = _mapper.Map<Author>(request);
             authorToAdd.Id = Guid.NewGuid();
-            authorToAdd = feature;
 
             await _authorRepository.Add(authorToAdd);
 

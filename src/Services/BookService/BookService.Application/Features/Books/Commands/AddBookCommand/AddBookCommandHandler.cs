@@ -19,8 +19,7 @@ namespace BookService.Application.Features.Books.Commands.AddBookCommand
 
         public async Task<IResponseModel> Handle(AddBookCommandRequest request, CancellationToken cancellationToken)
         {
-            var book = _mapper.Map<Book>(request);
-            var bookToAdd = new Book();
+            var bookToAdd = _mapper.Map<Book>(request);
             bookToAdd.Id = Guid.NewGuid();
 
             await _bookRepository.Add(bookToAdd);

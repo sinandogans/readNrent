@@ -40,10 +40,6 @@ namespace BookService.Application.Features.Publishes.Commands.AddPublishCommand
             book.PublishIds.Add(publishToAdd.Id);
             await _bookRepository.Update(book);
 
-            var publisher = await _publisherRepository.GetById(publishToAdd.PublisherId);
-            publisher.PublishIds.Add(publishToAdd.Id);
-            await _publisherRepository.Update(publisher);
-
             return new SuccessResponseModel()
             {
                 Message = ""
