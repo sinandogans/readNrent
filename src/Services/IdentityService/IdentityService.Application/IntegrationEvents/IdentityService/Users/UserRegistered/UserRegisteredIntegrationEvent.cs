@@ -1,4 +1,4 @@
-﻿namespace IdentityService.Application.IntegrationEvents.Users.UserRegistered
+﻿namespace IdentityService.Application.IntegrationEvents.IdentityService.Users.UserRegistered
 {
     public class UserRegisteredIntegrationEvent : IntegrationEvent
     {

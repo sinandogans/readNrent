@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using IdentityService.Application.Abstraction.Infrastructure.EventBus;
 using IdentityService.Application.Abstraction.Persistence.UserRepository;
-using IdentityService.Application.IntegrationEvents.Users.UserRegistered;
+using IdentityService.Application.IntegrationEvents.IdentityService.Users.UserRegistered;
 using IdentityService.Application.Utilities.ResponseModel;
 using IdentityService.Application.Utilities.Security.Hashing;
 using IdentityService.Domain.Entities;
