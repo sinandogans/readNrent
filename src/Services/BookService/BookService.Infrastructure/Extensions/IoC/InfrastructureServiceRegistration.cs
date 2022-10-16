@@ -2,7 +2,6 @@
 using BookService.Application.Abstraction.Infrastructure.FileOperations;
 using BookService.Application.Utilities.Configuration;
 using BookService.Infrastructure.EventBus;
-using BookService.Infrastructure.EventBus.RabbitMQ;
 using BookService.Infrastructure.FileOperations;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,12 +16,14 @@ namespace BookService.Infrastructure.Extensions.IoC
             {
                 EventBusConfig config = new()
                 {
+                    BusType = EventBusType.RabbitMQ,
                     HostName = ConfigurationHelper.Config["RabbitMQ:HostName"],
                     Port = int.Parse(ConfigurationHelper.Config["RabbitMQ:Port"]),
                     DefaultExchangeName = ConfigurationHelper.Config["RabbitMQ:DefaultExchangeName"],
                     SubscriberClientName = "BookService"
+
                 };
-                return new EventBusRabbitMQ(config, sp);
+                return EventBusFactory.Create(config, sp);
             });
         }
     }

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Users\Queries\" />
+    <Folder Include="IntegrationEvents\EventListeners\" />
   </ItemGroup>
 
 </Project>

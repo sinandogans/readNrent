@@ -12,12 +12,10 @@ namespace IdentityService.Infrastructure.EventBus.RabbitMQ
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
-        private readonly EventBusConfig _config;
         private Dictionary<string, string> _eventName_ConsumerTag;
 
-        public EventBusRabbitMQ(EventBusConfig config) : base(config)
+        public EventBusRabbitMQ(EventBusConfig config, IServiceProvider serviceProvider) : base(config, serviceProvider)
         {
-            this._config = config;
             _eventName_ConsumerTag = new Dictionary<string, string>();
             var factory = new ConnectionFactory()
             {
@@ -71,9 +69,8 @@ namespace IdentityService.Infrastructure.EventBus.RabbitMQ
                 _eventName_ConsumerTag.Add(typeof(TEvent).Name, e.ConsumerTag);
             var body = e.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
-            var isSuccess = await ProcessEvent<TEvent, TEventHandler>(message);
-            if (isSuccess)
-                _channel.BasicAck(e.DeliveryTag, false);
+            await ProcessEvent<TEvent, TEventHandler>(message);
+            _channel.BasicAck(e.DeliveryTag, false);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace IdentityService.Infrastructure.Extensions.IoC
                     DefaultExchangeName = ConfigurationHelper.Config["RabbitMQ:DefaultExchangeName"],
                     SubscriberClientName = "IdentityService"
                 };
-                return new EventBusRabbitMQ(config);
+                return new EventBusRabbitMQ(config, sp);
             }
             );
         }

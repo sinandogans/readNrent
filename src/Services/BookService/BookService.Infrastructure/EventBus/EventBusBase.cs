@@ -29,10 +29,8 @@ namespace BookService.Infrastructure.EventBus
             where TEvent : IntegrationEvent
             where TEventHandler : IIntegrationEventHandler<TEvent>
         {
-            var typeOfEventHandler = typeof(TEventHandler);
-            var eventHandler = (TEventHandler)_serviceProvider.GetService(typeOfEventHandler);
+            var eventHandler = (TEventHandler)_serviceProvider.GetService(typeof(TEventHandler));
             var @event = JsonSerializer.Deserialize<TEvent>(message);
-
             await eventHandler.Handle(@event);
         }
 

@@ -7,11 +7,12 @@ namespace IdentityService.Infrastructure.EventBus
 {
     public abstract class EventBusBase : IEventBus
     {
-        private readonly EventBusConfig _config;
-
-        public EventBusBase(EventBusConfig config)
+        protected readonly EventBusConfig _config;
+        protected readonly IServiceProvider _serviceProvider;
+        public EventBusBase(EventBusConfig config, IServiceProvider serviceProvider)
         {
             _config = config;
+            _serviceProvider = serviceProvider;
         }
 
         public virtual string GetQueueName(string eventName)
@@ -24,16 +25,13 @@ namespace IdentityService.Infrastructure.EventBus
             return @event.GetType().Name;
         }
 
-        public async Task<bool> ProcessEvent<TEvent, TEventHandler>(string message)
+        public async Task ProcessEvent<TEvent, TEventHandler>(string message)
             where TEvent : IntegrationEvent
             where TEventHandler : IIntegrationEventHandler<TEvent>
         {
-            var typeOfEventHandler = typeof(TEventHandler);
-            var eventHandler = (IIntegrationEventHandler<TEvent>)Activator.CreateInstance(typeOfEventHandler);
+            var eventHandler = (TEventHandler)_serviceProvider.GetService(typeof(TEventHandler));
             var @event = JsonSerializer.Deserialize<TEvent>(message);
             await eventHandler.Handle(@event);
-
-            return true;
         }
 
         public abstract void Publish<TEvent>(IntegrationEvent @event) where TEvent : IntegrationEvent;
