@@ -16,9 +16,10 @@ namespace IdentityService.Infrastructure.Extensions.IoC
                 {
                     HostName = ConfigurationHelper.Config["RabbitMQ:HostName"],
                     Port = int.Parse(ConfigurationHelper.Config["RabbitMQ:Port"]),
-                    DefaultExchangeName = ConfigurationHelper.Config["RabbitMQ:DefaultExchangeName"]
+                    DefaultExchangeName = ConfigurationHelper.Config["RabbitMQ:DefaultExchangeName"],
+                    SubscriberClientName = "IdentityService"
                 };
-                return new RabbitMQEventBus(config);
+                return new EventBusRabbitMQ(config);
             }
             );
         }

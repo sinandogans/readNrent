@@ -1,7 +1,7 @@
-﻿using IdentityService.Application.Abstraction.Application.IntegrationEvent;
-using IdentityService.Application.IntegrationEvents;
+﻿using BookService.Application.Abstraction.Application.IntegrationEvent;
+using BookService.Application.IntegrationEvents;
 
-namespace IdentityService.Application.Abstraction.Infrastructure.EventBus
+namespace BookService.Application.Abstraction.Infrastructure.EventBus
 {
     public interface IEventBus
     {

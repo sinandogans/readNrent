@@ -1,4 +1,4 @@
-﻿namespace IdentityService.Infrastructure.EventBus
+﻿namespace BookService.Infrastructure.EventBus
 {
     public class EventBusConfig
     {

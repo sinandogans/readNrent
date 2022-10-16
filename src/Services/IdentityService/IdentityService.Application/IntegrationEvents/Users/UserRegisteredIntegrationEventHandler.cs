@@ -1,4 +1,5 @@
 ﻿using IdentityService.Application.Abstraction.Application.IntegrationEvent;
+using System.Text.Json;
 
 namespace IdentityService.Application.IntegrationEvents.Users
 {
@@ -6,7 +7,7 @@ namespace IdentityService.Application.IntegrationEvents.Users
     {
         public async Task Handle(UserRegisteredIntegrationEvent @event)
         {
-            Console.WriteLine("saaaaaa");
+            Console.WriteLine(JsonSerializer.Serialize(@event));
         }
     }
 }

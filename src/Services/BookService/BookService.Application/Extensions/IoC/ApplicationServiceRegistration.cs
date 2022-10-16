@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using BookService.Application.IntegrationEvents.IdentityService.EventListeners.UserRegistered;
+using BookService.Application.IntegrationEvents.IdentityService.Users.UserRegistered;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -11,6 +13,8 @@ namespace BookService.Application.Extensions.IoC
             var assembly = Assembly.GetExecutingAssembly();
             services.AddAutoMapper(assembly);
             services.AddMediatR(assembly);
+            services.AddHostedService<UserRegisteredIntegrationEventListener>();
+            services.AddSingleton<UserRegisteredIntegrationEventHandler>();
         }
     }
 }

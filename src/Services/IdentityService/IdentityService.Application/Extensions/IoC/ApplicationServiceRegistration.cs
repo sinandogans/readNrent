@@ -1,4 +1,5 @@
 ﻿using IdentityService.Application.Abstraction.Application.Security;
+using IdentityService.Application.IntegrationEvents.EventListeners;
 using IdentityService.Application.Utilities.Security.JWT;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ namespace IdentityService.Application.Extensions.IoC
             services.AddAutoMapper(assembly);
             services.AddMediatR(assembly);
             services.AddScoped<ITokenHelper, JwtHelper>();
+            //services.AddHostedService<UserRegisteredIntegrationEventListener>();
         }
     }
 }

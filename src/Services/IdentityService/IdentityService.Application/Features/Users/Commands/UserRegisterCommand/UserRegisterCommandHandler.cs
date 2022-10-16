@@ -24,9 +24,6 @@ namespace IdentityService.Application.Features.Users.Commands.UserRegisterComman
         public async Task<IResponseModel> Handle(UserRegisterCommandRequest request, CancellationToken cancellationToken)
         {
 
-            //_eventBus.Subscribe<UserRegisteredIntegrationEvent, UserRegisteredIntegrationEventHandler>();
-
-
             HashingHelper.CreatePasswordHash(request.Password, out var passwordHash, out var passwordSalt);
             var userToAdd = _mapper.Map<User>(request);
             userToAdd.Id = Guid.NewGuid();

@@ -1,4 +1,5 @@
 using BookService.Application.Extensions.IoC;
+using BookService.Application.Utilities.Configuration;
 using BookService.Infrastructure.Extensions.IoC;
 using BookService.Persistence.Extensions.IoC;
 using BookService.Persistence.MongoDbDriver.Context;
@@ -6,7 +7,7 @@ using BookService.Persistence.MongoDbDriver.Context;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+ConfigurationHelper.Config = builder.Configuration;
 builder.Services.AddControllers();
 builder.Services.Configure<MongoDbOptions>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddApplicationRegistration();

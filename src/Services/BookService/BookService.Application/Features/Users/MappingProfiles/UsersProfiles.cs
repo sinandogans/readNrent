@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BookService.Application.Features.Users.Commands.AddUserBookCommand;
+using BookService.Application.IntegrationEvents.IdentityService.Users.UserRegistered;
 using BookService.Domain.Entities;
 
 namespace BookService.Application.Features.Users.MappingProfiles
@@ -9,6 +10,8 @@ namespace BookService.Application.Features.Users.MappingProfiles
         public UsersProfiles()
         {
             CreateMap<UserBook, AddUserBookCommandRequest>().ReverseMap();
+            CreateMap<UserRegisteredIntegrationEvent, User>()
+                .ForMember(usr => usr.Id, opt => opt.MapFrom(evnt => evnt.UserId));
         }
     }
 }
