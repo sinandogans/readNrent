@@ -12,8 +12,6 @@
 
     public enum EventBusType
     {
-        RabbitMQ,
-        Kafka,
-        AzureServiceBus
+        RabbitMQ
     }
 }
