@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace BookService.Domain.Entities
+namespace BookService.Domain.AggregatesModel.BookAggregate
 {
     public class Genre : IEntity
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BookService.Application.Features.AuthorReviews.Commands.AddAuthorReviewCommand;
-using BookService.Domain.Entities;
+using BookService.Domain.AggregatesModel.AuthorAggregate;
 
 namespace BookService.Application.Features.AuthorReviews.MappingProfiles
 {

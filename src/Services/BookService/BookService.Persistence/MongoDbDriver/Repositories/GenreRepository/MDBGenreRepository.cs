@@ -1,5 +1,5 @@
 ﻿using BookService.Application.Abstraction.Persistence.GenreRepository;
-using BookService.Domain.Entities;
+using BookService.Domain.AggregatesModel.BookAggregate;
 using BookService.Persistence.MongoDbDriver.Context;
 using BookService.Persistence.MongoDbDriver.Repositories.BaseRepository;
 

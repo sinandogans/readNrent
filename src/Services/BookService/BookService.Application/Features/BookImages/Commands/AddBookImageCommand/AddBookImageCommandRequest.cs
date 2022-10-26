@@ -3,7 +3,7 @@ using BookService.Application.Abstraction.Infrastructure.FileOperations;
 using BookService.Application.Abstraction.Persistence.BookImageRepository;
 using BookService.Application.Abstraction.Persistence.BookRepository;
 using BookService.Application.Utilities.ResponseModel;
-using BookService.Domain.Entities;
+using BookService.Domain.AggregatesModel.BookAggregate;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 

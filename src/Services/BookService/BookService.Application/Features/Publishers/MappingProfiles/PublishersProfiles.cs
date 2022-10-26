@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BookService.Application.Features.Publishers.Commands.AddPublisherCommand;
-using BookService.Domain.Entities;
+using BookService.Domain.AggregatesModel.BookAggregate;
 
 namespace BookService.Application.Features.Publishers.MappingProfiles
 {

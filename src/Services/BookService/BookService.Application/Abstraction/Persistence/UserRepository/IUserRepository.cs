@@ -1,5 +1,5 @@
 ﻿using BookService.Application.Abstraction.Persistence.BaseRepository;
-using BookService.Domain.Entities;
+using BookService.Domain.AggregatesModel.UserAggregate;
 
 namespace BookService.Application.Abstraction.Persistence.UserRepository
 {

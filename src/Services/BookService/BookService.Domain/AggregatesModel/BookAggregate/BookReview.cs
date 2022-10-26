@@ -2,24 +2,22 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace BookService.Domain.Entities
+namespace BookService.Domain.AggregatesModel.BookAggregate
 {
-    public class Publish : IEntity
+    public class BookReview : IEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
+        public string Comment { get; set; }
 
         [BsonRepresentation(BsonType.DateTime)]
-        public DateTime PublishDate { get; set; }
-
-        [BsonRepresentation(BsonType.String)]
-        public Guid PublisherId { get; set; }
+        public DateTime Date { get; set; }
 
         [BsonRepresentation(BsonType.String)]
         public Guid BookId { get; set; }
 
         [BsonRepresentation(BsonType.String)]
-        public Guid LanguageId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

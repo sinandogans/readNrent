@@ -33,7 +33,6 @@
     <Folder Include="Features\Books\Queries\" />
     <Folder Include="Features\Genres\DTOs\" />
     <Folder Include="Features\Genres\Queries\" />
-    <Folder Include="Features\Languages\Queries\" />
     <Folder Include="Features\Publishers\DTOs\" />
     <Folder Include="Features\Publishers\Queries\" />
     <Folder Include="Features\Publishes\DTOs\" />

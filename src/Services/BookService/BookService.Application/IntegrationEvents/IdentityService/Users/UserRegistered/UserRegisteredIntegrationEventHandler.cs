@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BookService.Application.Abstraction.Application.IntegrationEvent;
 using BookService.Application.Abstraction.Persistence.UserRepository;
-using BookService.Domain.Entities;
+using BookService.Domain.AggregatesModel.UserAggregate;
 
 namespace BookService.Application.IntegrationEvents.IdentityService.Users.UserRegistered
 {

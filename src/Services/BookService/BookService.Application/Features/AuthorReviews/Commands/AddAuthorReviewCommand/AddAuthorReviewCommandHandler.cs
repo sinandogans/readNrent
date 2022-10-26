@@ -2,7 +2,7 @@
 using BookService.Application.Abstraction.Persistence.AuthorRepository;
 using BookService.Application.Abstraction.Persistence.AuthorReviewRepository;
 using BookService.Application.Utilities.ResponseModel;
-using BookService.Domain.Entities;
+using BookService.Domain.AggregatesModel.AuthorAggregate;
 using MediatR;
 
 namespace BookService.Application.Features.AuthorReviews.Commands.AddAuthorReviewCommand

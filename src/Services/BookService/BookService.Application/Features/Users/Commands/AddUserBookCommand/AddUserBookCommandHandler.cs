@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BookService.Application.Abstraction.Persistence.UserRepository;
 using BookService.Application.Utilities.ResponseModel;
-using BookService.Domain.Entities;
+using BookService.Domain.AggregatesModel.UserAggregate;
 using MediatR;
 
 namespace BookService.Application.Features.Users.Commands.AddUserBookCommand

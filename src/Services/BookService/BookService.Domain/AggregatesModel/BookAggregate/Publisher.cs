@@ -2,16 +2,13 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace BookService.Domain.Entities
+namespace BookService.Domain.AggregatesModel.BookAggregate
 {
-    public class BookImage : IEntity
+    public class Publisher : IEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
-        public string Path { get; set; }
-
-        [BsonRepresentation(BsonType.String)]
-        public Guid BookId { get; set; }
+        public string Name { get; set; }
     }
 }

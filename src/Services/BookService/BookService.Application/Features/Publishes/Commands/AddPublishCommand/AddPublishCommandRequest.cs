@@ -3,7 +3,7 @@ using BookService.Application.Abstraction.Persistence.BookRepository;
 using BookService.Application.Abstraction.Persistence.PublisherRepository;
 using BookService.Application.Abstraction.Persistence.PublishRepository;
 using BookService.Application.Utilities.ResponseModel;
-using BookService.Domain.Entities;
+using BookService.Domain.AggregatesModel.BookAggregate;
 using MediatR;
 
 namespace BookService.Application.Features.Publishes.Commands.AddPublishCommand

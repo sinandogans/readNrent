@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BookService.Application.Abstraction.Persistence.AuthorRepository;
 using BookService.Application.Utilities.ResponseModel;
-using BookService.Domain.Entities;
+using BookService.Domain.AggregatesModel.AuthorAggregate;
 using MediatR;
 
 namespace BookService.Application.Features.Authors.Commands.AddAuthorCommand

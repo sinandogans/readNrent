@@ -2,7 +2,7 @@
 using BookService.Application.Features.Users.Commands.AddUserBookCommand;
 using BookService.Application.IntegrationEvents.IdentityService.Users.UserRegistered;
 using BookService.Application.IntegrationEvents.IdentityService.Users.UserUpdated;
-using BookService.Domain.Entities;
+using BookService.Domain.AggregatesModel.UserAggregate;
 
 namespace BookService.Application.Features.Users.MappingProfiles
 {

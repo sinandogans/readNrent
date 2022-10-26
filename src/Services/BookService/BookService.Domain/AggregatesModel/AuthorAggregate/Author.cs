@@ -3,7 +3,7 @@ using BookService.Domain.Enums;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace BookService.Domain.Entities
+namespace BookService.Domain.AggregatesModel.AuthorAggregate
 {
     public class Author : IEntity
     {
