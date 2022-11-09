@@ -7,7 +7,6 @@
 *.json
 *Context.cs
 *.txt
-*mig_*
 
 # User-specific files
 *.rsuser
