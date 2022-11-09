@@ -23,6 +23,8 @@
       <Folder Include="Features\LibraryBooks\DTOs" />
       <Folder Include="Features\LibraryBooks\MappingProfiles" />
       <Folder Include="Features\LibraryBooks\Queries" />
+      <Folder Include="IntegrationEvents\BookService\Authors\AuthorAdded" />
+      <Folder Include="IntegrationEvents\IdentityService\EventListeners\Users" />
     </ItemGroup>
 
 </Project>

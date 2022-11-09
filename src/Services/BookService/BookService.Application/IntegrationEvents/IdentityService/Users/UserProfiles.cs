@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using LibraryService.Application.IntegrationEvents.IdentityService.Users.UserRegistered;
-using LibraryService.Application.IntegrationEvents.IdentityService.Users.UserUpdated;
-using LibraryService.Domain.AggregatesModel.UserAggregate;
+using BookService.Application.IntegrationEvents.IdentityService.Users.UserRegistered;
+using BookService.Application.IntegrationEvents.IdentityService.Users.UserUpdated;
+using BookService.Domain.AggregatesModel.UserAggregate;
 
-namespace LibraryService.Application.IntegrationEvents.IdentityService.Users;
+namespace BookService.Application.IntegrationEvents.IdentityService.Users;
 
 public class UserProfiles : Profile
 {
