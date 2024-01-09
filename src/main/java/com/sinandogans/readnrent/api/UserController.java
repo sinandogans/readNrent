@@ -1,49 +1,29 @@
 package com.sinandogans.readnrent.api;
 
-import com.sinandogans.readnrent.application.repositories.UserRepository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sinandogans.readnrent.application.services.shared.response.IDataResponse;
+import com.sinandogans.readnrent.application.services.shared.response.IResponse;
+import com.sinandogans.readnrent.application.services.user.UserService;
+import com.sinandogans.readnrent.application.services.user.login.UserLoginRequest;
+import com.sinandogans.readnrent.application.services.user.register.UserRegisterRequest;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("users")
 public class UserController {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-//    @PostMapping(value = "registerStudent")
-//    public String registerStudent(@RequestBody StudentRegisterRequest studentRegisterRequest, HttpServletRequest request) {
-//        var student = studentFactory.create(studentRegisterRequest.getEmail(), studentRegisterRequest.getUsername(), studentRegisterRequest.getFirstName(), studentRegisterRequest.getLastName(), studentRegisterRequest.getStudentName(), studentRegisterRequest.getPassword());
-//        String jwt = jwtService.createToken(student);
-//        userRepository.save(student);
-//        return jwt;
-//    }
+    @PostMapping(value = "register")
+    public IResponse register(@RequestBody UserRegisterRequest registerRequest) {
+        return userService.register(registerRequest);
+    }
 
-//    @PostMapping(value = "getStudents")
-//    public List<Student> getStudents() {
-//        var students = (List<Student>) userRepository.findAll();
-//        return students;
-//    }
+    @PostMapping(value = "login")
+    public IDataResponse login(@RequestBody UserLoginRequest loginRequest) {
+        return userService.login(loginRequest);
+    }
 
-//    @GetMapping(value = "getStudent")
-//    //@RolesAllowed(values = {"admin", "editor"})
-//    public Student getStudent() {
-//        var student = (Student) userRepository.findById(1L).get();
-//        return student;
-//    }
-//
-//    @GetMapping(value = "jwt")
-//    public String getJwt() {
-//        var student = (Student) userRepository.findById(2L).get();
-//        String jwt = jwtService.createToken(student);
-//        return jwt;
-//    }
-//
-//    @GetMapping(value = "getStudentByStudentName")
-//    public Student getStudentByStudentName(@RequestParam String studentName) {
-//        var student = (Student) userRepository.findByStudentName(studentName).get();
-//        return student;
-//    }
 }

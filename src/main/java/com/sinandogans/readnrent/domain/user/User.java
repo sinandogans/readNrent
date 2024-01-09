@@ -2,11 +2,13 @@ package com.sinandogans.readnrent.domain.user;
 
 import com.sinandogans.readnrent.domain.library.UserBook;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,6 +21,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Email(message = "email formati yanlis bro")
     private String email;
     private String username;
     private String firstName;
@@ -26,12 +29,12 @@ public class User {
     private byte[] passwordSalt;
     private byte[] passwordHash;
     @ManyToMany(mappedBy = "users")
-    private List<UserRole> roles;
+    private List<UserRole> roles = new ArrayList<>();
     @OneToMany(mappedBy = "user")
-    private List<UserBook> userBooks;
+    private List<UserBook> userBooks = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<ReadingGoal> readingGoals;
+    private List<ReadingGoal> readingGoals = new ArrayList<>();
 
     public String getFullName() {
         return firstName + " " + lastName;

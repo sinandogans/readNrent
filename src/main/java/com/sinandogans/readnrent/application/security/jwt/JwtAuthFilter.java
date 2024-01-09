@@ -1,7 +1,7 @@
 package com.sinandogans.readnrent.application.security.jwt;
 
 import com.sinandogans.readnrent.application.security.config.NotAuthorizedRequests;
-import com.sinandogans.readnrent.application.services.UserService;
+import com.sinandogans.readnrent.application.services.user.UserService;
 import com.sinandogans.readnrent.domain.user.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
