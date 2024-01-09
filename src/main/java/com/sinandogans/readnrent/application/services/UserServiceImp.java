@@ -1,7 +1,7 @@
 package com.sinandogans.readnrent.application.services;
 
 import com.sinandogans.readnrent.application.repositories.UserRepository;
-import com.sinandogans.readnrent.domain.User;
+import com.sinandogans.readnrent.domain.user.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

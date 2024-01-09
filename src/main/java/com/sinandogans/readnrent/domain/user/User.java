@@ -1,5 +1,6 @@
-package com.sinandogans.readnrent.domain;
+package com.sinandogans.readnrent.domain.user;
 
+import com.sinandogans.readnrent.domain.library.UserBook;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,15 @@ public class User {
     private byte[] passwordHash;
     @ManyToMany(mappedBy = "users")
     private List<UserRole> roles;
+    @OneToMany(mappedBy = "user")
+    private List<UserBook> userBooks;
+
+    @OneToMany(mappedBy = "user")
+    private List<ReadingGoal> readingGoals;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 
     public List<String> getRoles() {
         return roles.stream().map(roles -> roles.getRole()).toList();

@@ -1,4 +1,4 @@
-package com.sinandogans.readnrent.domain;
+package com.sinandogans.readnrent.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

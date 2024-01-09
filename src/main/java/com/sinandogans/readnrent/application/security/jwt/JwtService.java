@@ -1,6 +1,6 @@
 package com.sinandogans.readnrent.application.security.jwt;
 
-import com.sinandogans.readnrent.domain.User;
+import com.sinandogans.readnrent.domain.user.User;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 
