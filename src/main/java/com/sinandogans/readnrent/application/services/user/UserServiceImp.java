@@ -1,5 +1,6 @@
 package com.sinandogans.readnrent.application.services.user;
 
+import com.sinandogans.readnrent.application.repositories.ReadingGoalRepository;
 import com.sinandogans.readnrent.application.repositories.UserRepository;
 import com.sinandogans.readnrent.application.security.hashing.HashService;
 import com.sinandogans.readnrent.application.security.jwt.JwtService;
@@ -11,6 +12,7 @@ import com.sinandogans.readnrent.application.services.user.login.UserLoginReques
 import com.sinandogans.readnrent.application.services.user.login.UserLoginResponse;
 import com.sinandogans.readnrent.application.services.user.register.UserRegisterRequest;
 import com.sinandogans.readnrent.domain.user.User;
+import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -19,19 +21,23 @@ import java.util.Arrays;
 @Service
 public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
+    private final ReadingGoalRepository readingGoalRepository;
     private final ModelMapper modelMapper;
     private final HashService hashService;
     private final JwtService jwtService;
+    private HttpServletRequest request;
 
-    public UserServiceImp(UserRepository userRepository, ModelMapper modelMapper, HashService hashService, JwtService jwtService) {
+    public UserServiceImp(UserRepository userRepository, ReadingGoalRepository readingGoalRepository, ModelMapper modelMapper, HashService hashService, JwtService jwtService, HttpServletRequest request) {
         this.userRepository = userRepository;
+        this.readingGoalRepository = readingGoalRepository;
         this.modelMapper = modelMapper;
         this.hashService = hashService;
         this.jwtService = jwtService;
+        this.request = request;
     }
 
     @Override
-    public User findByEmail(String email) {
+    public User getByEmail(String email) {
         var optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isEmpty())
             throw new RuntimeException("email yok");
@@ -39,7 +45,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public User getById(Long id) {
         var optionalUser = userRepository.findById(id);
         if (optionalUser.isEmpty())
             throw new RuntimeException("id yok");
@@ -47,7 +53,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
+    public User getByUsername(String username) {
         var optionalUser = userRepository.findByUsername(username);
         if (optionalUser.isEmpty())
             throw new RuntimeException("username yok");
@@ -69,7 +75,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public IDataResponse<UserLoginResponse> login(UserLoginRequest loginRequest) {
-        var user = findByEmail(loginRequest.getEmail());
+        var user = getByEmail(loginRequest.getEmail());
         var hashedPassword = hashService.hashPassword(loginRequest.getPassword(), user.getPasswordSalt());
         if (!Arrays.equals(hashedPassword, user.getPasswordHash()))
             throw new RuntimeException("incorrect password");

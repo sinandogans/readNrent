@@ -8,11 +8,11 @@ import com.sinandogans.readnrent.application.services.user.register.UserRegister
 import com.sinandogans.readnrent.domain.user.User;
 
 public interface UserService {
-    User findByEmail(String email);
+    User getByEmail(String email);
 
-    User findById(Long id);
+    User getById(Long id);
 
-    User findByUsername(String username);
+    User getByUsername(String username);
 
     IResponse register(UserRegisterRequest registerRequest);
 

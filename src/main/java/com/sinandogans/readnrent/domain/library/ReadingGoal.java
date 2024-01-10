@@ -1,5 +1,6 @@
-package com.sinandogans.readnrent.domain.user;
+package com.sinandogans.readnrent.domain.library;
 
+import com.sinandogans.readnrent.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,5 +21,5 @@ public class ReadingGoal {
     @ManyToOne
     private User user;
     private int goal;
-    private Year year;
+    private int year;
 }

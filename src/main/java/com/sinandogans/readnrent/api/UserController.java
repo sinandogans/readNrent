@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping(value = "login")
     public IDataResponse login(@RequestBody UserLoginRequest loginRequest) {
+        //userService.addReadingGoal(new AddReadingGoalRequest(10));
         return userService.login(loginRequest);
     }
-
 }

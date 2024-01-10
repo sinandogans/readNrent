@@ -1,5 +1,6 @@
 package com.sinandogans.readnrent.domain.user;
 
+import com.sinandogans.readnrent.domain.library.ReadingGoal;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,13 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<ReadingGoal> readingGoals = new ArrayList<>();
+
+    public ReadingGoal getCurrentReadingGoal() {
+        var readingGoalsList = readingGoals.stream().filter(readingGoal -> readingGoal.getYear() == LocalDate.now().getYear()).toList();
+        if (readingGoalsList.isEmpty())
+            throw new RuntimeException("bu yil reading goal yok");
+        return readingGoalsList.get(0);
+    }
 
     public String getFullName() {
         return firstName + " " + lastName;

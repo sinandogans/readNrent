@@ -2,6 +2,7 @@ package com.sinandogans.readnrent.domain.library;
 
 import com.sinandogans.readnrent.domain.book.Book;
 import com.sinandogans.readnrent.domain.user.User;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,12 +24,17 @@ public class UserBook {
     private User user;
     @ManyToOne
     private Book book;
-
     private ReadType readType;
+    @Nullable
     private double rating;
+    @Nullable
     private boolean liked;
+    @Nullable
     private LocalDate startDate;
+    @Nullable
     private LocalDate finishDate;
+    @Nullable
     private String note;
+    @Nullable
     private String review;
 }
