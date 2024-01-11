@@ -1,4 +1,4 @@
-package com.sinandogans.readnrent.application.services.shared.response;
+package com.sinandogans.readnrent.application.shared.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
