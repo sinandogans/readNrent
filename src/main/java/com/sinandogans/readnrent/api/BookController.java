@@ -2,7 +2,6 @@ package com.sinandogans.readnrent.api;
 
 import com.sinandogans.readnrent.application.services.book.BookService;
 import com.sinandogans.readnrent.application.services.book.add.AddBookRequest;
-import com.sinandogans.readnrent.application.services.book.delete.DeleteBookRequest;
 import com.sinandogans.readnrent.application.services.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import org.springframework.web.bind.annotation.*;

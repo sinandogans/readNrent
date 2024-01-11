@@ -1,7 +1,6 @@
 package com.sinandogans.readnrent.application.services.book;
 
 import com.sinandogans.readnrent.application.services.book.add.AddBookRequest;
-import com.sinandogans.readnrent.application.services.book.delete.DeleteBookRequest;
 import com.sinandogans.readnrent.application.services.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.domain.book.Book;

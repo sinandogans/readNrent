@@ -5,7 +5,6 @@ import com.sinandogans.readnrent.application.repositories.CategoryRepository;
 import com.sinandogans.readnrent.application.repositories.ReviewRepository;
 import com.sinandogans.readnrent.application.services.author.AuthorService;
 import com.sinandogans.readnrent.application.services.book.add.AddBookRequest;
-import com.sinandogans.readnrent.application.services.book.delete.DeleteBookRequest;
 import com.sinandogans.readnrent.application.services.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessResponse;
