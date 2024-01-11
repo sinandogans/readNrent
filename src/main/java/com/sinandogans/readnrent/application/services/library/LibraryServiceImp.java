@@ -11,10 +11,10 @@ import com.sinandogans.readnrent.application.services.library.userbook.requests.
 import com.sinandogans.readnrent.application.services.library.userbook.requests.DeleteUserBookRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.requests.UpdateUserBookRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.responses.GetUserBooksResponse;
-import com.sinandogans.readnrent.application.services.shared.response.IDataResponse;
-import com.sinandogans.readnrent.application.services.shared.response.IResponse;
-import com.sinandogans.readnrent.application.services.shared.response.SuccessDataResponse;
-import com.sinandogans.readnrent.application.services.shared.response.SuccessResponse;
+import com.sinandogans.readnrent.application.shared.response.IDataResponse;
+import com.sinandogans.readnrent.application.shared.response.IResponse;
+import com.sinandogans.readnrent.application.shared.response.SuccessDataResponse;
+import com.sinandogans.readnrent.application.shared.response.SuccessResponse;
 import com.sinandogans.readnrent.application.services.user.UserService;
 import com.sinandogans.readnrent.domain.book.Book;
 import com.sinandogans.readnrent.domain.library.ReadingGoal;
@@ -93,7 +93,7 @@ public class LibraryServiceImp implements LibraryService {
         userBook.setUser(user);
         userBook.setBook(book);
         userBookRepository.save(userBook);
-        eventPublisher.publishEvent(new UserBookAddedEvent(this, userBook.getRating(), userBook.isLiked(), userBook.getReview()));
+        eventPublisher.publishEvent(new UserBookAddedEvent(this, book, user, userBook.getRating(), userBook.isLiked(), userBook.getReview()));
 
         return new SuccessResponse("user book eklendi");
     }
