@@ -1,6 +1,5 @@
-package com.sinandogans.readnrent.domain.book;
+package com.sinandogans.readnrent.domain.library;
 
-import com.sinandogans.readnrent.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,10 +15,8 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    private Book book;
-    @ManyToOne
-    private User user;
-    private String review;
+    @OneToOne(mappedBy = "review")
+    private UserBook userBook;
+    private String text;
 
 }

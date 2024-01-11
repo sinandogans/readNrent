@@ -1,6 +1,7 @@
 package com.sinandogans.readnrent.domain.book;
 
 import com.sinandogans.readnrent.domain.library.ReadType;
+import com.sinandogans.readnrent.domain.library.Review;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,13 +31,11 @@ public class Book {
     private List<Author> authors = new ArrayList<>();
     @ManyToOne
     private Category category;
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
     private List<UserBook> userBooks = new ArrayList<>();
-    @OneToMany(mappedBy = "book")
-    private List<Review> reviews = new ArrayList<>();
 
-    public void addReview(Review review) {
-        reviews.add(review);
+    public List<Review> getReviews() {
+        return userBooks.stream().filter(userBook -> userBook.getReview() != null).map(userBook -> userBook.getReview()).toList();
     }
 
     public int getLikeCount() {
@@ -50,7 +49,7 @@ public class Book {
     public double getRating() {
         var filteredRatings = userBooks.stream().filter(userBook -> userBook.getRating() != 0).map(userBook -> userBook.getRating()).toList();
         return filteredRatings.stream().mapToDouble(Double::doubleValue).sum()
-                        / filteredRatings.size();
+                / filteredRatings.size();
     }
 
 }

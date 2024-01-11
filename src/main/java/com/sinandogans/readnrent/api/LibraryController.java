@@ -1,14 +1,13 @@
 package com.sinandogans.readnrent.api;
 
 import com.sinandogans.readnrent.application.services.library.LibraryService;
+import com.sinandogans.readnrent.application.services.library.readinggoal.AddReadingGoalRequest;
+import com.sinandogans.readnrent.application.services.library.readinggoal.UpdateReadingGoalRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.requests.AddUserBookRequest;
-import com.sinandogans.readnrent.application.services.library.userbook.requests.DeleteUserBookRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.requests.UpdateUserBookRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.responses.GetUserBooksResponse;
 import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
-import com.sinandogans.readnrent.application.services.library.readinggoal.AddReadingGoalRequest;
-import com.sinandogans.readnrent.application.services.library.readinggoal.UpdateReadingGoalRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,8 +47,8 @@ public class LibraryController {
     }
 
     @DeleteMapping(value = "delete-userbook")
-    public IResponse updateUserBook(@RequestBody DeleteUserBookRequest deleteUserBookRequest) {
-        return libraryService.deleteUserBook(deleteUserBookRequest);
+    public IResponse updateUserBook(@RequestParam Long id) {
+        return libraryService.deleteUserBook(id);
     }
 
     @GetMapping(value = "get-userbooks")

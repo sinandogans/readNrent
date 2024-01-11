@@ -1,6 +1,6 @@
 package com.sinandogans.readnrent.domain.user;
 
-import com.sinandogans.readnrent.domain.book.Review;
+import com.sinandogans.readnrent.domain.library.Review;
 import com.sinandogans.readnrent.domain.library.ReadingGoal;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import jakarta.persistence.*;
@@ -35,12 +35,8 @@ public class User {
     private List<UserRole> roles = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<UserBook> userBooks = new ArrayList<>();
-
     @OneToMany(mappedBy = "user")
     private List<ReadingGoal> readingGoals = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Review> reviews = new ArrayList<>();
 
     public ReadingGoal getCurrentReadingGoal() {
         var readingGoalsList = readingGoals.stream().filter(readingGoal -> readingGoal.getYear() == LocalDate.now().getYear()).toList();

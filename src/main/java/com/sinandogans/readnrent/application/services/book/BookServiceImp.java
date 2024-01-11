@@ -5,26 +5,24 @@ import com.sinandogans.readnrent.application.repositories.CategoryRepository;
 import com.sinandogans.readnrent.application.repositories.ReviewRepository;
 import com.sinandogans.readnrent.application.services.author.AuthorService;
 import com.sinandogans.readnrent.application.services.book.add.AddBookRequest;
+import com.sinandogans.readnrent.application.services.book.delete.DeleteBookRequest;
+import com.sinandogans.readnrent.application.services.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessResponse;
 import com.sinandogans.readnrent.domain.book.Book;
 import com.sinandogans.readnrent.domain.book.Category;
-import com.sinandogans.readnrent.domain.book.Review;
-import com.sinandogans.readnrent.domain.user.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BookServiceImp implements BookService {
     private final BookRepository bookRepository;
-    private final ReviewRepository reviewRepository;
     private final CategoryRepository categoryRepository;
     private final AuthorService authorService;
     private final ModelMapper modelMapper;
 
     public BookServiceImp(BookRepository bookRepository, ReviewRepository reviewRepository, CategoryRepository categoryRepository, AuthorService authorService, ModelMapper modelMapper) {
         this.bookRepository = bookRepository;
-        this.reviewRepository = reviewRepository;
         this.categoryRepository = categoryRepository;
         this.authorService = authorService;
         this.modelMapper = modelMapper;
@@ -36,12 +34,6 @@ public class BookServiceImp implements BookService {
         if (optionalBook.isEmpty())
             throw new RuntimeException("book id yok");
         return optionalBook.get();
-    }
-
-    @Override
-    public void addReview(Review review) {
-        checkIfReviewExistByBookAndUser(review.getBook(), review.getUser());
-        reviewRepository.save(review);
     }
 
     @Override
@@ -59,6 +51,28 @@ public class BookServiceImp implements BookService {
     }
 
     @Override
+    public IResponse updateBook(UpdateBookRequest updateBookRequest) {
+        var book = getById(updateBookRequest.getId());
+        var id = book.getId();
+        var userBooks = book.getUserBooks();
+        book = modelMapper.map(updateBookRequest, Book.class);
+
+        book.setId(id);
+        book.setUserBooks(userBooks);
+        book.setCategory(getCategoryById(updateBookRequest.getId()));
+        book.setAuthors(authorService.getByIds(updateBookRequest.getAuthorIds()));
+        bookRepository.save(book);
+        return new SuccessResponse("kitap guncellendi");
+    }
+
+    @Override
+    public IResponse deleteBook(Long id) {
+        var book = getById(id);
+        bookRepository.delete(book);
+        return new SuccessResponse("kitap silindi");
+    }
+
+    @Override
     public Category getCategoryById(Long id) {
         var optionalCategory = categoryRepository.findById(id);
         if (optionalCategory.isEmpty())
@@ -66,10 +80,10 @@ public class BookServiceImp implements BookService {
         return optionalCategory.get();
     }
 
-    private void checkIfReviewExistByBookAndUser(Book book, User user) {
-        var review = reviewRepository.findByBookAndUser(book, user);
-        if (review.isPresent())
-            throw new RuntimeException("review zaten var");
-
-    }
+//    private void checkIfReviewExistByBookAndUser(Book book, User user) {
+//        var review = reviewRepository.findByBookAndUser(book, user);
+//        if (review.isPresent())
+//            throw new RuntimeException("review zaten var");
+//
+//    }
 }

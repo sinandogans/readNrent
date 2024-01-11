@@ -1,23 +1,23 @@
 package com.sinandogans.readnrent.application.services.library;
 
-import com.sinandogans.readnrent.application.events.userbook.UserBookAddedEvent;
 import com.sinandogans.readnrent.application.repositories.ReadingGoalRepository;
+import com.sinandogans.readnrent.application.repositories.ReviewRepository;
 import com.sinandogans.readnrent.application.repositories.UserBookRepository;
 import com.sinandogans.readnrent.application.security.jwt.JwtService;
 import com.sinandogans.readnrent.application.services.book.BookService;
 import com.sinandogans.readnrent.application.services.library.readinggoal.AddReadingGoalRequest;
 import com.sinandogans.readnrent.application.services.library.readinggoal.UpdateReadingGoalRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.requests.AddUserBookRequest;
-import com.sinandogans.readnrent.application.services.library.userbook.requests.DeleteUserBookRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.requests.UpdateUserBookRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.responses.GetUserBooksResponse;
+import com.sinandogans.readnrent.application.services.user.UserService;
 import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessDataResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessResponse;
-import com.sinandogans.readnrent.application.services.user.UserService;
 import com.sinandogans.readnrent.domain.book.Book;
 import com.sinandogans.readnrent.domain.library.ReadingGoal;
+import com.sinandogans.readnrent.domain.library.Review;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import com.sinandogans.readnrent.domain.user.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,21 +35,21 @@ public class LibraryServiceImp implements LibraryService {
     private final BookService bookService;
     private final ReadingGoalRepository readingGoalRepository;
     private final UserBookRepository userBookRepository;
+    private final ReviewRepository reviewRepository;
     private final JwtService jwtService;
     private final ModelMapper modelMapper;
     private HttpServletRequest request;
-    private final ApplicationEventPublisher eventPublisher;
 
 
-    public LibraryServiceImp(UserService userService, BookService bookService, ReadingGoalRepository readingGoalRepository, UserBookRepository userBookRepository, JwtService jwtService, ModelMapper modelMapper, HttpServletRequest request, ApplicationEventPublisher eventPublisher) {
+    public LibraryServiceImp(UserService userService, BookService bookService, ReadingGoalRepository readingGoalRepository, UserBookRepository userBookRepository, ReviewRepository reviewRepository, JwtService jwtService, ModelMapper modelMapper, HttpServletRequest request, ApplicationEventPublisher eventPublisher) {
         this.userService = userService;
         this.bookService = bookService;
         this.readingGoalRepository = readingGoalRepository;
         this.userBookRepository = userBookRepository;
+        this.reviewRepository = reviewRepository;
         this.jwtService = jwtService;
         this.modelMapper = modelMapper;
         this.request = request;
-        this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -85,6 +85,7 @@ public class LibraryServiceImp implements LibraryService {
     @Override
     public IResponse addUserBook(AddUserBookRequest addUserBookRequest) {
         UserBook userBook = modelMapper.map(addUserBookRequest, UserBook.class);
+        userBook.setReview(null);
         var user = getUserFromJwtToken();
         var book = bookService.getById(addUserBookRequest.getBookId());
 
@@ -92,10 +93,26 @@ public class LibraryServiceImp implements LibraryService {
 
         userBook.setUser(user);
         userBook.setBook(book);
+        setReview(userBook, addUserBookRequest.getReview());
         userBookRepository.save(userBook);
-        eventPublisher.publishEvent(new UserBookAddedEvent(this, book, user, userBook.getRating(), userBook.isLiked(), userBook.getReview()));
+        //eventPublisher.publishEvent(new UserBookAddedEvent(this, book, user, userBook.getRating(), userBook.isLiked(), userBook.getReview()));
 
         return new SuccessResponse("user book eklendi");
+    }
+
+    private void setReview(UserBook userBook, String reviewText) {
+        var oldReview = userBook.getReview();
+        if (oldReview == null && reviewText != null) {
+            var review = new Review(null, null, reviewText);
+            reviewRepository.save(review);
+            userBook.setReview(review);
+        } else if (oldReview != null && reviewText != null) {
+            userBook.getReview().setText(reviewText);
+            reviewRepository.save(userBook.getReview());
+        } else if (oldReview != null && reviewText == null) {
+            reviewRepository.delete(userBook.getReview());
+            userBook.setReview(null);
+        }
     }
 
     @Override
@@ -103,19 +120,22 @@ public class LibraryServiceImp implements LibraryService {
         var user = getUserFromJwtToken();
         var book = bookService.getById(updateUserBookRequest.getBookId());
         var userBook = getUserBookByUserAndBook(user, book);
+        var review = userBook.getReview();
         var id = userBook.getId();
         userBook = modelMapper.map(updateUserBookRequest, UserBook.class);
         userBook.setBook(book);
         userBook.setUser(user);
         userBook.setId(id);
+        userBook.setReview(review);
+        setReview(userBook, updateUserBookRequest.getReview());
         userBookRepository.save(userBook);
         return new SuccessResponse("user book guncellendi");
     }
 
     @Override
-    public IResponse deleteUserBook(DeleteUserBookRequest deleteUserBookRequest) {
+    public IResponse deleteUserBook(Long id) {
         var user = getUserFromJwtToken();
-        var book = bookService.getById(deleteUserBookRequest.getBookId());
+        var book = bookService.getById(id);
         var userBook = getUserBookByUserAndBook(user, book);
 
         userBookRepository.delete(userBook);

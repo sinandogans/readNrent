@@ -2,11 +2,10 @@ package com.sinandogans.readnrent.api;
 
 import com.sinandogans.readnrent.application.services.book.BookService;
 import com.sinandogans.readnrent.application.services.book.add.AddBookRequest;
+import com.sinandogans.readnrent.application.services.book.delete.DeleteBookRequest;
+import com.sinandogans.readnrent.application.services.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("books")
@@ -20,5 +19,15 @@ public class BookController {
     @PostMapping(value = "add")
     public IResponse register(@RequestBody AddBookRequest addBookRequest) {
         return bookService.addBook(addBookRequest);
+    }
+
+    @PutMapping(value = "update")
+    public IResponse register(@RequestBody UpdateBookRequest updateBookRequest) {
+        return bookService.updateBook(updateBookRequest);
+    }
+
+    @DeleteMapping(value = "delete")
+    public IResponse register(@RequestParam Long id) {
+        return bookService.deleteBook(id);
     }
 }

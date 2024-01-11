@@ -36,5 +36,6 @@ public class UserBook {
     @Nullable
     private String note;
     @Nullable
-    private String review;
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private Review review;
 }
