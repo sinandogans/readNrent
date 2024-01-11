@@ -31,12 +31,16 @@ public class User {
     private String lastName;
     private byte[] passwordSalt;
     private byte[] passwordHash;
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany
     private List<UserRole> roles = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<UserBook> userBooks = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<ReadingGoal> readingGoals = new ArrayList<>();
+
+    public void addRole(UserRole role) {
+        roles.add(role);
+    }
 
     public ReadingGoal getCurrentReadingGoal() {
         var readingGoalsList = readingGoals.stream().filter(readingGoal -> readingGoal.getYear() == LocalDate.now().getYear()).toList();

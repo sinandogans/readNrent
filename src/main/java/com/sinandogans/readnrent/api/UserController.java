@@ -1,5 +1,9 @@
 package com.sinandogans.readnrent.api;
 
+import com.sinandogans.readnrent.application.services.user.login.UserLoginResponse;
+import com.sinandogans.readnrent.application.services.user.role.addrole.AddRoleRequest;
+import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserRequest;
+import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserResponse;
 import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.services.user.UserService;
@@ -22,8 +26,17 @@ public class UserController {
     }
 
     @PostMapping(value = "login")
-    public IDataResponse login(@RequestBody UserLoginRequest loginRequest) {
-        //userService.addReadingGoal(new AddReadingGoalRequest(10));
+    public IDataResponse<UserLoginResponse> login(@RequestBody UserLoginRequest loginRequest) {
         return userService.login(loginRequest);
+    }
+
+    @PostMapping(value = "add-role")
+    public IResponse addRole(@RequestBody AddRoleRequest addRoleRequest) {
+        return userService.addRole(addRoleRequest);
+    }
+
+    @PostMapping(value = "assign-role")
+    public IDataResponse<AssignRoleToUserResponse> login(@RequestBody AssignRoleToUserRequest assignRoleToUserRequest) {
+        return userService.assignRoleToUser(assignRoleToUserRequest);
     }
 }

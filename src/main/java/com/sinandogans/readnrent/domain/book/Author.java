@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -25,4 +26,14 @@ public class Author {
     private LocalDate deathDate;
     @ManyToMany(mappedBy = "authors")
     private List<Book> books;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public boolean isSameAuthor(Author author) {
+        if (Objects.equals(this.getFullName(), author.getFullName()) && this.birthDate == author.birthDate)
+            return true;
+        return false;
+    }
 }
