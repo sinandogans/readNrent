@@ -1,10 +1,17 @@
 package com.sinandogans.readnrent.application.services.user;
 
 import com.sinandogans.readnrent.application.aspects.annotations.RolesAllowed;
+import com.sinandogans.readnrent.application.repositories.BlockedUserRepository;
+import com.sinandogans.readnrent.application.repositories.FollowedUserRepository;
 import com.sinandogans.readnrent.application.repositories.UserRepository;
 import com.sinandogans.readnrent.application.repositories.UserRoleRepository;
 import com.sinandogans.readnrent.application.security.hashing.HashService;
 import com.sinandogans.readnrent.application.security.jwt.JwtService;
+import com.sinandogans.readnrent.application.services.user.blockeduser.BlockUserRequest;
+import com.sinandogans.readnrent.application.services.user.blockeduser.UnBlockUserRequest;
+import com.sinandogans.readnrent.application.services.user.followeduser.ChangeNotificationPreferenceRequest;
+import com.sinandogans.readnrent.application.services.user.followeduser.FollowUserRequest;
+import com.sinandogans.readnrent.application.services.user.followeduser.UnFollowUserRequest;
 import com.sinandogans.readnrent.application.services.user.role.addrole.AddRoleRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserResponse;
@@ -15,27 +22,34 @@ import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessDataResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessResponse;
-import com.sinandogans.readnrent.application.services.user.login.UserLoginRequest;
-import com.sinandogans.readnrent.application.services.user.login.UserLoginResponse;
-import com.sinandogans.readnrent.application.services.user.register.UserRegisterRequest;
+import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
+import com.sinandogans.readnrent.application.services.user.user.login.UserLoginResponse;
+import com.sinandogans.readnrent.application.services.user.user.register.UserRegisterRequest;
+import com.sinandogans.readnrent.domain.user.BlockedUser;
+import com.sinandogans.readnrent.domain.user.FollowedUser;
 import com.sinandogans.readnrent.domain.user.User;
 import com.sinandogans.readnrent.domain.user.UserRole;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @Service
 public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
     private final UserRoleRepository roleRepository;
+    private final FollowedUserRepository followedUserRepository;
+    private final BlockedUserRepository blockedUserRepository;
     private final ModelMapper modelMapper;
     private final HashService hashService;
     private final JwtService jwtService;
 
-    public UserServiceImp(UserRepository userRepository, UserRoleRepository roleRepository, ModelMapper modelMapper, HashService hashService, JwtService jwtService) {
+    public UserServiceImp(UserRepository userRepository, UserRoleRepository roleRepository, FollowedUserRepository followedUserRepository, BlockedUserRepository blockedUserRepository, ModelMapper modelMapper, HashService hashService, JwtService jwtService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.followedUserRepository = followedUserRepository;
+        this.blockedUserRepository = blockedUserRepository;
         this.modelMapper = modelMapper;
         this.hashService = hashService;
         this.jwtService = jwtService;
@@ -127,6 +141,65 @@ public class UserServiceImp implements UserService {
         return new SuccessResponse("role silindi");
     }
 
+    @Override
+    public IResponse followUser(FollowUserRequest followUserRequest) {
+        var userToFollow = getByUsername(followUserRequest.getUsername());
+        var user = getUserFromJwtToken();
+
+        checkIfUserBlocked(user, userToFollow);
+
+        FollowedUser followedUser = new FollowedUser(null, user, userToFollow, true, LocalDateTime.now());
+        user.addFollowedUser(followedUser);
+        followedUserRepository.save(followedUser);
+        return new SuccessResponse("kullanıcı takip edildi");
+    }
+
+    @Override
+    public IResponse unFollowUser(UnFollowUserRequest unFollowUserRequest) {
+        var userToUnFollow = getByUsername(unFollowUserRequest.getUsername());
+        var user = getUserFromJwtToken();
+        var followedUserIdToDelete = user.removeFollowedUser(userToUnFollow);
+        followedUserRepository.deleteById(followedUserIdToDelete);
+        return new SuccessResponse("kullanıcı takipten cikarildi");
+    }
+
+    @Override
+    public IResponse changeNotificationPreference(ChangeNotificationPreferenceRequest changeNotificationPreferenceRequest) {
+        var user = getUserFromJwtToken();
+        FollowedUser followedUser = user.getFollowedUser(changeNotificationPreferenceRequest.getUsername());
+        followedUser.setNotificationsEnabled(!followedUser.isNotificationsEnabled());
+        followedUserRepository.save(followedUser);
+        return new SuccessResponse("notification preference changed.");
+    }
+
+    @Override
+    public IResponse blockUser(BlockUserRequest blockUserRequest) {
+        var userTBlock = getByUsername(blockUserRequest.getUsername());
+        var user = getUserFromJwtToken();
+        BlockedUser blockedUser = new BlockedUser(null, user, userTBlock, LocalDateTime.now());
+        user.addBlockedUser(blockedUser);
+        blockedUserRepository.save(blockedUser);
+        if (user.isUserFollowing(userTBlock)) {
+            var id = user.removeFollowedUser(userTBlock);
+            followedUserRepository.deleteById(id);
+        }
+        return new SuccessResponse("kullanıcı blocklandı");
+    }
+
+    @Override
+    public IResponse unBlockUser(UnBlockUserRequest unBlockUserRequest) {
+        var userToUnBlock = getByUsername(unBlockUserRequest.getUsername());
+        var user = getUserFromJwtToken();
+        var blockedUserIdToDelete = user.removeBlockedUser(userToUnBlock);
+        blockedUserRepository.deleteById(blockedUserIdToDelete);
+        return new SuccessResponse("kullanıcı block listesinden cıkarildi");
+    }
+
+    public User getUserFromJwtToken() {
+        var email = jwtService.getUserEmailFromJwtToken();
+        return getByEmail(email);
+    }
+
     private UserRole getRoleById(Long id) {
         var optionalRole = roleRepository.findById(id);
         if (optionalRole.isEmpty())
@@ -138,6 +211,11 @@ public class UserServiceImp implements UserService {
         var optionalRole = roleRepository.findByRole(role);
         if (optionalRole.isPresent())
             throw new RuntimeException("role zaten var");
+    }
+
+    private void checkIfUserBlocked(User user, User blockedUser) {
+        if (user.isUserBlocked(blockedUser))
+            throw new RuntimeException("bloklu kullanıcı takip edilemez");
     }
 
     private void checkIfEmailAlreadyExist(String email) {

@@ -12,6 +12,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -37,6 +38,10 @@ public class User {
     private List<UserBook> userBooks = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<ReadingGoal> readingGoals = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<FollowedUser> followedUsers = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<BlockedUser> blockedUsers = new ArrayList<>();
 
     public void addRole(UserRole roleToAdd) {
         var filteredRoles = roles.stream().filter(role -> role == roleToAdd).toList();
@@ -49,6 +54,55 @@ public class User {
         var isDeleted = roles.remove(roleToDelete);
         if (!isDeleted)
             throw new RuntimeException("bu rol kullanicida yok");
+    }
+
+    public void addFollowedUser(FollowedUser followedUserToAdd) {
+        var filteredUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() == followedUserToAdd.getFollowedUser()).toList();
+        if (!filteredUsers.isEmpty())
+            throw new RuntimeException("bu kullanıcı zaten takip ediliyor");
+        followedUsers.add(followedUserToAdd);
+    }
+
+    public boolean isUserFollowing(User user) {
+        var count = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() == user).count();
+        return count != 0;
+    }
+
+    public boolean isUserBlocked(User user) {
+        var count = blockedUsers.stream().filter(blockedUser -> blockedUser.getBlockedUser() == user).count();
+        return count != 0;
+    }
+
+    public Long removeFollowedUser(User userToUnFollow) {
+        var filteredUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() == userToUnFollow).toList();
+        if (filteredUsers.isEmpty())
+            throw new RuntimeException("bu kullanıcı takip edilmiyor");
+        var id = filteredUsers.get(0).getId();
+        followedUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() != userToUnFollow).toList();
+        return id;
+    }
+
+    public FollowedUser getFollowedUser(String username) {
+        var filteredUsers = followedUsers.stream().filter(followedUser -> Objects.equals(followedUser.getFollowedUser().getUsername(), username)).toList();
+        if (filteredUsers.isEmpty())
+            throw new RuntimeException("bu kullanıcı takip edilmiyor");
+        return filteredUsers.get(0);
+    }
+
+    public void addBlockedUser(BlockedUser blockedUserToAdd) {
+        var filteredUsers = blockedUsers.stream().filter(blockedUser -> blockedUser.getBlockedUser() == blockedUserToAdd.getBlockedUser()).toList();
+        if (!filteredUsers.isEmpty())
+            throw new RuntimeException("bu kullanıcı zaten blocklu");
+        blockedUsers.add(blockedUserToAdd);
+    }
+
+    public Long removeBlockedUser(User userToUnBlock) {
+        var filteredUsers = blockedUsers.stream().filter(blockedUser -> blockedUser.getBlockedUser() == userToUnBlock).toList();
+        if (filteredUsers.isEmpty())
+            throw new RuntimeException("bu kullanıcı blocklu degil");
+        var id = filteredUsers.get(0).getId();
+        blockedUsers = blockedUsers.stream().filter(blockedUser -> blockedUser.getBlockedUser() != userToUnBlock).toList();
+        return id;
     }
 
     public ReadingGoal getCurrentReadingGoal() {

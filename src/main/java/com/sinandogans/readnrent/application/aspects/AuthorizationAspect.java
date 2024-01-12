@@ -34,7 +34,7 @@ public class AuthorizationAspect {
         for (String expectedRole : expectedRolesList)
             expectedRolesMap.put(expectedRole, true);
 
-        var userRoles = jwtService.getUserRoles(request);
+        var userRoles = jwtService.getUserRoles();
         for (String userRole : userRoles)
             if (expectedRolesMap.containsKey(userRole))
                 isAuthorized = true;

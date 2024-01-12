@@ -17,11 +17,13 @@ public class JwtServiceImp implements JwtService {
     private long accessTokenValidity = 60 * 60 * 1000;
 
     private final JwtParser jwtParser;
+    private HttpServletRequest request;
 
     private final String TOKEN_HEADER = "Authorization";
     private final String TOKEN_PREFIX = "Bearer ";
 
-    public JwtServiceImp() {
+    public JwtServiceImp(HttpServletRequest request) {
+        this.request = request;
         this.jwtParser = Jwts.parser().setSigningKey(SECRET);
     }
 
@@ -43,23 +45,23 @@ public class JwtServiceImp implements JwtService {
         return jwtParser.parseClaimsJws(token).getBody();
     }
 
-    public Claims resolveClaims(HttpServletRequest req) {
+    public Claims resolveClaims() {
         try {
-            String token = resolveToken(req);
+            String token = resolveToken();
             if (token != null) {
                 return parseJwtClaims(token);
             }
             return null;
         } catch (ExpiredJwtException ex) {
-            req.setAttribute("expired", ex.getMessage());
+            request.setAttribute("expired", ex.getMessage());
             throw ex;
         } catch (Exception ex) {
-            req.setAttribute("invalid", ex.getMessage());
+            request.setAttribute("invalid", ex.getMessage());
             throw ex;
         }
     }
 
-    public String resolveToken(HttpServletRequest request) {
+    public String resolveToken() {
 
         String bearerToken = request.getHeader(TOKEN_HEADER);
         if (bearerToken != null && bearerToken.startsWith(TOKEN_PREFIX)) {
@@ -68,25 +70,30 @@ public class JwtServiceImp implements JwtService {
         return null;
     }
 
-    public boolean validateClaims(HttpServletRequest req) {
+    public boolean validateClaims() {
         try {
-            return resolveClaims(req).getExpiration().after(new Date());
+            return resolveClaims().getExpiration().after(new Date());
         } catch (Exception e) {
             throw e;
         }
     }
 
-    public String getEmail(HttpServletRequest req) {
-        return resolveClaims(req).getSubject();
+    public String getEmail() {
+        return resolveClaims().getSubject();
     }
 
-    public List<String> getUserRoles(HttpServletRequest req) {
-        var claims = resolveClaims(req);
+    public List<String> getUserRoles() {
+        var claims = resolveClaims();
         return (List<String>) claims.get("userRoles");
+    }
+
+    public String getUserEmailFromJwtToken() {
+        return getEmail();
     }
 
     private List<String> getRoles(Claims claims) {
         return (List<String>) claims.get("roles");
     }
+
 }
 

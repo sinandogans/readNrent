@@ -1,4 +1,4 @@
-package com.sinandogans.readnrent.application.services.user.login;
+package com.sinandogans.readnrent.application.services.user.user.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

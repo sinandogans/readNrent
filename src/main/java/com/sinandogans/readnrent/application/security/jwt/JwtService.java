@@ -8,9 +8,10 @@ import java.util.List;
 
 public interface JwtService {
     String createToken(User user);
-    String getEmail(HttpServletRequest req);
-    boolean validateClaims(HttpServletRequest req);
-    Claims resolveClaims(HttpServletRequest req);
-    String resolveToken(HttpServletRequest request);
-    List<String> getUserRoles(HttpServletRequest req);
+    String getEmail();
+    boolean validateClaims();
+    Claims resolveClaims();
+    String resolveToken();
+    List<String> getUserRoles();
+    String getUserEmailFromJwtToken();
 }
