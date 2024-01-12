@@ -1,6 +1,9 @@
 package com.sinandogans.readnrent.api;
 
-import com.sinandogans.readnrent.application.services.user.login.UserLoginResponse;
+import com.sinandogans.readnrent.application.services.user.followeduser.ChangeNotificationPreferenceRequest;
+import com.sinandogans.readnrent.application.services.user.followeduser.FollowUserRequest;
+import com.sinandogans.readnrent.application.services.user.followeduser.UnFollowUserRequest;
+import com.sinandogans.readnrent.application.services.user.user.login.UserLoginResponse;
 import com.sinandogans.readnrent.application.services.user.role.addrole.AddRoleRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserResponse;
@@ -10,8 +13,8 @@ import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRol
 import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.services.user.UserService;
-import com.sinandogans.readnrent.application.services.user.login.UserLoginRequest;
-import com.sinandogans.readnrent.application.services.user.register.UserRegisterRequest;
+import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
+import com.sinandogans.readnrent.application.services.user.user.register.UserRegisterRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -51,5 +54,20 @@ public class UserController {
     @PostMapping(value = "deassign-role")
     public IDataResponse<DeAssignRoleToUserResponse> login(@RequestBody DeAssignRoleToUserRequest deAssignRoleToUserRequest) {
         return userService.deAssignRoleToUser(deAssignRoleToUserRequest);
+    }
+
+    @PostMapping(value = "follow-user")
+    public IResponse login(@RequestBody FollowUserRequest followUserRequest) {
+        return userService.followUser(followUserRequest);
+    }
+
+    @PostMapping(value = "change-notification-pref")
+    public IResponse login(@RequestBody ChangeNotificationPreferenceRequest changeNotificationPreferenceRequest) {
+        return userService.changeNotificationPreference(changeNotificationPreferenceRequest);
+    }
+
+    @PostMapping(value = "unfollow-user")
+    public IResponse login(@RequestBody UnFollowUserRequest unFollowUserRequest) {
+        return userService.unFollowUser(unFollowUserRequest);
     }
 }

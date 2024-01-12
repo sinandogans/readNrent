@@ -175,7 +175,7 @@ public class LibraryServiceImp implements LibraryService {
     }
 
     public User getUserFromJwtToken() {
-        String email = jwtService.getEmail(request);
+        String email = jwtService.getEmail();
         return userService.getByEmail(email);
     }
 

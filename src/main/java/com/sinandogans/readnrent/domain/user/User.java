@@ -37,6 +37,10 @@ public class User {
     private List<UserBook> userBooks = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<ReadingGoal> readingGoals = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<FollowedUser> followedUsers = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<BlockedUser> blockedUsers = new ArrayList<>();
 
     public void addRole(UserRole roleToAdd) {
         var filteredRoles = roles.stream().filter(role -> role == roleToAdd).toList();
@@ -49,6 +53,29 @@ public class User {
         var isDeleted = roles.remove(roleToDelete);
         if (!isDeleted)
             throw new RuntimeException("bu rol kullanicida yok");
+    }
+
+    public void addFollowedUser(FollowedUser followedUserToAdd) {
+        var filteredUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() == followedUserToAdd.getFollowedUser()).toList();
+        if (!filteredUsers.isEmpty())
+            throw new RuntimeException("bu kullanıcı zaten takip ediliyor");
+        followedUsers.add(followedUserToAdd);
+    }
+
+    public Long removeFollowedUser(User userToUnFollow) {
+        var filteredUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() == userToUnFollow).toList();
+        if (filteredUsers.isEmpty())
+            throw new RuntimeException("bu kullanıcı takip edilmiyor");
+        var id = filteredUsers.get(0).getId();
+        followedUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() != userToUnFollow).toList();
+        return id;
+    }
+
+    public FollowedUser getFollowedUser(String username) {
+        followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser().getUsername() == username).toList();
+        if (followedUsers.isEmpty())
+            throw new RuntimeException("bu kullanıcı takip edilmiyor");
+        return followedUsers.get(0);
     }
 
     public ReadingGoal getCurrentReadingGoal() {
