@@ -8,6 +8,9 @@ import com.sinandogans.readnrent.application.security.jwt.JwtService;
 import com.sinandogans.readnrent.application.services.user.role.addrole.AddRoleRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserResponse;
+import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserRequest;
+import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserResponse;
+import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRoleRequest;
 import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessDataResponse;
@@ -98,12 +101,15 @@ public class UserServiceImp implements UserService {
         return new SuccessDataResponse<>("role verildi", new AssignRoleToUserResponse(role.getRole(), user.getUsername()));
     }
 
+    @Override
+    @RolesAllowed(values = {"admin"})
+    public IDataResponse<DeAssignRoleToUserResponse> deAssignRoleToUser(DeAssignRoleToUserRequest assignRoleToUserRequest) {
+        var role = getRoleById(assignRoleToUserRequest.getRoleId());
+        var user = getByUsername(assignRoleToUserRequest.getUsername());
 
-    public UserRole getRoleById(Long id) {
-        var optionalRole = roleRepository.findById(id);
-        if (optionalRole.isEmpty())
-            throw new RuntimeException("bu id ile rol yok");
-        return optionalRole.get();
+        user.deleteRole(role);
+        userRepository.save(user);
+        return new SuccessDataResponse<>("role kullanicidan alindi", new DeAssignRoleToUserResponse(role.getRole(), user.getUsername()));
     }
 
     @Override
@@ -112,6 +118,20 @@ public class UserServiceImp implements UserService {
         checkIfRoleAlreadyExist(addRoleRequest.getRole());
         roleRepository.save(new UserRole(null, addRoleRequest.getRole(), null));
         return new SuccessResponse("role eklendi");
+    }
+
+    @Override
+    @RolesAllowed(values = {"admin"})
+    public IResponse deleteRole(DeleteRoleRequest deleteRoleRequest) {
+        roleRepository.delete(getRoleById(deleteRoleRequest.getId()));
+        return new SuccessResponse("role silindi");
+    }
+
+    private UserRole getRoleById(Long id) {
+        var optionalRole = roleRepository.findById(id);
+        if (optionalRole.isEmpty())
+            throw new RuntimeException("bu id ile rol yok");
+        return optionalRole.get();
     }
 
     private void checkIfRoleAlreadyExist(String role) {

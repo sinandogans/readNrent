@@ -4,6 +4,9 @@ import com.sinandogans.readnrent.application.services.user.login.UserLoginRespon
 import com.sinandogans.readnrent.application.services.user.role.addrole.AddRoleRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserResponse;
+import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserRequest;
+import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserResponse;
+import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRoleRequest;
 import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.services.user.UserService;
@@ -35,8 +38,18 @@ public class UserController {
         return userService.addRole(addRoleRequest);
     }
 
+    @DeleteMapping(value = "delete-role")
+    public IResponse addRole(@RequestBody DeleteRoleRequest deleteRoleRequest) {
+        return userService.deleteRole(deleteRoleRequest);
+    }
+
     @PostMapping(value = "assign-role")
     public IDataResponse<AssignRoleToUserResponse> login(@RequestBody AssignRoleToUserRequest assignRoleToUserRequest) {
         return userService.assignRoleToUser(assignRoleToUserRequest);
+    }
+
+    @PostMapping(value = "deassign-role")
+    public IDataResponse<DeAssignRoleToUserResponse> login(@RequestBody DeAssignRoleToUserRequest deAssignRoleToUserRequest) {
+        return userService.deAssignRoleToUser(deAssignRoleToUserRequest);
     }
 }

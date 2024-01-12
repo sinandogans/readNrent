@@ -1,6 +1,5 @@
 package com.sinandogans.readnrent.domain.user;
 
-import com.sinandogans.readnrent.domain.library.Review;
 import com.sinandogans.readnrent.domain.library.ReadingGoal;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import jakarta.persistence.*;
@@ -31,6 +30,7 @@ public class User {
     private String lastName;
     private byte[] passwordSalt;
     private byte[] passwordHash;
+    private boolean verified;
     @ManyToMany
     private List<UserRole> roles = new ArrayList<>();
     @OneToMany(mappedBy = "user")
@@ -38,8 +38,17 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<ReadingGoal> readingGoals = new ArrayList<>();
 
-    public void addRole(UserRole role) {
-        roles.add(role);
+    public void addRole(UserRole roleToAdd) {
+        var filteredRoles = roles.stream().filter(role -> role == roleToAdd).toList();
+        if (!filteredRoles.isEmpty())
+            throw new RuntimeException("bu rol kullanicida zaten var");
+        roles.add(roleToAdd);
+    }
+
+    public void deleteRole(UserRole roleToDelete) {
+        var isDeleted = roles.remove(roleToDelete);
+        if (!isDeleted)
+            throw new RuntimeException("bu rol kullanicida yok");
     }
 
     public ReadingGoal getCurrentReadingGoal() {

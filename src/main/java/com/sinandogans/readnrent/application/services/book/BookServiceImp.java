@@ -5,6 +5,8 @@ import com.sinandogans.readnrent.application.repositories.CategoryRepository;
 import com.sinandogans.readnrent.application.repositories.ReviewRepository;
 import com.sinandogans.readnrent.application.services.author.AuthorService;
 import com.sinandogans.readnrent.application.services.book.add.AddBookRequest;
+import com.sinandogans.readnrent.application.services.book.category.AddCategoryRequest;
+import com.sinandogans.readnrent.application.services.book.category.UpdateCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessResponse;
@@ -72,11 +74,51 @@ public class BookServiceImp implements BookService {
     }
 
     @Override
+    public IResponse addCategory(AddCategoryRequest addCategoryRequest) {
+        checkIfCategoryAlreadyExist(addCategoryRequest.getName());
+        Category category = modelMapper.map(addCategoryRequest, Category.class);
+
+        categoryRepository.save(category);
+        return new SuccessResponse("category eklendi");
+    }
+
+    @Override
+    public IResponse updateCategory(UpdateCategoryRequest updateCategoryRequest) {
+        checkIfCategoryAlreadyExist(updateCategoryRequest.getName());
+        var category = getCategoryById(updateCategoryRequest.getId());
+        category.setName(updateCategoryRequest.getName());
+
+        categoryRepository.save(category);
+        return new SuccessResponse("category guncellendi");
+    }
+
+    @Override
+    public IResponse deleteCategory(Long id) {
+        var category = getCategoryById(id);
+        categoryRepository.delete(category);
+        return new SuccessResponse("category silindi");
+    }
+
+    @Override
     public Category getCategoryById(Long id) {
         var optionalCategory = categoryRepository.findById(id);
         if (optionalCategory.isEmpty())
             throw new RuntimeException("category yok");
         return optionalCategory.get();
+    }
+
+    @Override
+    public Category getCategoryByName(String name) {
+        var optionalCategory = categoryRepository.findByName(name);
+        if (optionalCategory.isEmpty())
+            throw new RuntimeException("category yok");
+        return optionalCategory.get();
+    }
+
+    private void checkIfCategoryAlreadyExist(String name) {
+        var optionalCategory = categoryRepository.findByName(name);
+        if (optionalCategory.isPresent())
+            throw new RuntimeException("category zaten var");
     }
 
 //    private void checkIfReviewExistByBookAndUser(Book book, User user) {

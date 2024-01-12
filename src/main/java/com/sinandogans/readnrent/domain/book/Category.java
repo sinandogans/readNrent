@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,5 +20,5 @@ public class Category {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "category")
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 }
