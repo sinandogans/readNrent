@@ -1,7 +1,6 @@
 package com.sinandogans.readnrent.domain.book;
 
 import com.sinandogans.readnrent.domain.library.ReadType;
-import com.sinandogans.readnrent.domain.library.Review;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,9 +32,20 @@ public class Book {
     private Category category;
     @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
     private List<UserBook> userBooks = new ArrayList<>();
+    @OneToMany(mappedBy = "book")
+    private List<Review> reviews = new ArrayList<>();
 
-    public List<Review> getReviews() {
-        return userBooks.stream().filter(userBook -> userBook.getReview() != null).map(userBook -> userBook.getReview()).toList();
+    public void addReview(Review reviewToAdd) {
+        var count = reviews.stream().filter(review -> review.getUser() == reviewToAdd.getUser()).count();
+        if (count != 0)
+            throw new RuntimeException("bu kitaba userin incelemesi zaten var");
+        reviews.add(reviewToAdd);
+    }
+
+    public void removeReview(Review reviewToRemove) {
+        var isDeleted = reviews.remove(reviewToRemove);
+        if (!isDeleted)
+            throw new RuntimeException("bu review bookda yok");
     }
 
     public int getLikeCount() {

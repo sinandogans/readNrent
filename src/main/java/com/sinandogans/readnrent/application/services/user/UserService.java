@@ -25,6 +25,8 @@ public interface UserService {
 
     User getByUsername(String username);
 
+    User getUserFromJwtToken();
+
     IResponse register(UserRegisterRequest registerRequest);
 
     IDataResponse<UserLoginResponse> login(UserLoginRequest userLoginRequest);

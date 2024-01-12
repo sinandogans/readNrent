@@ -1,10 +1,12 @@
 package com.sinandogans.readnrent.api;
 
 import com.sinandogans.readnrent.application.services.book.BookService;
-import com.sinandogans.readnrent.application.services.book.add.AddBookRequest;
+import com.sinandogans.readnrent.application.services.book.book.add.AddBookRequest;
 import com.sinandogans.readnrent.application.services.book.category.AddCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.category.UpdateCategoryRequest;
-import com.sinandogans.readnrent.application.services.book.update.UpdateBookRequest;
+import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
+import com.sinandogans.readnrent.application.services.book.review.AddReviewRequest;
+import com.sinandogans.readnrent.application.services.book.review.UpdateReviewRequest;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,5 +48,20 @@ public class BookController {
     @DeleteMapping(value = "categories/delete")
     public IResponse deleteCategory(@RequestParam Long id) {
         return bookService.deleteCategory(id);
+    }
+
+    @PostMapping(value = "reviews/add")
+    public IResponse addReview(@RequestBody AddReviewRequest addReviewRequest) {
+        return bookService.addReview(addReviewRequest);
+    }
+
+    @PutMapping(value = "reviews/update")
+    public IResponse updateReview(@RequestBody UpdateReviewRequest updateReviewRequest) {
+        return bookService.updateReview(updateReviewRequest);
+    }
+
+    @DeleteMapping(value = "reviews/delete")
+    public IResponse deleteReview(@RequestParam Long id) {
+        return bookService.deleteReview(id);
     }
 }

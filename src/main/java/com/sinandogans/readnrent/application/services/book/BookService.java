@@ -1,12 +1,15 @@
 package com.sinandogans.readnrent.application.services.book;
 
-import com.sinandogans.readnrent.application.services.book.add.AddBookRequest;
+import com.sinandogans.readnrent.application.services.book.book.add.AddBookRequest;
 import com.sinandogans.readnrent.application.services.book.category.AddCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.category.UpdateCategoryRequest;
-import com.sinandogans.readnrent.application.services.book.update.UpdateBookRequest;
+import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
+import com.sinandogans.readnrent.application.services.book.review.AddReviewRequest;
+import com.sinandogans.readnrent.application.services.book.review.UpdateReviewRequest;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.domain.book.Book;
 import com.sinandogans.readnrent.domain.book.Category;
+import com.sinandogans.readnrent.domain.book.Review;
 
 public interface BookService {
     Book getById(Long id);
@@ -14,6 +17,8 @@ public interface BookService {
     Category getCategoryById(Long id);
 
     Category getCategoryByName(String name);
+
+    Review getReviewById(Long id);
 
     void updateBook(Book book);
 
@@ -28,4 +33,10 @@ public interface BookService {
     IResponse updateCategory(UpdateCategoryRequest updateCategoryRequest);
 
     IResponse deleteCategory(Long id);
+
+    IResponse addReview(AddReviewRequest addReviewRequest);
+
+    IResponse updateReview(UpdateReviewRequest updateReviewRequest);
+
+    IResponse deleteReview(Long id);
 }

@@ -1,6 +1,8 @@
 package com.sinandogans.readnrent.domain.user;
 
+import com.sinandogans.readnrent.domain.library.Comment;
 import com.sinandogans.readnrent.domain.library.ReadingGoal;
+import com.sinandogans.readnrent.domain.book.Review;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -42,6 +44,12 @@ public class User {
     private List<FollowedUser> followedUsers = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<BlockedUser> blockedUsers = new ArrayList<>();
+    @ManyToMany
+    private List<Review> reviewsLiked = new ArrayList<>();
+    @ManyToMany
+    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews = new ArrayList<>();
 
     public void addRole(UserRole roleToAdd) {
         var filteredRoles = roles.stream().filter(role -> role == roleToAdd).toList();

@@ -35,7 +35,4 @@ public class UserBook {
     private LocalDate finishDate;
     @Nullable
     private String note;
-    @Nullable
-    @OneToOne(cascade = CascadeType.REMOVE)
-    private Review review;
 }

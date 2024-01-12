@@ -1,8 +1,8 @@
-package com.sinandogans.readnrent.application.services.book.get;
+package com.sinandogans.readnrent.application.services.book.book.get;
 
 import com.sinandogans.readnrent.domain.book.Author;
 import com.sinandogans.readnrent.domain.book.Category;
-import com.sinandogans.readnrent.domain.library.Review;
+import com.sinandogans.readnrent.domain.book.Review;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

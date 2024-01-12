@@ -1,4 +1,4 @@
-package com.sinandogans.readnrent.application.services.book.add;
+package com.sinandogans.readnrent.application.services.book.book.update;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,8 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @Setter
-public class AddBookRequest {
+public class UpdateBookRequest {
+    private Long id;
     private String name;
     private String description;
     private int pages;

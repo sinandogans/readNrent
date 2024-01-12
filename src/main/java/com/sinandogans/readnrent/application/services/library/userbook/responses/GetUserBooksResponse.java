@@ -19,5 +19,4 @@ public class GetUserBooksResponse {
     private LocalDate startDate;
     private LocalDate finishDate;
     private String note;
-    private String review;
 }
