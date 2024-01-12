@@ -1,5 +1,7 @@
 package com.sinandogans.readnrent.api;
 
+import com.sinandogans.readnrent.application.services.user.blockeduser.BlockUserRequest;
+import com.sinandogans.readnrent.application.services.user.blockeduser.UnBlockUserRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.ChangeNotificationPreferenceRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.FollowUserRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.UnFollowUserRequest;
@@ -57,17 +59,27 @@ public class UserController {
     }
 
     @PostMapping(value = "follow-user")
-    public IResponse login(@RequestBody FollowUserRequest followUserRequest) {
+    public IResponse followUser(@RequestBody FollowUserRequest followUserRequest) {
         return userService.followUser(followUserRequest);
     }
 
     @PostMapping(value = "change-notification-pref")
-    public IResponse login(@RequestBody ChangeNotificationPreferenceRequest changeNotificationPreferenceRequest) {
+    public IResponse changeNotificationPreference(@RequestBody ChangeNotificationPreferenceRequest changeNotificationPreferenceRequest) {
         return userService.changeNotificationPreference(changeNotificationPreferenceRequest);
     }
 
     @PostMapping(value = "unfollow-user")
-    public IResponse login(@RequestBody UnFollowUserRequest unFollowUserRequest) {
+    public IResponse unFollowUser(@RequestBody UnFollowUserRequest unFollowUserRequest) {
         return userService.unFollowUser(unFollowUserRequest);
+    }
+
+    @PostMapping(value = "block-user")
+    public IResponse login(@RequestBody BlockUserRequest blockUserRequest) {
+        return userService.blockUser(blockUserRequest);
+    }
+
+    @PostMapping(value = "unblock-user")
+    public IResponse unBlockUser(@RequestBody UnBlockUserRequest unBlockUserRequest) {
+        return userService.unBlockUser(unBlockUserRequest);
     }
 }

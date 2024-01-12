@@ -1,5 +1,7 @@
 package com.sinandogans.readnrent.application.services.user;
 
+import com.sinandogans.readnrent.application.services.user.blockeduser.BlockUserRequest;
+import com.sinandogans.readnrent.application.services.user.blockeduser.UnBlockUserRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.ChangeNotificationPreferenceRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.FollowUserRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.UnFollowUserRequest;
@@ -40,4 +42,8 @@ public interface UserService {
     IResponse unFollowUser(UnFollowUserRequest unFollowUserRequest);
 
     IResponse changeNotificationPreference(ChangeNotificationPreferenceRequest changeNotificationPreferenceRequest);
+
+    IResponse blockUser(BlockUserRequest blockUserRequest);
+
+    IResponse unBlockUser(UnBlockUserRequest unBlockUserRequest);
 }
