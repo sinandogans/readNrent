@@ -1,6 +1,6 @@
 package com.sinandogans.readnrent.domain.user;
 
-import com.sinandogans.readnrent.domain.library.Comment;
+import com.sinandogans.readnrent.domain.book.Comment;
 import com.sinandogans.readnrent.domain.library.ReadingGoal;
 import com.sinandogans.readnrent.domain.book.Review;
 import com.sinandogans.readnrent.domain.library.UserBook;
@@ -44,16 +44,18 @@ public class User {
     private List<FollowedUser> followedUsers = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<BlockedUser> blockedUsers = new ArrayList<>();
-    @ManyToMany
+    @ManyToMany(mappedBy = "usersLiked")
     private List<Review> reviewsLiked = new ArrayList<>();
+    @ManyToMany(mappedBy = "usersLiked")
+    private List<Comment> commentsLiked = new ArrayList<>();
     @ManyToMany
     private List<Comment> comments = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
 
     public void addRole(UserRole roleToAdd) {
-        var filteredRoles = roles.stream().filter(role -> role == roleToAdd).toList();
-        if (!filteredRoles.isEmpty())
+        var index = roles.indexOf(roleToAdd);
+        if (index != -1)
             throw new RuntimeException("bu rol kullanicida zaten var");
         roles.add(roleToAdd);
     }
@@ -69,6 +71,22 @@ public class User {
         if (!filteredUsers.isEmpty())
             throw new RuntimeException("bu kullanıcı zaten takip ediliyor");
         followedUsers.add(followedUserToAdd);
+    }
+
+    public void likeReview(Review reviewToLike) {
+        var index = reviewsLiked.indexOf(reviewToLike);
+        if (index == -1)
+            reviewsLiked.add(reviewToLike);
+        else
+            reviewsLiked.remove(index);
+    }
+
+    public void likeComment(Comment commentToLike) {
+        var index = commentsLiked.indexOf(commentToLike);
+        if (index == -1)
+            commentsLiked.add(commentToLike);
+        else
+            commentsLiked.remove(index);
     }
 
     public boolean isUserFollowing(User user) {

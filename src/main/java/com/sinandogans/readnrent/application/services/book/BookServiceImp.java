@@ -2,12 +2,15 @@ package com.sinandogans.readnrent.application.services.book;
 
 import com.sinandogans.readnrent.application.repositories.BookRepository;
 import com.sinandogans.readnrent.application.repositories.CategoryRepository;
+import com.sinandogans.readnrent.application.repositories.CommentRepository;
 import com.sinandogans.readnrent.application.repositories.ReviewRepository;
 import com.sinandogans.readnrent.application.services.author.AuthorService;
 import com.sinandogans.readnrent.application.services.book.book.add.AddBookRequest;
 import com.sinandogans.readnrent.application.services.book.category.AddCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.category.UpdateCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
+import com.sinandogans.readnrent.application.services.book.comment.AddCommentRequest;
+import com.sinandogans.readnrent.application.services.book.comment.UpdateCommentRequest;
 import com.sinandogans.readnrent.application.services.book.review.AddReviewRequest;
 import com.sinandogans.readnrent.application.services.book.review.UpdateReviewRequest;
 import com.sinandogans.readnrent.application.services.user.UserService;
@@ -15,6 +18,7 @@ import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessResponse;
 import com.sinandogans.readnrent.domain.book.Book;
 import com.sinandogans.readnrent.domain.book.Category;
+import com.sinandogans.readnrent.domain.book.Comment;
 import com.sinandogans.readnrent.domain.book.Review;
 import com.sinandogans.readnrent.domain.user.User;
 import org.modelmapper.ModelMapper;
@@ -25,14 +29,16 @@ public class BookServiceImp implements BookService {
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
     private final ReviewRepository reviewRepository;
+    private final CommentRepository commentRepository;
     private final AuthorService authorService;
     private final UserService userService;
     private final ModelMapper modelMapper;
 
-    public BookServiceImp(BookRepository bookRepository, ReviewRepository reviewRepository, CategoryRepository categoryRepository, ReviewRepository reviewRepository1, AuthorService authorService, UserService userService, ModelMapper modelMapper) {
+    public BookServiceImp(BookRepository bookRepository, CategoryRepository categoryRepository, ReviewRepository reviewRepository, CommentRepository commentRepository, AuthorService authorService, UserService userService, ModelMapper modelMapper) {
         this.bookRepository = bookRepository;
         this.categoryRepository = categoryRepository;
-        this.reviewRepository = reviewRepository1;
+        this.reviewRepository = reviewRepository;
+        this.commentRepository = commentRepository;
         this.authorService = authorService;
         this.userService = userService;
         this.modelMapper = modelMapper;
@@ -134,6 +140,52 @@ public class BookServiceImp implements BookService {
         return new SuccessResponse("review silindi");
     }
 
+    @Override
+    public IResponse likeReview(Long reviewId) {
+        var user = userService.getUserFromJwtToken();
+        var review = getReviewById(reviewId);
+        review.like(user);
+        user.likeReview(review);
+        reviewRepository.save(review);
+        return new SuccessResponse("islem basarili");
+    }
+
+    @Override
+    public IResponse likeComment(Long commentId) {
+        var user = userService.getUserFromJwtToken();
+        var comment = getCommentById(commentId);
+        comment.like(user);
+        user.likeComment(comment);
+        commentRepository.save(comment);
+        return new SuccessResponse("islem basarili");
+    }
+
+    @Override
+    public IResponse addComment(AddCommentRequest addCommentRequest) {
+        var user = userService.getUserFromJwtToken();
+        var review = getReviewById(addCommentRequest.getReviewId());
+        var comment = Comment.createComment(review, user, addCommentRequest.getText());
+        review.addComment(comment);
+        commentRepository.save(comment);
+        return new SuccessResponse("comment eklendi");
+    }
+
+    @Override
+    public IResponse updateComment(UpdateCommentRequest updateCommentRequest) {
+        var comment = getCommentById(updateCommentRequest.getCommentId());
+        comment.setText(updateCommentRequest.getText());
+        commentRepository.save(comment);
+        return new SuccessResponse("comment guncellendi");
+    }
+
+    @Override
+    public IResponse deleteComment(Long id) {
+        var comment = getCommentById(id);
+        comment.getReview().removeComment(comment);
+        commentRepository.delete(comment);
+        return new SuccessResponse("comment silindi");
+    }
+
 
 //    private void checkIfUserNotHaveReviewToBook(Book book, User user) {
 //        var optionalReview = reviewRepository.findByBookAndUser(book, user);
@@ -164,6 +216,14 @@ public class BookServiceImp implements BookService {
         if (optionalReview.isEmpty())
             throw new RuntimeException("review yok");
         return optionalReview.get();
+    }
+
+    @Override
+    public Comment getCommentById(Long id) {
+        var optionalComment = commentRepository.findById(id);
+        if (optionalComment.isEmpty())
+            throw new RuntimeException("comment yok");
+        return optionalComment.get();
     }
 
     private void checkIfCategoryAlreadyExist(String name) {

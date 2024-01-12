@@ -91,21 +91,6 @@ public class LibraryServiceImp implements LibraryService {
         return new SuccessResponse("user book eklendi");
     }
 
-//    private void setReview(UserBook userBook, String reviewText) {
-//        var oldReview = userBook.getReview();
-//        if (oldReview == null && reviewText != null) {
-//            var review = new Review(null, null, reviewText,null,null);
-//            reviewRepository.save(review);
-//            userBook.setReview(review);
-//        } else if (oldReview != null && reviewText != null) {
-//            userBook.getReview().setText(reviewText);
-//            reviewRepository.save(userBook.getReview());
-//        } else if (oldReview != null && reviewText == null) {
-//            reviewRepository.delete(userBook.getReview());
-//            userBook.setReview(null);
-//        }
-//    }
-
     @Override
     public IResponse updateUserBook(UpdateUserBookRequest updateUserBookRequest) {
         var user = userService.getUserFromJwtToken();

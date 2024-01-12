@@ -5,6 +5,8 @@ import com.sinandogans.readnrent.application.services.book.book.add.AddBookReque
 import com.sinandogans.readnrent.application.services.book.category.AddCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.category.UpdateCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
+import com.sinandogans.readnrent.application.services.book.comment.AddCommentRequest;
+import com.sinandogans.readnrent.application.services.book.comment.UpdateCommentRequest;
 import com.sinandogans.readnrent.application.services.book.review.AddReviewRequest;
 import com.sinandogans.readnrent.application.services.book.review.UpdateReviewRequest;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
@@ -63,5 +65,30 @@ public class BookController {
     @DeleteMapping(value = "reviews/delete")
     public IResponse deleteReview(@RequestParam Long id) {
         return bookService.deleteReview(id);
+    }
+
+    @PostMapping(value = "reviews/like")
+    public IResponse likeReview(@RequestParam Long reviewId) {
+        return bookService.likeReview(reviewId);
+    }
+
+    @PostMapping(value = "reviews/comments/add")
+    public IResponse addComment(@RequestBody AddCommentRequest addCommentRequest) {
+        return bookService.addComment(addCommentRequest);
+    }
+
+    @PutMapping(value = "reviews/comments/update")
+    public IResponse updateComment(@RequestBody UpdateCommentRequest updateCommentRequest) {
+        return bookService.updateComment(updateCommentRequest);
+    }
+
+    @DeleteMapping(value = "reviews/comments/delete")
+    public IResponse deleteComment(@RequestParam Long id) {
+        return bookService.deleteComment(id);
+    }
+
+    @PostMapping(value = "reviews/comments/like")
+    public IResponse likeComment(@RequestParam Long commentId) {
+        return bookService.likeComment(commentId);
     }
 }
