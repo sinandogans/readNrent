@@ -4,9 +4,7 @@ import com.sinandogans.readnrent.domain.rentandsale.RentSaleBase;
 import com.sinandogans.readnrent.domain.user.Address;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity

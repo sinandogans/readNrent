@@ -1,14 +1,13 @@
 package com.sinandogans.readnrent.api;
 
 import com.sinandogans.readnrent.application.repositories.RentSaleBookRepository;
-import com.sinandogans.readnrent.application.services.author.AuthorService;
-import com.sinandogans.readnrent.application.services.author.add.AddAuthorRequest;
-import com.sinandogans.readnrent.application.services.author.update.UpdateAuthorRequest;
 import com.sinandogans.readnrent.application.services.book.BookService;
 import com.sinandogans.readnrent.application.services.user.UserService;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.domain.rentandsale.rent.RentBook;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 
