@@ -4,6 +4,10 @@ import com.sinandogans.readnrent.domain.book.Comment;
 import com.sinandogans.readnrent.domain.library.ReadingGoal;
 import com.sinandogans.readnrent.domain.book.Review;
 import com.sinandogans.readnrent.domain.library.UserBook;
+import com.sinandogans.readnrent.domain.rentandsale.rent.Rent;
+import com.sinandogans.readnrent.domain.rentandsale.rent.RentBook;
+import com.sinandogans.readnrent.domain.rentandsale.sale.Sale;
+import com.sinandogans.readnrent.domain.rentandsale.sale.SaleBook;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -52,6 +56,14 @@ public class User {
     private List<Comment> comments = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<RentBook> rentBooks = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<SaleBook> saleBooks = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Rent> rents = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Sale> sales = new ArrayList<>();
 
     public void addRole(UserRole roleToAdd) {
         var index = roles.indexOf(roleToAdd);

@@ -20,7 +20,6 @@ import com.sinandogans.readnrent.domain.book.Book;
 import com.sinandogans.readnrent.domain.book.Category;
 import com.sinandogans.readnrent.domain.book.Comment;
 import com.sinandogans.readnrent.domain.book.Review;
-import com.sinandogans.readnrent.domain.user.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
