@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,4 +30,5 @@ public class RentSaleBookBase {
     @OneToMany(mappedBy = "rentSaleBook")
     private List<RentSaleBase> rentAndSales = new ArrayList<>();
     private BigDecimal price;
+    private LocalDateTime publishedTime;
 }

@@ -1,5 +1,6 @@
 package com.sinandogans.readnrent.domain.rentandsale;
 
+import com.sinandogans.readnrent.domain.user.Address;
 import com.sinandogans.readnrent.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,4 +26,6 @@ public class RentSaleBase {
     private User user;
     private boolean isPayed;
     private LocalDateTime operationTime;
+    @ManyToOne
+    private Address buyerAddress;
 }

@@ -14,6 +14,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RentBook extends RentSaleBookBase {
-
+    private int rentDurationWeek;
 }

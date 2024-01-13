@@ -64,6 +64,8 @@ public class User {
     private List<Rent> rents = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Sale> sales = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Address> addresses = new ArrayList<>();
 
     public void addRole(UserRole roleToAdd) {
         var index = roles.indexOf(roleToAdd);
