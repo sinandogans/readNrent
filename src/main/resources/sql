@@ -1,0 +1,6 @@
+insert into public.category (id, name)
+values (DEFAULT,'romance');
+insert into author (birth_date, death_date, id, about, first_name, last_name)
+values (null,null,DEFAULT,'about','stefan','zweig');
+insert into book (pages, publication_date, category_id, id, description, name, publisher)
+values (100,null,1,DEFAULT,'desc','satranc','is');

@@ -27,8 +27,7 @@ public class RentSaleBookBase {
     private Book book;
     @ManyToOne
     private User user;
-    @OneToMany(mappedBy = "rentSaleBook")
-    private List<RentSaleBase> rentAndSales = new ArrayList<>();
     private BigDecimal price;
     private LocalDateTime publishedTime;
+    private LocalDateTime lastUpdatedTime;
 }

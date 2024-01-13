@@ -1,6 +1,7 @@
 package com.sinandogans.readnrent.domain.rentandsale.rent;
 
 import com.sinandogans.readnrent.domain.rentandsale.RentSaleBase;
+import com.sinandogans.readnrent.domain.rentandsale.RentSaleBookBase;
 import com.sinandogans.readnrent.domain.user.Address;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -15,4 +16,6 @@ public class Rent extends RentSaleBase {
     private boolean isReturned;
     @ManyToOne
     private Address senderAddress;
+    @ManyToOne
+    private RentBook rentBook;
 }

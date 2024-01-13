@@ -15,4 +15,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Sale extends RentSaleBase {
+    @OneToOne
+    private SaleBook saleBook;
 }

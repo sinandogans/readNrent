@@ -1,37 +1,51 @@
 package com.sinandogans.readnrent.api;
 
-import com.sinandogans.readnrent.application.repositories.RentSaleBookRepository;
-import com.sinandogans.readnrent.application.services.book.BookService;
-import com.sinandogans.readnrent.application.services.user.UserService;
+import com.sinandogans.readnrent.application.services.rentsale.RentSaleService;
+import com.sinandogans.readnrent.application.services.rentsale.addrentbook.AddRentBookRequest;
+import com.sinandogans.readnrent.application.services.rentsale.addsalebook.AddSaleBookRequest;
+import com.sinandogans.readnrent.application.services.rentsale.updaterentbook.UpdateRentBookRequest;
+import com.sinandogans.readnrent.application.services.rentsale.updatesalebook.UpdateSaleBookRequest;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
-import com.sinandogans.readnrent.domain.rentandsale.rent.RentBook;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigDecimal;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("rents")
 public class RentSaleController {
 
-    private final RentSaleBookRepository rentSaleBookRepository;
-    private final UserService userService;
-    private final BookService bookService;
+    private final RentSaleService rentSaleService;
 
-    public RentSaleController(RentSaleBookRepository rentSaleBookRepository, UserService userService, BookService bookService) {
-        this.rentSaleBookRepository = rentSaleBookRepository;
-        this.userService = userService;
-        this.bookService = bookService;
+    public RentSaleController(RentSaleService rentSaleService) {
+        this.rentSaleService = rentSaleService;
     }
 
-    @PostMapping(value = "add")
-    public IResponse register() {
-        var rentBook = new RentBook();
-        rentBook.setUser(userService.getUserFromJwtToken());
-        rentBook.setBook(bookService.getById(1L));
-        rentBook.setPrice(BigDecimal.valueOf(10l));
-        rentSaleBookRepository.save(rentBook);
-        return null;
+    @PostMapping(value = "add-rentbook")
+    public IResponse addRentBook(@RequestBody AddRentBookRequest addRentBookRequest) {
+        return rentSaleService.addRentBook(addRentBookRequest);
+    }
+
+    @PutMapping(value = "update-rentbook")
+    public IResponse updateRentBook(@RequestBody UpdateRentBookRequest updateRentBookRequest) {
+        return rentSaleService.updateRentBook(updateRentBookRequest);
+    }
+
+    @DeleteMapping(value = "delete-rentbook")
+    public IResponse deleteRentBook(@RequestParam Long id) {
+        return rentSaleService.deleteRentBook(id);
+    }
+
+
+    @PostMapping(value = "add-salebook")
+    public IResponse addSaleBook(@RequestBody AddSaleBookRequest addSaleBookRequest) {
+        return rentSaleService.addSaleBook(addSaleBookRequest);
+    }
+
+    @PutMapping(value = "update-salebook")
+    public IResponse updateSaleBook(@RequestBody UpdateSaleBookRequest updateSaleBookRequest) {
+        return rentSaleService.updateSaleBook(updateSaleBookRequest);
+    }
+
+    @DeleteMapping(value = "delete-salebook")
+    public IResponse deleteSaleBook(@RequestParam Long id) {
+        return rentSaleService.deleteSaleBook(id);
     }
 }

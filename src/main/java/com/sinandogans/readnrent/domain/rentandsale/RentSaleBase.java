@@ -21,8 +21,6 @@ public class RentSaleBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private RentSaleBookBase rentSaleBook;
-    @ManyToOne
     private User user;
     private boolean isPayed;
     private LocalDateTime operationTime;
