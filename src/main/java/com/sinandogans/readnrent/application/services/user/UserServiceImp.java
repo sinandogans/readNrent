@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Objects;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -81,6 +82,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public IResponse register(UserRegisterRequest registerRequest) {
+        checkIfPasswordAndPasswordConfirmationEquals(registerRequest);
         checkIfEmailAlreadyExist(registerRequest.getEmail());
         checkIfUsernameAlreadyExist(registerRequest.getUsername());
 
@@ -94,7 +96,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public IDataResponse<UserLoginResponse> login(UserLoginRequest loginRequest) {
-        var user = getByEmail(loginRequest.getEmail());
+        var user = getByEmailOrUsername(loginRequest.getEmailOrUsername());
         var hashedPassword = hashService.hashPassword(loginRequest.getPassword(), user.getPasswordSalt());
         if (!Arrays.equals(hashedPassword, user.getPasswordHash()))
             throw new RuntimeException("incorrect password");
@@ -230,4 +232,19 @@ public class UserServiceImp implements UserService {
             throw new RuntimeException("kayitli");
     }
 
+    private void checkIfPasswordAndPasswordConfirmationEquals(UserRegisterRequest registerRequest) {
+        if (!Objects.equals(registerRequest.getPassword(), registerRequest.getPasswordConfirmation()))
+            throw new RuntimeException("passwordlar aynı olmalı");
+
+    }
+
+    public User getByEmailOrUsername(String emailOrUsername) {
+        var optionalUser = userRepository.findByEmail(emailOrUsername);
+        if (optionalUser.isPresent())
+            return optionalUser.get();
+        optionalUser = userRepository.findByUsername(emailOrUsername);
+        if (optionalUser.isPresent())
+            return optionalUser.get();
+        throw new RuntimeException("bu email veya username ile kullanıcı yok");
+    }
 }
