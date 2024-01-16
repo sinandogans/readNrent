@@ -18,10 +18,8 @@ import com.sinandogans.readnrent.application.services.user.role.assignrole.Assig
 import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserRequest;
 import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserResponse;
 import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRoleRequest;
-import com.sinandogans.readnrent.application.shared.response.IDataResponse;
-import com.sinandogans.readnrent.application.shared.response.IResponse;
-import com.sinandogans.readnrent.application.shared.response.SuccessDataResponse;
-import com.sinandogans.readnrent.application.shared.response.SuccessResponse;
+import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
+import com.sinandogans.readnrent.application.shared.response.*;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginResponse;
 import com.sinandogans.readnrent.application.services.user.user.register.UserRegisterRequest;
@@ -195,6 +193,16 @@ public class UserServiceImp implements UserService {
         var blockedUserIdToDelete = user.removeBlockedUser(userToUnBlock);
         blockedUserRepository.deleteById(blockedUserIdToDelete);
         return new SuccessResponse("kullanıcı block listesinden cıkarildi");
+    }
+
+    @Override
+    public IDataResponse<CheckIfUserAdminResponse> checkIfUserAdmin() {
+        var user = getUserFromJwtToken();
+        var roles = jwtService.getUserRoles();
+        var filteredRoles = roles.stream().filter(role -> Objects.equals(role, "admin")).toList();
+        if (filteredRoles.isEmpty())
+            return new ErrorDataResponse<>("user admin deil", new CheckIfUserAdminResponse(false));
+        return new SuccessDataResponse<>("user is admin", new CheckIfUserAdminResponse(true));
     }
 
     public User getUserFromJwtToken() {

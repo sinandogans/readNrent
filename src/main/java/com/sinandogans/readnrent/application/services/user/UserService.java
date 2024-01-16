@@ -11,6 +11,7 @@ import com.sinandogans.readnrent.application.services.user.role.assignrole.Assig
 import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserRequest;
 import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserResponse;
 import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRoleRequest;
+import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
 import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
@@ -48,4 +49,6 @@ public interface UserService {
     IResponse blockUser(BlockUserRequest blockUserRequest);
 
     IResponse unBlockUser(UnBlockUserRequest unBlockUserRequest);
+
+    IDataResponse<CheckIfUserAdminResponse> checkIfUserAdmin();
 }

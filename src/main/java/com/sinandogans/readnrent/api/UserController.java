@@ -5,6 +5,7 @@ import com.sinandogans.readnrent.application.services.user.blockeduser.UnBlockUs
 import com.sinandogans.readnrent.application.services.user.followeduser.ChangeNotificationPreferenceRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.FollowUserRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.UnFollowUserRequest;
+import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginResponse;
 import com.sinandogans.readnrent.application.services.user.role.addrole.AddRoleRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserRequest;
@@ -81,5 +82,10 @@ public class UserController {
     @PostMapping(value = "unblock-user")
     public IResponse unBlockUser(@RequestBody UnBlockUserRequest unBlockUserRequest) {
         return userService.unBlockUser(unBlockUserRequest);
+    }
+
+    @GetMapping(value = "is-user-admin")
+    public IDataResponse<CheckIfUserAdminResponse> checkIfUserAdmin() {
+        return userService.checkIfUserAdmin();
     }
 }
