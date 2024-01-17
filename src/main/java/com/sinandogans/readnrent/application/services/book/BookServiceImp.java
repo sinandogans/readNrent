@@ -59,6 +59,7 @@ public class BookServiceImp implements BookService {
     @Override
     public IResponse addBook(AddBookRequest addBookRequest) {
         Book book = modelMapper.map(addBookRequest, Book.class);
+        book.setId(null);
         book.setCategory(getCategoryById(addBookRequest.getCategoryId()));
         book.setAuthors(authorService.getByIds(addBookRequest.getAuthorIds()));
         bookRepository.save(book);

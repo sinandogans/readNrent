@@ -18,6 +18,7 @@ import com.sinandogans.readnrent.application.services.user.role.assignrole.Assig
 import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserRequest;
 import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserResponse;
 import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRoleRequest;
+import com.sinandogans.readnrent.application.services.user.role.get.GetRolesResponseModel;
 import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
 import com.sinandogans.readnrent.application.shared.response.*;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
@@ -32,6 +33,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -203,6 +205,20 @@ public class UserServiceImp implements UserService {
         if (filteredRoles.isEmpty())
             return new ErrorDataResponse<>("user admin deil", new CheckIfUserAdminResponse(false));
         return new SuccessDataResponse<>("user is admin", new CheckIfUserAdminResponse(true));
+    }
+
+    @Override
+    public IDataResponse<List<GetRolesResponseModel>> getRoles() {
+        var userRoles = getUserRoles();
+        var getRolesResponse = userRoles.stream().map(role -> new GetRolesResponseModel(role.getId(), role.getRole())).toList();
+        return new SuccessDataResponse<>("döndü", getRolesResponse);
+    }
+
+    public List<UserRole> getUserRoles() {
+        var userRoles = roleRepository.findAll();
+        if (userRoles.isEmpty())
+            throw new RuntimeException("hiç rol yok");
+        return userRoles;
     }
 
     public User getUserFromJwtToken() {

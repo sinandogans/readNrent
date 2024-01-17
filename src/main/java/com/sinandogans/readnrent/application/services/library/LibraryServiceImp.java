@@ -1,14 +1,16 @@
 package com.sinandogans.readnrent.application.services.library;
 
 import com.sinandogans.readnrent.application.repositories.ReadingGoalRepository;
-import com.sinandogans.readnrent.application.repositories.ReviewRepository;
 import com.sinandogans.readnrent.application.repositories.UserBookRepository;
-import com.sinandogans.readnrent.application.security.jwt.JwtService;
 import com.sinandogans.readnrent.application.services.book.BookService;
 import com.sinandogans.readnrent.application.services.library.readinggoal.AddReadingGoalRequest;
+import com.sinandogans.readnrent.application.services.library.readinggoal.GetReadingGoalsResponse;
 import com.sinandogans.readnrent.application.services.library.readinggoal.UpdateReadingGoalRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.requests.AddUserBookRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.requests.UpdateUserBookRequest;
+import com.sinandogans.readnrent.application.services.library.userbook.responses.GetUserBooksAuthorDTO;
+import com.sinandogans.readnrent.application.services.library.userbook.responses.GetUserBooksBookDTO;
+import com.sinandogans.readnrent.application.services.library.userbook.responses.GetUserBooksCategoryDTO;
 import com.sinandogans.readnrent.application.services.library.userbook.responses.GetUserBooksResponse;
 import com.sinandogans.readnrent.application.services.user.UserService;
 import com.sinandogans.readnrent.application.shared.response.IDataResponse;
@@ -16,12 +18,11 @@ import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessDataResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessResponse;
 import com.sinandogans.readnrent.domain.book.Book;
+import com.sinandogans.readnrent.domain.library.ReadType;
 import com.sinandogans.readnrent.domain.library.ReadingGoal;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import com.sinandogans.readnrent.domain.user.User;
-import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -120,11 +121,31 @@ public class LibraryServiceImp implements LibraryService {
         var user = userService.getUserFromJwtToken();
         var userBooks = getUserBooksByUser(user);
         List<GetUserBooksResponse> response = new ArrayList<>();
-        userBooks.stream().forEach(userBook -> {
+        userBooks.forEach(userBook -> {
             GetUserBooksResponse responseBook = modelMapper.map(userBook, GetUserBooksResponse.class);
             response.add(responseBook);
+            responseBook.setBook(
+                    new GetUserBooksBookDTO(userBook.getBook().getName(),
+                            new GetUserBooksCategoryDTO(userBook.getBook().getCategory().getName()), userBook.getBook().getAuthors().stream().map(
+                            author -> new GetUserBooksAuthorDTO(author.getFullName())).toList()));
         });
         return new SuccessDataResponse<>("user booklar geldi", response);
+    }
+
+    @Override
+    public IDataResponse<List<GetReadingGoalsResponse>> getReadingGoals() {
+        var user = userService.getUserFromJwtToken();
+        var readingGoals = user.getReadingGoals();
+        var readingGoalsResponse = new ArrayList<GetReadingGoalsResponse>();
+        readingGoals.forEach(readingGoal -> {
+            var yearReadCount = user.getUserBooks().stream().filter(
+                            userBook -> userBook.getReadType() == ReadType.READ
+                                    && userBook.getFinishDate().getYear() == readingGoal.getYear())
+                    .toList().size();
+
+            readingGoalsResponse.add(new GetReadingGoalsResponse(readingGoal.getGoal(), yearReadCount, readingGoal.getYear()));
+        });
+        return new SuccessDataResponse<>("reading goaller geldi", readingGoalsResponse);
     }
 
     private void checkIfUserBookNotExistByUserAndBook(User user, Book book) {

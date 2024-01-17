@@ -1,5 +1,6 @@
 package com.sinandogans.readnrent.domain.book;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sinandogans.readnrent.domain.library.ReadType;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import com.sinandogans.readnrent.domain.rentandsale.rent.RentBook;

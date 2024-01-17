@@ -1,5 +1,6 @@
 package com.sinandogans.readnrent.application.services.library.userbook.responses;
 
+import com.sinandogans.readnrent.domain.book.Book;
 import com.sinandogans.readnrent.domain.library.ReadType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +20,5 @@ public class GetUserBooksResponse {
     private LocalDate startDate;
     private LocalDate finishDate;
     private String note;
+    private GetUserBooksBookDTO book;
 }

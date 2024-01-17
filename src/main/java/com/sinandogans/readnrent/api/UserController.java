@@ -44,6 +44,11 @@ public class UserController {
         return userService.addRole(addRoleRequest);
     }
 
+    @GetMapping(value = "get-roles")
+    public IResponse getRoles() {
+        return userService.getRoles();
+    }
+
     @DeleteMapping(value = "delete-role")
     public IResponse addRole(@RequestBody DeleteRoleRequest deleteRoleRequest) {
         return userService.deleteRole(deleteRoleRequest);

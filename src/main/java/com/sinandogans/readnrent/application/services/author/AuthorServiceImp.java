@@ -3,6 +3,7 @@ package com.sinandogans.readnrent.application.services.author;
 import com.sinandogans.readnrent.application.repositories.AuthorRepository;
 import com.sinandogans.readnrent.application.services.author.add.AddAuthorRequest;
 import com.sinandogans.readnrent.application.services.author.update.UpdateAuthorRequest;
+import com.sinandogans.readnrent.application.shared.file.FileService;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessResponse;
 import com.sinandogans.readnrent.domain.book.Author;
@@ -13,12 +14,16 @@ import java.util.List;
 
 @Service
 public class AuthorServiceImp implements AuthorService {
+    public static String imagePath = "authors/";
+
     private final AuthorRepository authorRepository;
     private final ModelMapper modelMapper;
+    private final FileService fileService;
 
-    public AuthorServiceImp(AuthorRepository authorRepository, ModelMapper modelMapper) {
+    public AuthorServiceImp(AuthorRepository authorRepository, ModelMapper modelMapper, FileService fileService) {
         this.authorRepository = authorRepository;
         this.modelMapper = modelMapper;
+        this.fileService = fileService;
     }
 
     @Override
@@ -42,6 +47,7 @@ public class AuthorServiceImp implements AuthorService {
         var authorToAdd = modelMapper.map(addAuthorRequest, Author.class);
         checkIfAuthorAlreadyExist(authorToAdd);
         authorRepository.save(authorToAdd);
+        fileService.createAndSaveFile(addAuthorRequest.getPhoto(), imagePath, authorToAdd.getFullName());
         return new SuccessResponse("author eklendi");
     }
 

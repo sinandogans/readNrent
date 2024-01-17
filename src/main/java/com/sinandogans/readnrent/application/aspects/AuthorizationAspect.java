@@ -33,7 +33,7 @@ public class AuthorizationAspect {
 
         for (String expectedRole : expectedRolesList)
             expectedRolesMap.put(expectedRole, true);
-
+        var x = jwtService.resolveToken();
         var userRoles = jwtService.getUserRoles();
         for (String userRole : userRoles)
             if (expectedRolesMap.containsKey(userRole))

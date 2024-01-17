@@ -1,6 +1,7 @@
 package com.sinandogans.readnrent.application.services.library;
 
 import com.sinandogans.readnrent.application.services.library.readinggoal.AddReadingGoalRequest;
+import com.sinandogans.readnrent.application.services.library.readinggoal.GetReadingGoalsResponse;
 import com.sinandogans.readnrent.application.services.library.readinggoal.UpdateReadingGoalRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.requests.AddUserBookRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.requests.UpdateUserBookRequest;
@@ -24,4 +25,6 @@ public interface LibraryService {
     IResponse deleteUserBook(Long id);
 
     IDataResponse<List<GetUserBooksResponse>> getUserBooks();
+
+    IDataResponse<List<GetReadingGoalsResponse>> getReadingGoals();
 }
