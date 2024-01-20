@@ -6,5 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class GetUserBooksAuthorDTO {
+    private Long id;
     private String name;
+    private String imagePath;
 }

@@ -125,9 +125,9 @@ public class LibraryServiceImp implements LibraryService {
             GetUserBooksResponse responseBook = modelMapper.map(userBook, GetUserBooksResponse.class);
             response.add(responseBook);
             responseBook.setBook(
-                    new GetUserBooksBookDTO(userBook.getBook().getName(),
+                    new GetUserBooksBookDTO(userBook.getBook().getId(), userBook.getBook().getName(), userBook.getBook().getImagePath(),
                             new GetUserBooksCategoryDTO(userBook.getBook().getCategory().getName()), userBook.getBook().getAuthors().stream().map(
-                            author -> new GetUserBooksAuthorDTO(author.getFullName())).toList()));
+                            author -> new GetUserBooksAuthorDTO(author.getId(), author.getFullName(), author.getImagePath())).toList()));
         });
         return new SuccessDataResponse<>("user booklar geldi", response);
     }

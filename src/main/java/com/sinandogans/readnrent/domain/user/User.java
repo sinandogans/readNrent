@@ -35,6 +35,8 @@ public class User {
     private String username;
     private String firstName;
     private String lastName;
+    private String profilePhotoPath;
+    private String coverPhotoPath;
     private byte[] passwordSalt;
     private byte[] passwordHash;
     private boolean verified;

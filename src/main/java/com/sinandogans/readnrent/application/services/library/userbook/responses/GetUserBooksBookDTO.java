@@ -8,7 +8,9 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class GetUserBooksBookDTO {
+    private Long id;
     private String name;
+    private String imagePath;
     private GetUserBooksCategoryDTO category;
     private List<GetUserBooksAuthorDTO> authors;
 }

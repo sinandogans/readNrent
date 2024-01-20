@@ -6,6 +6,7 @@ import com.sinandogans.readnrent.application.services.user.followeduser.ChangeNo
 import com.sinandogans.readnrent.application.services.user.followeduser.FollowUserRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.UnFollowUserRequest;
 import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
+import com.sinandogans.readnrent.application.services.user.user.get.GetUserDetailsResponse;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginResponse;
 import com.sinandogans.readnrent.application.services.user.role.addrole.AddRoleRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserRequest;
@@ -92,5 +93,15 @@ public class UserController {
     @GetMapping(value = "is-user-admin")
     public IDataResponse<CheckIfUserAdminResponse> checkIfUserAdmin() {
         return userService.checkIfUserAdmin();
+    }
+
+    @GetMapping(value = "is-jwt-valid")
+    public IResponse checkIfJwtIsValid() {
+        return userService.checkIfJwtIsValid();
+    }
+
+    @GetMapping(value = "get-details")
+    public IDataResponse<GetUserDetailsResponse> getUserDetails() {
+        return userService.getUserDetails();
     }
 }

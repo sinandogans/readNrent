@@ -6,7 +6,10 @@ import com.sinandogans.readnrent.application.repositories.CommentRepository;
 import com.sinandogans.readnrent.application.repositories.ReviewRepository;
 import com.sinandogans.readnrent.application.services.author.AuthorService;
 import com.sinandogans.readnrent.application.services.book.book.add.AddBookRequest;
+import com.sinandogans.readnrent.application.services.book.book.get.getdetail.GetBookDetailAuthorDTO;
+import com.sinandogans.readnrent.application.services.book.book.get.getdetail.GetBookDetailResponse;
 import com.sinandogans.readnrent.application.services.book.category.AddCategoryRequest;
+import com.sinandogans.readnrent.application.services.book.category.GetCategoriesResponseModel;
 import com.sinandogans.readnrent.application.services.book.category.UpdateCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.services.book.comment.AddCommentRequest;
@@ -14,7 +17,11 @@ import com.sinandogans.readnrent.application.services.book.comment.UpdateComment
 import com.sinandogans.readnrent.application.services.book.review.AddReviewRequest;
 import com.sinandogans.readnrent.application.services.book.review.UpdateReviewRequest;
 import com.sinandogans.readnrent.application.services.user.UserService;
+import com.sinandogans.readnrent.application.services.user.role.get.GetRolesResponseModel;
+import com.sinandogans.readnrent.application.shared.file.FileService;
+import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
+import com.sinandogans.readnrent.application.shared.response.SuccessDataResponse;
 import com.sinandogans.readnrent.application.shared.response.SuccessResponse;
 import com.sinandogans.readnrent.domain.book.Book;
 import com.sinandogans.readnrent.domain.book.Category;
@@ -22,6 +29,8 @@ import com.sinandogans.readnrent.domain.book.Comment;
 import com.sinandogans.readnrent.domain.book.Review;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BookServiceImp implements BookService {
@@ -31,15 +40,19 @@ public class BookServiceImp implements BookService {
     private final CommentRepository commentRepository;
     private final AuthorService authorService;
     private final UserService userService;
+    private final FileService fileService;
     private final ModelMapper modelMapper;
 
-    public BookServiceImp(BookRepository bookRepository, CategoryRepository categoryRepository, ReviewRepository reviewRepository, CommentRepository commentRepository, AuthorService authorService, UserService userService, ModelMapper modelMapper) {
+    public static String imagePath = "books/";
+
+    public BookServiceImp(BookRepository bookRepository, CategoryRepository categoryRepository, ReviewRepository reviewRepository, CommentRepository commentRepository, AuthorService authorService, UserService userService, FileService fileService, ModelMapper modelMapper) {
         this.bookRepository = bookRepository;
         this.categoryRepository = categoryRepository;
         this.reviewRepository = reviewRepository;
         this.commentRepository = commentRepository;
         this.authorService = authorService;
         this.userService = userService;
+        this.fileService = fileService;
         this.modelMapper = modelMapper;
     }
 
@@ -62,6 +75,8 @@ public class BookServiceImp implements BookService {
         book.setId(null);
         book.setCategory(getCategoryById(addBookRequest.getCategoryId()));
         book.setAuthors(authorService.getByIds(addBookRequest.getAuthorIds()));
+        var dbSavePath = fileService.createAndSaveFile(addBookRequest.getPhoto(), imagePath, book.getName());
+        book.setImagePath(dbSavePath);
         bookRepository.save(book);
         return new SuccessResponse("kitap eklendi");
     }
@@ -89,6 +104,15 @@ public class BookServiceImp implements BookService {
     }
 
     @Override
+    public IDataResponse<GetBookDetailResponse> getBookDetail(Long id) {
+        var book = getById(id);
+        var response = new GetBookDetailResponse(book.getName(), book.getImagePath(), book.getAuthors().stream().map(author -> {
+            return new GetBookDetailAuthorDTO(author.getId(), author.getFullName());
+        }).toList());
+        return new SuccessDataResponse<>("dondu", response);
+    }
+
+    @Override
     public IResponse addCategory(AddCategoryRequest addCategoryRequest) {
         checkIfCategoryAlreadyExist(addCategoryRequest.getName());
         Category category = modelMapper.map(addCategoryRequest, Category.class);
@@ -112,6 +136,14 @@ public class BookServiceImp implements BookService {
         var category = getCategoryById(id);
         categoryRepository.delete(category);
         return new SuccessResponse("category silindi");
+    }
+
+    @Override
+    public IDataResponse<List<GetCategoriesResponseModel>> getAllCategories() {
+        var categories = categoryRepository.findAll();
+        var getCategoriesResponse = categories.stream().map(category -> new GetCategoriesResponseModel(category.getId(), category.getName())).toList();
+        return new SuccessDataResponse<>("döndü", getCategoriesResponse);
+
     }
 
     @Override

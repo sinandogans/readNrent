@@ -2,15 +2,20 @@ package com.sinandogans.readnrent.api;
 
 import com.sinandogans.readnrent.application.services.book.BookService;
 import com.sinandogans.readnrent.application.services.book.book.add.AddBookRequest;
+import com.sinandogans.readnrent.application.services.book.book.get.getdetail.GetBookDetailResponse;
 import com.sinandogans.readnrent.application.services.book.category.AddCategoryRequest;
+import com.sinandogans.readnrent.application.services.book.category.GetCategoriesResponseModel;
 import com.sinandogans.readnrent.application.services.book.category.UpdateCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.services.book.comment.AddCommentRequest;
 import com.sinandogans.readnrent.application.services.book.comment.UpdateCommentRequest;
 import com.sinandogans.readnrent.application.services.book.review.AddReviewRequest;
 import com.sinandogans.readnrent.application.services.book.review.UpdateReviewRequest;
+import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("books")
@@ -36,6 +41,10 @@ public class BookController {
         return bookService.deleteBook(id);
     }
 
+    @GetMapping(value = "get-detail")
+    public IDataResponse<GetBookDetailResponse> updateBook(@RequestParam Long id) {
+        return bookService.getBookDetail(id);
+    }
 
     @PostMapping(value = "categories/add")
     public IResponse addCategory(@RequestBody AddCategoryRequest addCategoryRequest) {
@@ -50,6 +59,11 @@ public class BookController {
     @DeleteMapping(value = "categories/delete")
     public IResponse deleteCategory(@RequestParam Long id) {
         return bookService.deleteCategory(id);
+    }
+
+    @GetMapping(value = "categories/get-all")
+    public IDataResponse<List<GetCategoriesResponseModel>> getAllCategories() {
+        return bookService.getAllCategories();
     }
 
     @PostMapping(value = "reviews/add")

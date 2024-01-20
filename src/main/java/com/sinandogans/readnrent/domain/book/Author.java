@@ -24,6 +24,7 @@ public class Author {
     private String about;
     private LocalDate birthDate;
     private LocalDate deathDate;
+    private String imagePath;
     @ManyToMany(mappedBy = "authors")
     private List<Book> books;
 

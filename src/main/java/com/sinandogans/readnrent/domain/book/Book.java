@@ -1,6 +1,5 @@
 package com.sinandogans.readnrent.domain.book;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sinandogans.readnrent.domain.library.ReadType;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import com.sinandogans.readnrent.domain.rentandsale.rent.RentBook;
@@ -29,6 +28,7 @@ public class Book {
     private int pages;
     private String publisher;
     private LocalDate publicationDate;
+    private String imagePath;
     @ManyToMany
     private List<Author> authors = new ArrayList<>();
     @ManyToOne

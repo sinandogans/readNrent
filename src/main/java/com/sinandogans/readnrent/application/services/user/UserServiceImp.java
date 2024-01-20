@@ -20,6 +20,7 @@ import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeA
 import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRoleRequest;
 import com.sinandogans.readnrent.application.services.user.role.get.GetRolesResponseModel;
 import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
+import com.sinandogans.readnrent.application.services.user.user.get.GetUserDetailsResponse;
 import com.sinandogans.readnrent.application.shared.response.*;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginResponse;
@@ -212,6 +213,20 @@ public class UserServiceImp implements UserService {
         var userRoles = getUserRoles();
         var getRolesResponse = userRoles.stream().map(role -> new GetRolesResponseModel(role.getId(), role.getRole())).toList();
         return new SuccessDataResponse<>("döndü", getRolesResponse);
+    }
+
+    @Override
+    public IResponse checkIfJwtIsValid() {
+        var user = this.getUserFromJwtToken();
+        return new SuccessResponse("Jwt valid");
+    }
+
+    @Override
+    public IDataResponse<GetUserDetailsResponse> getUserDetails() {
+        var user = this.getUserFromJwtToken();
+        GetUserDetailsResponse response = modelMapper.map(user, GetUserDetailsResponse.class);
+        //response.setFullName(user.getFullName());
+        return new SuccessDataResponse<>("dondu", response);
     }
 
     public List<UserRole> getUserRoles() {

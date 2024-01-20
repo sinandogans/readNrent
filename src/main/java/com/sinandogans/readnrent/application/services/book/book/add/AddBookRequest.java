@@ -18,4 +18,5 @@ public class AddBookRequest {
     private LocalDate publicationDate;
     private List<Long> authorIds;
     private Long categoryId;
+    private String photo;
 }

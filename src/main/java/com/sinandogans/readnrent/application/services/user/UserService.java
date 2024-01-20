@@ -13,6 +13,7 @@ import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeA
 import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRoleRequest;
 import com.sinandogans.readnrent.application.services.user.role.get.GetRolesResponseModel;
 import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
+import com.sinandogans.readnrent.application.services.user.user.get.GetUserDetailsResponse;
 import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
@@ -56,4 +57,8 @@ public interface UserService {
     IDataResponse<CheckIfUserAdminResponse> checkIfUserAdmin();
 
     IDataResponse<List<GetRolesResponseModel>> getRoles();
+
+    IResponse checkIfJwtIsValid();
+
+    IDataResponse<GetUserDetailsResponse> getUserDetails();
 }
