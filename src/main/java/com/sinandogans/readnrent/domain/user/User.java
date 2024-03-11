@@ -1,8 +1,8 @@
 package com.sinandogans.readnrent.domain.user;
 
 import com.sinandogans.readnrent.domain.book.Comment;
-import com.sinandogans.readnrent.domain.library.ReadingGoal;
 import com.sinandogans.readnrent.domain.book.Review;
+import com.sinandogans.readnrent.domain.library.ReadingGoal;
 import com.sinandogans.readnrent.domain.library.UserBook;
 import com.sinandogans.readnrent.domain.rentandsale.rent.Rent;
 import com.sinandogans.readnrent.domain.rentandsale.rent.RentBook;
@@ -124,7 +124,7 @@ public class User {
         return id;
     }
 
-    public FollowedUser getFollowedUser(String username) {
+    public FollowedUser getFollowedUsers(String username) {
         var filteredUsers = followedUsers.stream().filter(followedUser -> Objects.equals(followedUser.getFollowedUser().getUsername(), username)).toList();
         if (filteredUsers.isEmpty())
             throw new RuntimeException("bu kullanıcı takip edilmiyor");

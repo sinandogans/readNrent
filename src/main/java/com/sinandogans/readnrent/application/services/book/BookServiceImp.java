@@ -6,18 +6,16 @@ import com.sinandogans.readnrent.application.repositories.CommentRepository;
 import com.sinandogans.readnrent.application.repositories.ReviewRepository;
 import com.sinandogans.readnrent.application.services.author.AuthorService;
 import com.sinandogans.readnrent.application.services.book.book.add.AddBookRequest;
-import com.sinandogans.readnrent.application.services.book.book.get.getdetail.GetBookDetailAuthorDTO;
 import com.sinandogans.readnrent.application.services.book.book.get.getdetail.GetBookDetailResponse;
+import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.services.book.category.AddCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.category.GetCategoriesResponseModel;
 import com.sinandogans.readnrent.application.services.book.category.UpdateCategoryRequest;
-import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.services.book.comment.AddCommentRequest;
 import com.sinandogans.readnrent.application.services.book.comment.UpdateCommentRequest;
 import com.sinandogans.readnrent.application.services.book.review.AddReviewRequest;
 import com.sinandogans.readnrent.application.services.book.review.UpdateReviewRequest;
 import com.sinandogans.readnrent.application.services.user.UserService;
-import com.sinandogans.readnrent.application.services.user.role.get.GetRolesResponseModel;
 import com.sinandogans.readnrent.application.shared.file.FileService;
 import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
@@ -34,6 +32,7 @@ import java.util.List;
 
 @Service
 public class BookServiceImp implements BookService {
+    public static String imagePath = "books/";
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
     private final ReviewRepository reviewRepository;
@@ -42,8 +41,6 @@ public class BookServiceImp implements BookService {
     private final UserService userService;
     private final FileService fileService;
     private final ModelMapper modelMapper;
-
-    public static String imagePath = "books/";
 
     public BookServiceImp(BookRepository bookRepository, CategoryRepository categoryRepository, ReviewRepository reviewRepository, CommentRepository commentRepository, AuthorService authorService, UserService userService, FileService fileService, ModelMapper modelMapper) {
         this.bookRepository = bookRepository;
@@ -59,8 +56,7 @@ public class BookServiceImp implements BookService {
     @Override
     public Book getById(Long id) {
         var optionalBook = bookRepository.findById(id);
-        if (optionalBook.isEmpty())
-            throw new RuntimeException("book id yok");
+        if (optionalBook.isEmpty()) throw new RuntimeException("book id yok");
         return optionalBook.get();
     }
 
@@ -73,7 +69,7 @@ public class BookServiceImp implements BookService {
     public IResponse addBook(AddBookRequest addBookRequest) {
         Book book = modelMapper.map(addBookRequest, Book.class);
         book.setId(null);
-        book.setCategory(getCategoryById(addBookRequest.getCategoryId()));
+        book.setCategories(getCategoriesByIds(addBookRequest.getCategoryIds()));
         book.setAuthors(authorService.getByIds(addBookRequest.getAuthorIds()));
         var dbSavePath = fileService.createAndSaveFile(addBookRequest.getPhoto(), imagePath, book.getName());
         book.setImagePath(dbSavePath);
@@ -90,7 +86,7 @@ public class BookServiceImp implements BookService {
 
         book.setId(id);
         book.setUserBooks(userBooks);
-        book.setCategory(getCategoryById(updateBookRequest.getId()));
+        book.setCategories(getCategoriesByIds(updateBookRequest.getCategoryIds()));
         book.setAuthors(authorService.getByIds(updateBookRequest.getAuthorIds()));
         bookRepository.save(book);
         return new SuccessResponse("kitap guncellendi");
@@ -106,9 +102,7 @@ public class BookServiceImp implements BookService {
     @Override
     public IDataResponse<GetBookDetailResponse> getBookDetail(Long id) {
         var book = getById(id);
-        var response = new GetBookDetailResponse(book.getName(), book.getImagePath(), book.getAuthors().stream().map(author -> {
-            return new GetBookDetailAuthorDTO(author.getId(), author.getFullName());
-        }).toList());
+        var response = GetBookDetailResponse.create(book);
         return new SuccessDataResponse<>("dondu", response);
     }
 
@@ -229,39 +223,42 @@ public class BookServiceImp implements BookService {
     @Override
     public Category getCategoryById(Long id) {
         var optionalCategory = categoryRepository.findById(id);
-        if (optionalCategory.isEmpty())
-            throw new RuntimeException("category yok");
+        if (optionalCategory.isEmpty()) throw new RuntimeException("category yok");
+        return optionalCategory.get();
+    }
+
+    @Override
+    public List<Category> getCategoriesByIds(List<Long> ids) {
+        var optionalCategory = categoryRepository.findAllByIdIn(ids);
+        if (optionalCategory.isEmpty()) throw new RuntimeException("category yok");
         return optionalCategory.get();
     }
 
     @Override
     public Category getCategoryByName(String name) {
         var optionalCategory = categoryRepository.findByName(name);
-        if (optionalCategory.isEmpty())
-            throw new RuntimeException("category yok");
+        if (optionalCategory.isEmpty()) throw new RuntimeException("category yok");
         return optionalCategory.get();
     }
+
 
     @Override
     public Review getReviewById(Long id) {
         var optionalReview = reviewRepository.findById(id);
-        if (optionalReview.isEmpty())
-            throw new RuntimeException("review yok");
+        if (optionalReview.isEmpty()) throw new RuntimeException("review yok");
         return optionalReview.get();
     }
 
     @Override
     public Comment getCommentById(Long id) {
         var optionalComment = commentRepository.findById(id);
-        if (optionalComment.isEmpty())
-            throw new RuntimeException("comment yok");
+        if (optionalComment.isEmpty()) throw new RuntimeException("comment yok");
         return optionalComment.get();
     }
 
     private void checkIfCategoryAlreadyExist(String name) {
         var optionalCategory = categoryRepository.findByName(name);
-        if (optionalCategory.isPresent())
-            throw new RuntimeException("category zaten var");
+        if (optionalCategory.isPresent()) throw new RuntimeException("category zaten var");
     }
 
 //    private void checkIfReviewExistByBookAndUser(Book book, User user) {

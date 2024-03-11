@@ -2,10 +2,10 @@ package com.sinandogans.readnrent.application.services.book;
 
 import com.sinandogans.readnrent.application.services.book.book.add.AddBookRequest;
 import com.sinandogans.readnrent.application.services.book.book.get.getdetail.GetBookDetailResponse;
+import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.services.book.category.AddCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.category.GetCategoriesResponseModel;
 import com.sinandogans.readnrent.application.services.book.category.UpdateCategoryRequest;
-import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.services.book.comment.AddCommentRequest;
 import com.sinandogans.readnrent.application.services.book.comment.UpdateCommentRequest;
 import com.sinandogans.readnrent.application.services.book.review.AddReviewRequest;
@@ -23,6 +23,8 @@ public interface BookService {
     Book getById(Long id);
 
     Category getCategoryById(Long id);
+
+    List<Category> getCategoriesByIds(List<Long> ids);
 
     Category getCategoryByName(String name);
 

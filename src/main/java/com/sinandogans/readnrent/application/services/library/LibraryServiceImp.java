@@ -124,10 +124,7 @@ public class LibraryServiceImp implements LibraryService {
         userBooks.forEach(userBook -> {
             GetUserBooksResponse responseBook = modelMapper.map(userBook, GetUserBooksResponse.class);
             response.add(responseBook);
-            responseBook.setBook(
-                    new GetUserBooksBookDTO(userBook.getBook().getId(), userBook.getBook().getName(), userBook.getBook().getImagePath(),
-                            new GetUserBooksCategoryDTO(userBook.getBook().getCategory().getName()), userBook.getBook().getAuthors().stream().map(
-                            author -> new GetUserBooksAuthorDTO(author.getId(), author.getFullName(), author.getImagePath())).toList()));
+            responseBook.setBook(new GetUserBooksBookDTO(userBook.getBook().getId(), userBook.getBook().getName(), userBook.getBook().getImagePath(), userBook.getBook().getCategories().stream().map(category -> new GetUserBooksCategoryDTO(category.getName())).toList(), userBook.getBook().getAuthors().stream().map(author -> new GetUserBooksAuthorDTO(author.getId(), author.getFullName(), author.getImagePath())).toList()));
         });
         return new SuccessDataResponse<>("user booklar geldi", response);
     }
@@ -138,10 +135,7 @@ public class LibraryServiceImp implements LibraryService {
         var readingGoals = user.getReadingGoals();
         var readingGoalsResponse = new ArrayList<GetReadingGoalsResponse>();
         readingGoals.forEach(readingGoal -> {
-            var yearReadCount = user.getUserBooks().stream().filter(
-                            userBook -> userBook.getReadType() == ReadType.READ
-                                    && userBook.getFinishDate().getYear() == readingGoal.getYear())
-                    .toList().size();
+            var yearReadCount = user.getUserBooks().stream().filter(userBook -> userBook.getReadType() == ReadType.READ && userBook.getFinishDate().getYear() == readingGoal.getYear()).toList().size();
 
             readingGoalsResponse.add(new GetReadingGoalsResponse(readingGoal.getGoal(), yearReadCount, readingGoal.getYear()));
         });
@@ -150,34 +144,29 @@ public class LibraryServiceImp implements LibraryService {
 
     private void checkIfUserBookNotExistByUserAndBook(User user, Book book) {
         var optionalUserBook = userBookRepository.findByUserAndBook(user, book);
-        if (optionalUserBook.isPresent())
-            throw new RuntimeException("user book zaten var");
+        if (optionalUserBook.isPresent()) throw new RuntimeException("user book zaten var");
     }
 
     public UserBook getUserBookByUserAndBook(User user, Book book) {
         var optionalUserBook = userBookRepository.findByUserAndBook(user, book);
-        if (optionalUserBook.isEmpty())
-            throw new RuntimeException("user book yok");
+        if (optionalUserBook.isEmpty()) throw new RuntimeException("user book yok");
         return optionalUserBook.get();
     }
 
     public List<UserBook> getUserBooksByUser(User user) {
         var optionalUserBooks = userBookRepository.findByUser(user);
-        if (optionalUserBooks.isEmpty())
-            throw new RuntimeException("user book yok");
+        if (optionalUserBooks.isEmpty()) throw new RuntimeException("user book yok");
         return optionalUserBooks.get();
     }
 
     private ReadingGoal findReadingGoalByUserAndYear(User user, int year) {
         var optionalReadingGoal = readingGoalRepository.findByUserAndYear(user, year);
-        if (optionalReadingGoal.isEmpty())
-            throw new RuntimeException("reading goal yok");
+        if (optionalReadingGoal.isEmpty()) throw new RuntimeException("reading goal yok");
         return optionalReadingGoal.get();
     }
 
     private void checkIfReadingGoalNotExist(User user) {
         var optionalReadingGoal = readingGoalRepository.findByUserAndYear(user, LocalDate.now().getYear());
-        if (optionalReadingGoal.isPresent())
-            throw new RuntimeException("reading goal zaten var");
+        if (optionalReadingGoal.isPresent()) throw new RuntimeException("reading goal zaten var");
     }
 }

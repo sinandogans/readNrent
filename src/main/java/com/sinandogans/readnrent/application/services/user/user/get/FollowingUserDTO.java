@@ -5,18 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetUserDetailsResponse {
-    private Long id;
+@Getter
+@Setter
+public class FollowingUserDTO {
     private String username;
     private String fullName;
     private String profilePhotoPath;
-    private String coverPhotoPath;
-    private List<FollowingUserDTO> followingUsers;
-    private List<FollowingUserDTO> followers;
+    private int readBookCount;
+
+    public static FollowingUserDTO create(String username, String fullName, String profilePhotoPath, int readBookCount) {
+        return new FollowingUserDTO(username, fullName, profilePhotoPath, readBookCount);
+    }
 }

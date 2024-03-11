@@ -1,24 +1,24 @@
 package com.sinandogans.readnrent.api;
 
+import com.sinandogans.readnrent.application.services.user.UserService;
 import com.sinandogans.readnrent.application.services.user.blockeduser.BlockUserRequest;
 import com.sinandogans.readnrent.application.services.user.blockeduser.UnBlockUserRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.ChangeNotificationPreferenceRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.FollowUserRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.UnFollowUserRequest;
-import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
-import com.sinandogans.readnrent.application.services.user.user.get.GetUserDetailsResponse;
-import com.sinandogans.readnrent.application.services.user.user.login.UserLoginResponse;
 import com.sinandogans.readnrent.application.services.user.role.addrole.AddRoleRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserRequest;
 import com.sinandogans.readnrent.application.services.user.role.assignrole.AssignRoleToUserResponse;
 import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserRequest;
 import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserResponse;
 import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRoleRequest;
+import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
+import com.sinandogans.readnrent.application.services.user.user.get.GetUserDetailsResponse;
+import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
+import com.sinandogans.readnrent.application.services.user.user.login.UserLoginResponse;
+import com.sinandogans.readnrent.application.services.user.user.register.UserRegisterRequest;
 import com.sinandogans.readnrent.application.shared.response.IDataResponse;
 import com.sinandogans.readnrent.application.shared.response.IResponse;
-import com.sinandogans.readnrent.application.services.user.UserService;
-import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
-import com.sinandogans.readnrent.application.services.user.user.register.UserRegisterRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -51,17 +51,17 @@ public class UserController {
     }
 
     @DeleteMapping(value = "delete-role")
-    public IResponse addRole(@RequestBody DeleteRoleRequest deleteRoleRequest) {
+    public IResponse deleteRole(@RequestBody DeleteRoleRequest deleteRoleRequest) {
         return userService.deleteRole(deleteRoleRequest);
     }
 
     @PostMapping(value = "assign-role")
-    public IDataResponse<AssignRoleToUserResponse> login(@RequestBody AssignRoleToUserRequest assignRoleToUserRequest) {
+    public IDataResponse<AssignRoleToUserResponse> assignRole(@RequestBody AssignRoleToUserRequest assignRoleToUserRequest) {
         return userService.assignRoleToUser(assignRoleToUserRequest);
     }
 
     @PostMapping(value = "deassign-role")
-    public IDataResponse<DeAssignRoleToUserResponse> login(@RequestBody DeAssignRoleToUserRequest deAssignRoleToUserRequest) {
+    public IDataResponse<DeAssignRoleToUserResponse> deAssignRole(@RequestBody DeAssignRoleToUserRequest deAssignRoleToUserRequest) {
         return userService.deAssignRoleToUser(deAssignRoleToUserRequest);
     }
 

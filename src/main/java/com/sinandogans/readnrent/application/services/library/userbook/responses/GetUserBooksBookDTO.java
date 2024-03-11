@@ -11,6 +11,6 @@ public class GetUserBooksBookDTO {
     private Long id;
     private String name;
     private String imagePath;
-    private GetUserBooksCategoryDTO category;
+    private List<GetUserBooksCategoryDTO> categories;
     private List<GetUserBooksAuthorDTO> authors;
 }

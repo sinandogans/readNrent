@@ -9,6 +9,7 @@ import com.sinandogans.readnrent.application.security.hashing.HashService;
 import com.sinandogans.readnrent.application.security.jwt.JwtService;
 import com.sinandogans.readnrent.application.services.user.blockeduser.BlockUserRequest;
 import com.sinandogans.readnrent.application.services.user.blockeduser.UnBlockUserRequest;
+import com.sinandogans.readnrent.application.services.user.constants.UserConstants;
 import com.sinandogans.readnrent.application.services.user.followeduser.ChangeNotificationPreferenceRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.FollowUserRequest;
 import com.sinandogans.readnrent.application.services.user.followeduser.UnFollowUserRequest;
@@ -20,11 +21,12 @@ import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeA
 import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRoleRequest;
 import com.sinandogans.readnrent.application.services.user.role.get.GetRolesResponseModel;
 import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
+import com.sinandogans.readnrent.application.services.user.user.get.FollowingUserDTO;
 import com.sinandogans.readnrent.application.services.user.user.get.GetUserDetailsResponse;
-import com.sinandogans.readnrent.application.shared.response.*;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginResponse;
 import com.sinandogans.readnrent.application.services.user.user.register.UserRegisterRequest;
+import com.sinandogans.readnrent.application.shared.response.*;
 import com.sinandogans.readnrent.domain.user.BlockedUser;
 import com.sinandogans.readnrent.domain.user.FollowedUser;
 import com.sinandogans.readnrent.domain.user.User;
@@ -33,6 +35,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -60,24 +63,21 @@ public class UserServiceImp implements UserService {
     @Override
     public User getByEmail(String email) {
         var optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isEmpty())
-            throw new RuntimeException("email yok");
+        if (optionalUser.isEmpty()) throw new RuntimeException("email yok");
         return optionalUser.get();
     }
 
     @Override
     public User getById(Long id) {
         var optionalUser = userRepository.findById(id);
-        if (optionalUser.isEmpty())
-            throw new RuntimeException("id yok");
+        if (optionalUser.isEmpty()) throw new RuntimeException("id yok");
         return optionalUser.get();
     }
 
     @Override
     public User getByUsername(String username) {
         var optionalUser = userRepository.findByUsername(username);
-        if (optionalUser.isEmpty())
-            throw new RuntimeException("username yok");
+        if (optionalUser.isEmpty()) throw new RuntimeException("username yok");
         return optionalUser.get();
     }
 
@@ -90,6 +90,8 @@ public class UserServiceImp implements UserService {
         User userToRegister = modelMapper.map(registerRequest, User.class);
         userToRegister.setPasswordSalt(hashService.saltPassword(registerRequest.getPassword()));
         userToRegister.setPasswordHash(hashService.hashPassword(registerRequest.getPassword(), userToRegister.getPasswordSalt()));
+        userToRegister.setCoverPhotoPath(UserConstants.defaultCoverPhotoPath);
+        userToRegister.setProfilePhotoPath(UserConstants.defaultProfilePhotoPath);
 
         userRepository.save(userToRegister);
         return new SuccessResponse("user created");
@@ -99,12 +101,8 @@ public class UserServiceImp implements UserService {
     public IDataResponse<UserLoginResponse> login(UserLoginRequest loginRequest) {
         var user = getByEmailOrUsername(loginRequest.getEmailOrUsername());
         var hashedPassword = hashService.hashPassword(loginRequest.getPassword(), user.getPasswordSalt());
-        if (!Arrays.equals(hashedPassword, user.getPasswordHash()))
-            throw new RuntimeException("incorrect password");
-        return new SuccessDataResponse<>(
-                "giris yapıldı",
-                new UserLoginResponse(jwtService.createToken(user))
-        );
+        if (!Arrays.equals(hashedPassword, user.getPasswordHash())) throw new RuntimeException("incorrect password");
+        return new SuccessDataResponse<>("giris yapıldı", new UserLoginResponse(jwtService.createToken(user)));
     }
 
     @Override
@@ -169,7 +167,7 @@ public class UserServiceImp implements UserService {
     @Override
     public IResponse changeNotificationPreference(ChangeNotificationPreferenceRequest changeNotificationPreferenceRequest) {
         var user = getUserFromJwtToken();
-        FollowedUser followedUser = user.getFollowedUser(changeNotificationPreferenceRequest.getUsername());
+        FollowedUser followedUser = user.getFollowedUsers(changeNotificationPreferenceRequest.getUsername());
         followedUser.setNotificationsEnabled(!followedUser.isNotificationsEnabled());
         followedUserRepository.save(followedUser);
         return new SuccessResponse("notification preference changed.");
@@ -225,15 +223,27 @@ public class UserServiceImp implements UserService {
     public IDataResponse<GetUserDetailsResponse> getUserDetails() {
         var user = this.getUserFromJwtToken();
         GetUserDetailsResponse response = modelMapper.map(user, GetUserDetailsResponse.class);
-        //response.setFullName(user.getFullName());
+        List<FollowingUserDTO> followingUsers = new ArrayList<>();
+        user.getFollowedUsers().forEach(followedUser -> followingUsers.add(FollowingUserDTO.create(followedUser.getFollowedUser().getUsername(), followedUser.getFollowedUser().getFullName(), followedUser.getFollowedUser().getProfilePhotoPath(), followedUser.getFollowedUser().getUserBooks().size())));
+        response.setFollowingUsers(followingUsers);
+
+        List<FollowingUserDTO> followers = new ArrayList<>();
+        getFollowers(user.getId()).forEach(follower -> followers.add(FollowingUserDTO.create(follower.getUser().getUsername(), follower.getUser().getFullName(), follower.getUser().getProfilePhotoPath(), follower.getUser().getUserBooks().size())));
+        response.setFollowers(followers);
+
         return new SuccessDataResponse<>("dondu", response);
     }
 
     public List<UserRole> getUserRoles() {
         var userRoles = roleRepository.findAll();
-        if (userRoles.isEmpty())
-            throw new RuntimeException("hiç rol yok");
+        if (userRoles.isEmpty()) throw new RuntimeException("hiç rol yok");
         return userRoles;
+    }
+
+    public List<FollowedUser> getFollowers(Long id) {
+        var optionalFollowers = followedUserRepository.findFollowedUserByFollowedUserId(id);
+        if (optionalFollowers.isEmpty()) throw new RuntimeException("hiç follower yok");
+        return optionalFollowers.get();
     }
 
     public User getUserFromJwtToken() {
@@ -243,32 +253,27 @@ public class UserServiceImp implements UserService {
 
     private UserRole getRoleById(Long id) {
         var optionalRole = roleRepository.findById(id);
-        if (optionalRole.isEmpty())
-            throw new RuntimeException("bu id ile rol yok");
+        if (optionalRole.isEmpty()) throw new RuntimeException("bu id ile rol yok");
         return optionalRole.get();
     }
 
     private void checkIfRoleAlreadyExist(String role) {
         var optionalRole = roleRepository.findByRole(role);
-        if (optionalRole.isPresent())
-            throw new RuntimeException("role zaten var");
+        if (optionalRole.isPresent()) throw new RuntimeException("role zaten var");
     }
 
     private void checkIfUserBlocked(User user, User blockedUser) {
-        if (user.isUserBlocked(blockedUser))
-            throw new RuntimeException("bloklu kullanıcı takip edilemez");
+        if (user.isUserBlocked(blockedUser)) throw new RuntimeException("bloklu kullanıcı takip edilemez");
     }
 
     private void checkIfEmailAlreadyExist(String email) {
         var optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isPresent())
-            throw new RuntimeException("kayitli");
+        if (optionalUser.isPresent()) throw new RuntimeException("kayitli");
     }
 
     private void checkIfUsernameAlreadyExist(String username) {
         var optionalUser = userRepository.findByUsername(username);
-        if (optionalUser.isPresent())
-            throw new RuntimeException("kayitli");
+        if (optionalUser.isPresent()) throw new RuntimeException("kayitli");
     }
 
     private void checkIfPasswordAndPasswordConfirmationEquals(UserRegisterRequest registerRequest) {
@@ -279,11 +284,9 @@ public class UserServiceImp implements UserService {
 
     public User getByEmailOrUsername(String emailOrUsername) {
         var optionalUser = userRepository.findByEmail(emailOrUsername);
-        if (optionalUser.isPresent())
-            return optionalUser.get();
+        if (optionalUser.isPresent()) return optionalUser.get();
         optionalUser = userRepository.findByUsername(emailOrUsername);
-        if (optionalUser.isPresent())
-            return optionalUser.get();
+        if (optionalUser.isPresent()) return optionalUser.get();
         throw new RuntimeException("bu email veya username ile kullanıcı yok");
     }
 }

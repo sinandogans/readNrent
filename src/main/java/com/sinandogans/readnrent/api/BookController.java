@@ -3,10 +3,10 @@ package com.sinandogans.readnrent.api;
 import com.sinandogans.readnrent.application.services.book.BookService;
 import com.sinandogans.readnrent.application.services.book.book.add.AddBookRequest;
 import com.sinandogans.readnrent.application.services.book.book.get.getdetail.GetBookDetailResponse;
+import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.services.book.category.AddCategoryRequest;
 import com.sinandogans.readnrent.application.services.book.category.GetCategoriesResponseModel;
 import com.sinandogans.readnrent.application.services.book.category.UpdateCategoryRequest;
-import com.sinandogans.readnrent.application.services.book.book.update.UpdateBookRequest;
 import com.sinandogans.readnrent.application.services.book.comment.AddCommentRequest;
 import com.sinandogans.readnrent.application.services.book.comment.UpdateCommentRequest;
 import com.sinandogans.readnrent.application.services.book.review.AddReviewRequest;
@@ -42,7 +42,7 @@ public class BookController {
     }
 
     @GetMapping(value = "get-detail")
-    public IDataResponse<GetBookDetailResponse> updateBook(@RequestParam Long id) {
+    public IDataResponse<GetBookDetailResponse> getBook(@RequestParam Long id) {
         return bookService.getBookDetail(id);
     }
 
