@@ -53,12 +53,12 @@ public class LibraryController {
     }
 
     @GetMapping(value = "get-userbooks")
-    public IDataResponse<List<GetUserBooksResponse>> getUserBooks() {
-        return libraryService.getUserBooks();
+    public IDataResponse<List<GetUserBooksResponse>> getUserBooks(@RequestParam String username) {
+        return libraryService.getUserBooks(username);
     }
 
     @GetMapping(value = "get-reading-goals")
-    public IDataResponse<List<GetReadingGoalsResponse>> getReadingGoals() {
-        return libraryService.getReadingGoals();
+    public IDataResponse<List<GetReadingGoalsResponse>> getReadingGoals(@RequestParam String username) {
+        return libraryService.getReadingGoals(username);
     }
 }

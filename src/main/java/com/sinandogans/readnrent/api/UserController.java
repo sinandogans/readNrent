@@ -101,7 +101,12 @@ public class UserController {
     }
 
     @GetMapping(value = "get-details")
+    public IDataResponse<GetUserDetailsResponse> getUserDetails(@RequestParam String username) {
+        return userService.getUserDetails(username);
+    }
+
+    @GetMapping(value = "get-current-users-details")
     public IDataResponse<GetUserDetailsResponse> getUserDetails() {
-        return userService.getUserDetails();
+        return userService.getCurrentUsersDetails();
     }
 }

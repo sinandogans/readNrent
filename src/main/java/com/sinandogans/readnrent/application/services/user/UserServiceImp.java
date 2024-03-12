@@ -102,7 +102,7 @@ public class UserServiceImp implements UserService {
         var user = getByEmailOrUsername(loginRequest.getEmailOrUsername());
         var hashedPassword = hashService.hashPassword(loginRequest.getPassword(), user.getPasswordSalt());
         if (!Arrays.equals(hashedPassword, user.getPasswordHash())) throw new RuntimeException("incorrect password");
-        return new SuccessDataResponse<>("giris yapıldı", new UserLoginResponse(jwtService.createToken(user)));
+        return new SuccessDataResponse<>("giris yapıldı", new UserLoginResponse(jwtService.createToken(user), user.getUsername()));
     }
 
     @Override
@@ -220,8 +220,18 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public IDataResponse<GetUserDetailsResponse> getUserDetails() {
+    public IDataResponse<GetUserDetailsResponse> getUserDetails(String username) {
+        var user = getByUsername(username);
+        return getDetails(user);
+    }
+
+    @Override
+    public IDataResponse<GetUserDetailsResponse> getCurrentUsersDetails() {
         var user = this.getUserFromJwtToken();
+        return getDetails(user);
+    }
+
+    private IDataResponse<GetUserDetailsResponse> getDetails(User user) {
         GetUserDetailsResponse response = modelMapper.map(user, GetUserDetailsResponse.class);
         List<FollowingUserDTO> followingUsers = new ArrayList<>();
         user.getFollowedUsers().forEach(followedUser -> followingUsers.add(FollowingUserDTO.create(followedUser.getFollowedUser().getUsername(), followedUser.getFollowedUser().getFullName(), followedUser.getFollowedUser().getProfilePhotoPath(), followedUser.getFollowedUser().getUserBooks().size())));
@@ -233,6 +243,7 @@ public class UserServiceImp implements UserService {
 
         return new SuccessDataResponse<>("dondu", response);
     }
+
 
     public List<UserRole> getUserRoles() {
         var userRoles = roleRepository.findAll();

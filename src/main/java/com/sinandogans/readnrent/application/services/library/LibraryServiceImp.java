@@ -117,8 +117,8 @@ public class LibraryServiceImp implements LibraryService {
     }
 
     @Override
-    public IDataResponse<List<GetUserBooksResponse>> getUserBooks() {
-        var user = userService.getUserFromJwtToken();
+    public IDataResponse<List<GetUserBooksResponse>> getUserBooks(String username) {
+        var user = userService.getByUsername(username);
         var userBooks = getUserBooksByUser(user);
         List<GetUserBooksResponse> response = new ArrayList<>();
         userBooks.forEach(userBook -> {
@@ -130,8 +130,8 @@ public class LibraryServiceImp implements LibraryService {
     }
 
     @Override
-    public IDataResponse<List<GetReadingGoalsResponse>> getReadingGoals() {
-        var user = userService.getUserFromJwtToken();
+    public IDataResponse<List<GetReadingGoalsResponse>> getReadingGoals(String username) {
+        var user = userService.getByUsername(username);
         var readingGoals = user.getReadingGoals();
         var readingGoalsResponse = new ArrayList<GetReadingGoalsResponse>();
         readingGoals.forEach(readingGoal -> {

@@ -24,7 +24,7 @@ public interface LibraryService {
 
     IResponse deleteUserBook(Long id);
 
-    IDataResponse<List<GetUserBooksResponse>> getUserBooks();
+    IDataResponse<List<GetUserBooksResponse>> getUserBooks(String username);
 
-    IDataResponse<List<GetReadingGoalsResponse>> getReadingGoals();
+    IDataResponse<List<GetReadingGoalsResponse>> getReadingGoals(String username);
 }
