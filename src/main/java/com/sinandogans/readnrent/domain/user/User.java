@@ -46,8 +46,10 @@ public class User {
     private List<UserBook> userBooks = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<ReadingGoal> readingGoals = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
-    private List<FollowedUser> followedUsers = new ArrayList<>();
+    @OneToMany(mappedBy = "follower")
+    private List<Follow> following = new ArrayList<>();
+    @OneToMany(mappedBy = "followed")
+    private List<Follow> follower = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<BlockedUser> blockedUsers = new ArrayList<>();
     @ManyToMany(mappedBy = "usersLiked")
@@ -82,11 +84,11 @@ public class User {
             throw new RuntimeException("bu rol kullanicida yok");
     }
 
-    public void addFollowedUser(FollowedUser followedUserToAdd) {
-        var filteredUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() == followedUserToAdd.getFollowedUser()).toList();
+    public void addFollowing(Follow userToFollow) {
+        var filteredUsers = following.stream().filter(follow -> follow.getFollowed() == userToFollow.getFollowed()).toList();
         if (!filteredUsers.isEmpty())
             throw new RuntimeException("bu kullanıcı zaten takip ediliyor");
-        followedUsers.add(followedUserToAdd);
+        following.add(userToFollow);
     }
 
     public void likeReview(Review reviewToLike) {
@@ -106,7 +108,7 @@ public class User {
     }
 
     public boolean isUserFollowing(User user) {
-        var count = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() == user).count();
+        var count = following.stream().filter(follow -> follow.getFollowed() == user).count();
         return count != 0;
     }
 
@@ -115,17 +117,17 @@ public class User {
         return count != 0;
     }
 
-    public Long removeFollowedUser(User userToUnFollow) {
-        var filteredUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() == userToUnFollow).toList();
+    public Long removeFollowing(User userToUnfollow) {
+        var filteredUsers = following.stream().filter(follow -> follow.getFollowed() == userToUnfollow).toList();
         if (filteredUsers.isEmpty())
             throw new RuntimeException("bu kullanıcı takip edilmiyor");
         var id = filteredUsers.get(0).getId();
-        followedUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() != userToUnFollow).toList();
+        following = following.stream().filter(follow -> follow.getFollowed() != userToUnfollow).toList();
         return id;
     }
 
-    public FollowedUser getFollowedUsers(String username) {
-        var filteredUsers = followedUsers.stream().filter(followedUser -> Objects.equals(followedUser.getFollowedUser().getUsername(), username)).toList();
+    public Follow getFollow(String username) {
+        var filteredUsers = following.stream().filter(follow -> Objects.equals(follow.getFollowed().getUsername(), username)).toList();
         if (filteredUsers.isEmpty())
             throw new RuntimeException("bu kullanıcı takip edilmiyor");
         return filteredUsers.get(0);

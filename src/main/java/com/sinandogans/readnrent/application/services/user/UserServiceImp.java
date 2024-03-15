@@ -2,7 +2,7 @@ package com.sinandogans.readnrent.application.services.user;
 
 import com.sinandogans.readnrent.application.aspects.annotations.RolesAllowed;
 import com.sinandogans.readnrent.application.repositories.BlockedUserRepository;
-import com.sinandogans.readnrent.application.repositories.FollowedUserRepository;
+import com.sinandogans.readnrent.application.repositories.FollowRepository;
 import com.sinandogans.readnrent.application.repositories.UserRepository;
 import com.sinandogans.readnrent.application.repositories.UserRoleRepository;
 import com.sinandogans.readnrent.application.security.hashing.HashService;
@@ -21,14 +21,14 @@ import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeA
 import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRoleRequest;
 import com.sinandogans.readnrent.application.services.user.role.get.GetRolesResponseModel;
 import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
-import com.sinandogans.readnrent.application.services.user.user.get.FollowingUserDTO;
+import com.sinandogans.readnrent.application.services.user.user.get.FollowDTO;
 import com.sinandogans.readnrent.application.services.user.user.get.GetUserDetailsResponse;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginResponse;
 import com.sinandogans.readnrent.application.services.user.user.register.UserRegisterRequest;
 import com.sinandogans.readnrent.application.shared.response.*;
 import com.sinandogans.readnrent.domain.user.BlockedUser;
-import com.sinandogans.readnrent.domain.user.FollowedUser;
+import com.sinandogans.readnrent.domain.user.Follow;
 import com.sinandogans.readnrent.domain.user.User;
 import com.sinandogans.readnrent.domain.user.UserRole;
 import org.modelmapper.ModelMapper;
@@ -44,16 +44,16 @@ import java.util.Objects;
 public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
     private final UserRoleRepository roleRepository;
-    private final FollowedUserRepository followedUserRepository;
+    private final FollowRepository followRepository;
     private final BlockedUserRepository blockedUserRepository;
     private final ModelMapper modelMapper;
     private final HashService hashService;
     private final JwtService jwtService;
 
-    public UserServiceImp(UserRepository userRepository, UserRoleRepository roleRepository, FollowedUserRepository followedUserRepository, BlockedUserRepository blockedUserRepository, ModelMapper modelMapper, HashService hashService, JwtService jwtService) {
+    public UserServiceImp(UserRepository userRepository, UserRoleRepository roleRepository, FollowRepository followRepository, BlockedUserRepository blockedUserRepository, ModelMapper modelMapper, HashService hashService, JwtService jwtService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.followedUserRepository = followedUserRepository;
+        this.followRepository = followRepository;
         this.blockedUserRepository = blockedUserRepository;
         this.modelMapper = modelMapper;
         this.hashService = hashService;
@@ -149,9 +149,9 @@ public class UserServiceImp implements UserService {
 
         checkIfUserBlocked(user, userToFollow);
 
-        FollowedUser followedUser = new FollowedUser(null, user, userToFollow, true, LocalDateTime.now());
-        user.addFollowedUser(followedUser);
-        followedUserRepository.save(followedUser);
+        Follow follow = new Follow(null, user, userToFollow, true, LocalDateTime.now());
+        user.addFollowing(follow);
+        followRepository.save(follow);
         return new SuccessResponse("kullanıcı takip edildi");
     }
 
@@ -159,17 +159,17 @@ public class UserServiceImp implements UserService {
     public IResponse unFollowUser(UnFollowUserRequest unFollowUserRequest) {
         var userToUnFollow = getByUsername(unFollowUserRequest.getUsername());
         var user = getUserFromJwtToken();
-        var followedUserIdToDelete = user.removeFollowedUser(userToUnFollow);
-        followedUserRepository.deleteById(followedUserIdToDelete);
+        var followedUserIdToDelete = user.removeFollowing(userToUnFollow);
+        followRepository.deleteById(followedUserIdToDelete);
         return new SuccessResponse("kullanıcı takipten cikarildi");
     }
 
     @Override
     public IResponse changeNotificationPreference(ChangeNotificationPreferenceRequest changeNotificationPreferenceRequest) {
         var user = getUserFromJwtToken();
-        FollowedUser followedUser = user.getFollowedUsers(changeNotificationPreferenceRequest.getUsername());
-        followedUser.setNotificationsEnabled(!followedUser.isNotificationsEnabled());
-        followedUserRepository.save(followedUser);
+        Follow follow = user.getFollow(changeNotificationPreferenceRequest.getUsername());
+        follow.setNotificationsEnabled(!follow.isNotificationsEnabled());
+        followRepository.save(follow);
         return new SuccessResponse("notification preference changed.");
     }
 
@@ -181,8 +181,8 @@ public class UserServiceImp implements UserService {
         user.addBlockedUser(blockedUser);
         blockedUserRepository.save(blockedUser);
         if (user.isUserFollowing(userTBlock)) {
-            var id = user.removeFollowedUser(userTBlock);
-            followedUserRepository.deleteById(id);
+            var id = user.removeFollowing(userTBlock);
+            followRepository.deleteById(id);
         }
         return new SuccessResponse("kullanıcı blocklandı");
     }
@@ -233,12 +233,12 @@ public class UserServiceImp implements UserService {
 
     private IDataResponse<GetUserDetailsResponse> getDetails(User user) {
         GetUserDetailsResponse response = modelMapper.map(user, GetUserDetailsResponse.class);
-        List<FollowingUserDTO> followingUsers = new ArrayList<>();
-        user.getFollowedUsers().forEach(followedUser -> followingUsers.add(FollowingUserDTO.create(followedUser.getFollowedUser().getUsername(), followedUser.getFollowedUser().getFullName(), followedUser.getFollowedUser().getProfilePhotoPath(), followedUser.getFollowedUser().getUserBooks().size())));
+        List<FollowDTO> followingUsers = new ArrayList<>();
+        user.getFollowing().forEach(follow -> followingUsers.add(FollowDTO.create(follow.getFollowed().getUsername(), follow.getFollowed().getFullName(), follow.getFollowed().getProfilePhotoPath(), follow.getFollowed().getUserBooks().size())));
         response.setFollowingUsers(followingUsers);
 
-        List<FollowingUserDTO> followers = new ArrayList<>();
-        getFollowers(user.getId()).forEach(follower -> followers.add(FollowingUserDTO.create(follower.getUser().getUsername(), follower.getUser().getFullName(), follower.getUser().getProfilePhotoPath(), follower.getUser().getUserBooks().size())));
+        List<FollowDTO> followers = new ArrayList<>();
+        user.getFollower().forEach(follower -> followers.add(FollowDTO.create(follower.getFollower().getUsername(), follower.getFollower().getFullName(), follower.getFollower().getProfilePhotoPath(), follower.getFollower().getUserBooks().size())));
         response.setFollowers(followers);
 
         return new SuccessDataResponse<>("dondu", response);
@@ -249,12 +249,6 @@ public class UserServiceImp implements UserService {
         var userRoles = roleRepository.findAll();
         if (userRoles.isEmpty()) throw new RuntimeException("hiç rol yok");
         return userRoles;
-    }
-
-    public List<FollowedUser> getFollowers(Long id) {
-        var optionalFollowers = followedUserRepository.findFollowedUserByFollowedUserId(id);
-        if (optionalFollowers.isEmpty()) throw new RuntimeException("hiç follower yok");
-        return optionalFollowers.get();
     }
 
     public User getUserFromJwtToken() {

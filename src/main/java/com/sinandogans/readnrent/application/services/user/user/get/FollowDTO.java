@@ -9,13 +9,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class FollowingUserDTO {
+public class FollowDTO {
     private String username;
     private String fullName;
     private String profilePhotoPath;
     private int readBookCount;
 
-    public static FollowingUserDTO create(String username, String fullName, String profilePhotoPath, int readBookCount) {
-        return new FollowingUserDTO(username, fullName, profilePhotoPath, readBookCount);
+    public static FollowDTO create(String username, String fullName, String profilePhotoPath, int readBookCount) {
+        return new FollowDTO(username, fullName, profilePhotoPath, readBookCount);
     }
 }

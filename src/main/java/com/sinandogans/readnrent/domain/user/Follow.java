@@ -13,14 +13,14 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FollowedUser {
+public class Follow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private User user;
+    private User follower;
     @ManyToOne
-    private User followedUser;
+    private User followed;
     private boolean isNotificationsEnabled;
     private LocalDateTime followTime;
 }

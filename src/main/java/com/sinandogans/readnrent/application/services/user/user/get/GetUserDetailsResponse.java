@@ -17,6 +17,6 @@ public class GetUserDetailsResponse {
     private String fullName;
     private String profilePhotoPath;
     private String coverPhotoPath;
-    private List<FollowingUserDTO> followingUsers;
-    private List<FollowingUserDTO> followers;
+    private List<FollowDTO> followingUsers;
+    private List<FollowDTO> followers;
 }
