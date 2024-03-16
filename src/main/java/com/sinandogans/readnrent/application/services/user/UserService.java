@@ -11,12 +11,17 @@ import com.sinandogans.readnrent.application.services.user.role.assignrole.Assig
 import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserRequest;
 import com.sinandogans.readnrent.application.services.user.role.deassignrole.DeAssignRoleToUserResponse;
 import com.sinandogans.readnrent.application.services.user.role.delete.DeleteRoleRequest;
-import com.sinandogans.readnrent.application.shared.response.IDataResponse;
-import com.sinandogans.readnrent.application.shared.response.IResponse;
+import com.sinandogans.readnrent.application.services.user.role.get.GetRolesResponseModel;
+import com.sinandogans.readnrent.application.services.user.user.checkadmin.CheckIfUserAdminResponse;
+import com.sinandogans.readnrent.application.services.user.user.get.GetUserDetailsResponse;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginRequest;
 import com.sinandogans.readnrent.application.services.user.user.login.UserLoginResponse;
 import com.sinandogans.readnrent.application.services.user.user.register.UserRegisterRequest;
+import com.sinandogans.readnrent.application.shared.response.IDataResponse;
+import com.sinandogans.readnrent.application.shared.response.IResponse;
 import com.sinandogans.readnrent.domain.user.User;
+
+import java.util.List;
 
 public interface UserService {
     User getByEmail(String email);
@@ -48,4 +53,15 @@ public interface UserService {
     IResponse blockUser(BlockUserRequest blockUserRequest);
 
     IResponse unBlockUser(UnBlockUserRequest unBlockUserRequest);
+
+    IDataResponse<CheckIfUserAdminResponse> checkIfUserAdmin();
+
+    IDataResponse<List<GetRolesResponseModel>> getRoles();
+
+    IResponse checkIfJwtIsValid();
+
+    IDataResponse<GetUserDetailsResponse> getUserDetails(String username);
+
+    IDataResponse<GetUserDetailsResponse> getCurrentUsersDetails();
+
 }

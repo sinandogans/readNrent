@@ -2,6 +2,7 @@ package com.sinandogans.readnrent.api;
 
 import com.sinandogans.readnrent.application.services.library.LibraryService;
 import com.sinandogans.readnrent.application.services.library.readinggoal.AddReadingGoalRequest;
+import com.sinandogans.readnrent.application.services.library.readinggoal.GetReadingGoalsResponse;
 import com.sinandogans.readnrent.application.services.library.readinggoal.UpdateReadingGoalRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.requests.AddUserBookRequest;
 import com.sinandogans.readnrent.application.services.library.userbook.requests.UpdateUserBookRequest;
@@ -52,7 +53,12 @@ public class LibraryController {
     }
 
     @GetMapping(value = "get-userbooks")
-    public IDataResponse<List<GetUserBooksResponse>> getUserBooks() {
-        return libraryService.getUserBooks();
+    public IDataResponse<List<GetUserBooksResponse>> getUserBooks(@RequestParam String username) {
+        return libraryService.getUserBooks(username);
+    }
+
+    @GetMapping(value = "get-reading-goals")
+    public IDataResponse<List<GetReadingGoalsResponse>> getReadingGoals(@RequestParam String username) {
+        return libraryService.getReadingGoals(username);
     }
 }

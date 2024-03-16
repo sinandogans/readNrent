@@ -1,5 +1,7 @@
-package com.sinandogans.readnrent.domain.user;
+package com.sinandogans.readnrent.domain.rentandsale;
 
+import com.sinandogans.readnrent.domain.user.Address;
+import com.sinandogans.readnrent.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,14 +15,15 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FollowedUser {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class RentSaleBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private User user;
+    private boolean isPayed;
+    private LocalDateTime operationTime;
     @ManyToOne
-    private User followedUser;
-    private boolean isNotificationsEnabled;
-    private LocalDateTime followTime;
+    private Address buyerAddress;
 }

@@ -1,9 +1,13 @@
 package com.sinandogans.readnrent.domain.user;
 
 import com.sinandogans.readnrent.domain.book.Comment;
-import com.sinandogans.readnrent.domain.library.ReadingGoal;
 import com.sinandogans.readnrent.domain.book.Review;
+import com.sinandogans.readnrent.domain.library.ReadingGoal;
 import com.sinandogans.readnrent.domain.library.UserBook;
+import com.sinandogans.readnrent.domain.rentandsale.rent.Rent;
+import com.sinandogans.readnrent.domain.rentandsale.rent.RentBook;
+import com.sinandogans.readnrent.domain.rentandsale.sale.Sale;
+import com.sinandogans.readnrent.domain.rentandsale.sale.SaleBook;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -31,6 +35,8 @@ public class User {
     private String username;
     private String firstName;
     private String lastName;
+    private String profilePhotoPath;
+    private String coverPhotoPath;
     private byte[] passwordSalt;
     private byte[] passwordHash;
     private boolean verified;
@@ -40,8 +46,10 @@ public class User {
     private List<UserBook> userBooks = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<ReadingGoal> readingGoals = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
-    private List<FollowedUser> followedUsers = new ArrayList<>();
+    @OneToMany(mappedBy = "follower")
+    private List<Follow> following = new ArrayList<>();
+    @OneToMany(mappedBy = "followed")
+    private List<Follow> follower = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<BlockedUser> blockedUsers = new ArrayList<>();
     @ManyToMany(mappedBy = "usersLiked")
@@ -52,6 +60,16 @@ public class User {
     private List<Comment> comments = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<RentBook> rentBooks = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<SaleBook> saleBooks = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Rent> rents = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Sale> sales = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Address> addresses = new ArrayList<>();
 
     public void addRole(UserRole roleToAdd) {
         var index = roles.indexOf(roleToAdd);
@@ -66,11 +84,11 @@ public class User {
             throw new RuntimeException("bu rol kullanicida yok");
     }
 
-    public void addFollowedUser(FollowedUser followedUserToAdd) {
-        var filteredUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() == followedUserToAdd.getFollowedUser()).toList();
+    public void addFollowing(Follow userToFollow) {
+        var filteredUsers = following.stream().filter(follow -> follow.getFollowed() == userToFollow.getFollowed()).toList();
         if (!filteredUsers.isEmpty())
             throw new RuntimeException("bu kullanıcı zaten takip ediliyor");
-        followedUsers.add(followedUserToAdd);
+        following.add(userToFollow);
     }
 
     public void likeReview(Review reviewToLike) {
@@ -90,7 +108,7 @@ public class User {
     }
 
     public boolean isUserFollowing(User user) {
-        var count = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() == user).count();
+        var count = following.stream().filter(follow -> follow.getFollowed() == user).count();
         return count != 0;
     }
 
@@ -99,17 +117,17 @@ public class User {
         return count != 0;
     }
 
-    public Long removeFollowedUser(User userToUnFollow) {
-        var filteredUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() == userToUnFollow).toList();
+    public Long removeFollowing(User userToUnfollow) {
+        var filteredUsers = following.stream().filter(follow -> follow.getFollowed() == userToUnfollow).toList();
         if (filteredUsers.isEmpty())
             throw new RuntimeException("bu kullanıcı takip edilmiyor");
         var id = filteredUsers.get(0).getId();
-        followedUsers = followedUsers.stream().filter(followedUser -> followedUser.getFollowedUser() != userToUnFollow).toList();
+        following = following.stream().filter(follow -> follow.getFollowed() != userToUnfollow).toList();
         return id;
     }
 
-    public FollowedUser getFollowedUser(String username) {
-        var filteredUsers = followedUsers.stream().filter(followedUser -> Objects.equals(followedUser.getFollowedUser().getUsername(), username)).toList();
+    public Follow getFollow(String username) {
+        var filteredUsers = following.stream().filter(follow -> Objects.equals(follow.getFollowed().getUsername(), username)).toList();
         if (filteredUsers.isEmpty())
             throw new RuntimeException("bu kullanıcı takip edilmiyor");
         return filteredUsers.get(0);
